@@ -1,0 +1,15 @@
+<div layout="row" layout-wrap ng-if="vm.imagenes.length > 0">
+    <div flex>
+        <h4>{{vm.titulo}}</h4>
+        <span ng-repeat="item in vm.imagenes">
+            <div class="contenedor-miniatura">                 
+                <img src="{{vm.restUrl}}{{item.ruta}}" alt="{{item.nombre_publico}}" class="miniatura"
+                     style="width:{{vm.ancho}}px; height:{{vm.alto}}px;" ng-click="vm.mostrarImagen(vm.restUrl + item.ruta)">
+                <br>
+                <md-button class="md-icon-button md-accent md-very-small" aria-label="Eliminar" ng-click="vm.eliminarImagen(item)" ng-if="vm.eliminar">
+                    <md-icon class="md-very-small">delete</md-icon>
+                </md-button>
+            </div>
+        </span>
+    </div>
+</div>

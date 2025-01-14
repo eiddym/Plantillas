@@ -1,0 +1,130 @@
+<md-dialog aria-label="Agregar/Editar" ng-cloak class="formly-dialog formly-column-{{column}} dialog-aprobacion" style="max-width: 800px; width: 100%;" >
+<form name="obsForm">
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+          <h2><md-icon>picture_as_pdf</md-icon> Documento creado por {{data.nombres +' '+ data.apellidos}}</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Ver pdf" ng-click="verPdf()" ng-show="data.flag_html">
+              <md-tooltip>Ver PDF</md-tooltip>
+              <md-icon aria-label="Close dialog">picture_as_pdf</md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Ver html" ng-click="verHtml()" ng-show="!data.flag_html">
+              <md-tooltip>Ver html</md-tooltip>
+              <md-icon aria-label="Close dialog">code</md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Cerrar" ng-click="cerrar()">
+              <md-tooltip>Cerrar</md-tooltip>
+              <md-icon aria-label="Close dialog">close</md-icon>
+          </md-button>
+      </div>
+  </md-toolbar>
+  <md-dialog-content class="md-dialog-content">
+      <div layout="column" ng-if="!data.es_para && !data.es_derivar">
+          <md-input-container style="width:100%">
+              <label> {{ (data.accion=='derivar')? 'Proveído': 'Observaciones'}}</label>
+              <textarea name="obs" ng-model="data.observaciones" md-maxlength="250" maxlength="250" rows="2" required></textarea>
+          </md-input-container>
+      </div>
+      <div layout="column" ng-if="!data.es_derivar && data.es_para">
+          <md-tabs md-dynamic-height md-border-bottom md-selected="4"  md-stretch-tabs="always" md-pagination-wrapper>
+              <md-tab label="Aprobar y crear" md-on-select="data.accion='crear'">
+                  <md-content class="md-padding"></md-content>
+              </md-tab>
+              <md-tab label="Aprobar y derivar" md-on-select="data.accion='derivar'"> 
+                  <md-content layout="column" class="md-padding">
+                      <md-input-container>
+                          <label>Usuario</label>
+                          <md-select name="user" ng-model="data._usuario_seleccionado" required>
+                              <md-option ng-repeat="us in data.usuarios" ng-value="us.id_usuario"> {{us.nombres+' '+us.apellidos}}<br> -{{us.cargo}}- </md-option>
+                          </md-select>
+                      </md-input-container>
+                      <md-input-container style="width:100%">
+                          <label>Proveído</label>
+                          <textarea name="obs" ng-model="data.observaciones" md-maxlength="250" maxlength="250" rows="2" required></textarea>
+                      </md-input-container>
+                  </md-content>
+              </md-tab>
+              <md-tab label="Aprobar y cerrar" md-on-select="data.accion='cerrar'">
+                  <md-content class="md-padding"></md-content>
+              </md-tab>
+              <md-tab label="Observar" md-on-select="data.accion='observar'">
+                  <md-content layout="column" class="md-padding">
+                      <md-input-container style="width:100%">
+                          <label>Observaciones</label>
+                          <textarea name="obs" ng-model="data.observaciones" md-maxlength="250" maxlength="250" rows="2" required></textarea>
+                      </md-input-container>
+                  </md-content>
+              </md-tab>
+          </div>
+      <div layout="column" ng-if="data.es_derivar">
+          <div>
+              Proveído de {{ data.usuario_proveido}}<br>
+              {{data.dc.observaciones}}
+              <div><br></div>
+          </div>
+          <md-input-container>
+              <label>Usuario</label>
+              <md-select name="user" ng-model="data._usuario_seleccionado" required>
+                  <md-option ng-repeat="us in data.usuarios" ng-value="us.id_usuario"> {{us.nombres+' '+us.apellidos}}<br> -{{us.cargo}}- </md-option>
+              </md-select>
+          </md-input-container>
+          <md-input-container style="width:100%">
+              <label>Proveído</label>
+              <textarea name="obs" ng-model="data.observaciones" md-maxlength="250" maxlength="250" rows="2" required></textarea>
+          </md-input-container>
+      </div>
+      <div ng-if="data.sw_es_respuesta">
+          <div class="ap-text-center ap-text-warning">Referencias:</div>
+          <div class="ap-text-center ap-text-warning" ng-repeat="dg in data.docs_grupo"  ng-if="dg.id_documento!=data.dc.id_documento">
+              * {{dg.nombre_plantilla}} -- <span class="ap-cursor-pointer" ng-click="verDocumento(dg.id_documento)">{{dg.nombre}}</span>
+          </div>
+      </div>
+
+      <div ng-show="data.flag_html" bind-html-compile="data.html"></div>
+      <iframe class="iframe-pdf" src="{{data.pdf}}" style="width:100%; height:600px; border: none;" ng-if="data.show_pdf && !data.flag_html" allowfullscreen></iframe>
+      <div id="canvasContainer" ng-show="!data.show_pdf && !data.flag_html"></div>
+
+  </md-dialog-content>
+
+  <md-dialog-actions>
+      <span flex></span>
+      <div ng-if="data.es_derivar">
+          <md-button class="ap md-raised bt-bg-warning" ng-click="derivar()" ng-disabled="obsForm.user.$invalid || obsForm.obs.$invalid">
+              <md-icon>check</md-icon> Derivar
+          </md-button>
+          <md-button class="ap md-raised bt-bg-success" ng-click="openSelect($event)">
+              <md-icon>error</md-icon> Crear documento
+          </md-button>
+          <md-input-container style="transform: scale(0.01)" ng-show="data.show_select">
+            <md-select name="plantilla" ng-model="data._plantilla_seleccionada" required ng-change="crear()" md-on-close="data.show_select=false;">
+              <md-option ng-repeat="pla in data.plantillas_disponibles" ng-value="pla"> {{pla.nombre}} ({{pla.abreviacion}}) </md-option>
+            </md-select>
+          </md-input-container>
+      </div>
+
+      <div ng-if="!data.es_derivar">
+          <md-button class="ap md-raised" ng-class="{'bt-bg-success': data.es_para}" ng-click="openSelect($event)" ng-if="data.es_para && data.accion=='crear'">
+              <md-icon>error</md-icon> Crear documento
+          </md-button>
+          <md-input-container style="transform: scale(0.01)" ng-show="data.show_select">
+            <md-select name="plantilla" ng-model="data._plantilla_seleccionada" required ng-change="crear(true)" md-on-close="data.show_select=false;">
+              <md-option ng-repeat="pla in data.plantillas_disponibles" ng-value="pla"> {{pla.nombre}} ({{pla.abreviacion}}) </md-option>
+            </md-select>
+          </md-input-container>
+          <md-button class="ap md-raised" ng-class="{'bt-bg-warning': data.es_para}" ng-click="aprobar('derivar')" ng-disabled="obsForm.user.$invalid || obsForm.obs.$invalid" ng-if="data.es_para && data.accion=='derivar'">
+              <md-icon>check</md-icon> Derivar
+          </md-button>
+          <md-button class="ap md-raised" ng-class="{'bt-bg-info': data.es_para, 'bt-bg-success': !data.es_para}" ng-disabled="!obsForm.obs.$invalid" ng-click="aprobar('aprobar')" ng-if="!data.es_para || data.accion=='cerrar'">
+              <md-icon>check</md-icon> Aprobar
+          </md-button>
+          <md-button class="ap md-raised bt-bg-danger" ng-click="observar()" ng-disabled="obsForm.obs.$invalid" ng-if="!data.es_para || data.accion=='observar'">
+              <md-icon>error</md-icon> Observar
+          </md-button>
+
+      </div>
+      <md-button class="md-raised" ng-click="cerrar()">
+          <md-icon>cancel</md-icon> Cancelar
+      </md-button>
+  </md-dialog-actions>
+</form>
+</md-dialog>

@@ -1,0 +1,138 @@
+.container-plantilla {
+
+    .header, .header-plantillas {
+        padding-top: 10px;
+        padding-left: 20px;
+        & > md-input-container {
+            margin-top: 20px;
+            margin-left: 10px;
+            margin-bottom: 5px;
+            > div.md-errors-spacer {
+                min-height: 0px !important;
+            }
+        }
+    }
+    .header.botones {
+        width: 100%;
+        background-color: white;
+        border-bottom: 3px solid #d3d3d3;
+        @media screen and (max-width: 600px) {
+            top: 55px;
+        }
+    }
+    .header-doc + .pagina {
+        margin-top: 0px;
+    }
+    // ancho 126px alto 182px
+    .img-membrete {
+        width: 4.7cm;
+        height: 6.7cm;
+        float: right;
+        margin: -53px 0 0 10px;
+    }
+
+    .content-drop {
+        padding: 10px;
+        text-align: justify;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+        border: dotted 3px lightgray;
+    }
+    .layout-drop {
+        background-color: lighten($colorSuccess, 53%);;
+    }
+
+    .lista {
+
+        &>li.dndPlaceholder {
+            display: block;
+            background-color: #f3f3f3;
+            min-height: 60px;
+        }
+
+        button[dnd-draggable]:hover {
+            cursor: move;;
+            background-color: #f3f3f3;
+        }
+        div.div-layout {
+            min-height: 70px;
+            margin: 15px auto;
+            div[ng-switch-when="layout"] {
+                border: 1px dotted lighten($colorPrimary, 25%);
+            }
+        }
+
+        .sublista-2 li.dndPlaceholder {
+            display: block;
+            background-color: #f3f3f3;
+            min-height: 70px;
+            width: 50%;
+            float: left;
+        }
+        .sublista-3 li.dndPlaceholder {
+            display: block;
+            background-color: #f3f3f3;
+            min-height: 70px;
+            width: 33%;
+            float: left;
+        }
+        .sublista-4 li.dndPlaceholder {
+            display: block;
+            background-color: #f3f3f3;
+            min-height: 70px;
+            width: 25%;
+            float: left;
+        }
+
+        div.div-li-2 {
+            width: 50%;
+            min-height: 70px;
+            float: left;
+        }
+        div.div-li-3 {
+            width: 33%;
+            min-height: 70px;
+            float: left;
+        }
+        div.div-li-4 {
+            width: 25%;
+            min-height: 70px;
+            float: left;
+        }
+    }
+
+    .formly > div:first-child {
+        display: block;
+    }
+    .ap-sidenav-right {
+        width: auto !important;
+        max-height: 86vh;
+        @media screen and (max-height: 800px) {
+            max-height: 83vh;
+        }
+    }
+    md-content.documento {
+        max-height: 86vh;
+        @media screen and (max-height: 800px) {
+            max-height: 83vh;
+        }
+    }
+    div.documento-edit {
+        overflow-y: auto;
+        max-height: 78vh;
+        @media screen and (max-height: 800px) {
+            max-height: 72vh;
+        }
+    }
+
+}
+.menu-content-json {
+    padding: 5px 10px;
+}
+.container-elementos {
+    label {
+        color: $colorSuccess;
+        font-size: 0.85em;
+    }
+}

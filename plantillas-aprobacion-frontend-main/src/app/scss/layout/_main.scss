@@ -1,0 +1,32 @@
+// _main.scss....................Page main content.
+
+.main {
+	background-color: transparent;
+	padding: 0;
+
+	& > div {
+		padding: 0;
+	}
+	.container {
+		padding: 15px;
+	}
+	.container-main {
+		position: relative;
+	}
+}
+
+@media (min-width: $minWidth) {
+	.main {
+	    padding: 63px 0 0 $widthSidenav;
+	}
+}
+
+body {
+    background-color: rgb(245, 245, 245);
+}
+
+.principal {
+    .container-main {
+        background-color: rgb(245, 245, 245);
+    }
+}

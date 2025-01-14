@@ -1,0 +1,23 @@
+<div class="component-palette-formly" md-autofocus>
+    <div class="md-accordion" ng-repeat="data in vm.elementos">
+        <div class="header-accordion" ng-click="data.expanded = !data.expanded">
+            <div layout layout-align="center center">
+                <span class="titulo"> {{ data.titulo }}</span>
+                <span flex=""></span>
+                <span ng-class="{expandCollapse:true, active: data.expanded}"></span>
+                <!-- <md-icon ng-class="{expandCollapse2:true, active: data.expanded}">keyboard_arrow_down</md-icon> -->
+            </div>
+        </div>
+        <div class="body-accordion"  ng-class="{dataContent:true, activeContent:data.expanded}">
+            <md-list-item  class="submenu" ng-repeat="item in data.submenu">
+                <div class="md-list-item-text" layout="column" flex dnd-draggable="item.tipo" dnd-effect-allowed="move">
+                    <div> {{ item.name }} </div>
+                </div>
+                <md-button class="md-fab md-primary md-mini button-mini" ng-click="vm.addItem(item.tipo)">
+                    <md-tooltip>Añadir {{ item.name }} </md-tooltip>
+                    <md-icon>add</md-icon>
+                </md-button>
+            </md-list-item>
+        </div>
+    </div>
+</div>

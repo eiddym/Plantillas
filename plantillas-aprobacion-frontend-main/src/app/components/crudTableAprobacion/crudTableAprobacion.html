@@ -1,0 +1,171 @@
+<md-card>
+    <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show">
+        <div class="md-toolbar-tools">
+            <md-icon>search</md-icon>
+            <form flex name="vm.filter.form" ng-class="{'flex-xs-70': vm.searchPro, 'flex-sm-70': vm.searchPro}">
+                <div layout="column" layout-gt-sm="row" ng-class="{'crud-table-searchpro': vm.searchPro}">
+                    <input type="text" ng-class="{'crud-table-filter': !vm.searchPro, 'flex': vm.searchPro}" id="crud-table-input" ng-model="vm.query.filter" ng-model-options="vm.filter.options" placeholder="Escriba su búsqueda aquí..." ng-if="!vm.searchPro || vm.tipo_busqueda=='campo' || vm.tipo_busqueda=='todos' || vm.tipo_busqueda=='documento' || vm.tipo_busqueda=='flujo'">
+                    <divider></divider>
+                </div>
+            </form>
+            <md-button class="md-icon-button" ng-click="vm.removeFilter()">
+                <md-icon>close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-toolbar class="md-table-toolbar" ng-show="!vm.filter.show">
+        <div class="md-toolbar-tools">
+            <md-icon>grid_on</md-icon> <span>{{vm.titleTable}}</span>
+            <div flex></div>
+            <md-button class="md-icon-button" ng-click="vm.showFilter()" ng-if="vm.permissions.filter">
+                <md-tooltip>Filtrar registros</md-tooltip>
+                <md-icon>filter_list</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="vm.getItems()" id="btn-refresh-crudtable">
+                <md-tooltip>Actualizar</md-tooltip>
+                <md-icon>refresh</md-icon>
+            </md-button>
+            <md-button class="md-icon-button btn-collapsed">
+                <md-tooltip>Ocultar/Ver</md-tooltip>
+                <md-icon>keyboard_arrow_down</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-card-content ng-class="{'crud-table-content': vm.searchPro && vm.filter.show}">
+        <md-table-container>
+            <table md-table ng-model="selected" md-progress="promise"  ng-if="vm.permissions.read">
+                <thead md-head md-order="vm.query.order" md-on-reorder="vm.getItems">
+                    <tr md-row>
+                        <th md-column ng-if="vm.permissions.update || vm.permissions.update || vm.permissions.print || vm.buttons.length > 0 || vm.permissions.delete">Acciones</th>
+                        <th ng-repeat="header in vm.headers" md-column ng-if="$index > 0 && !vm.idShow[header.name]" md-order-by="{{header.order ? header.name : ''}}">
+                            <span ng-if="!vm.estadoChecks">{{header.title}}</span>
+                        </th>
+                        <th md-column ng-if="vm.informacionBienes"> Bienes </th>
+                    </tr>
+                </thead>
+                <tbody md-body class="{{vm.editable ? 'formly-table-editable' : ''}}" md-row md-select="item" ng-repeat="item in vm.items.results">
+                    <tr class="seleccionado">
+                        <td md-cell class="text-center md-table-options" ng-if="vm.permissions.update || vm.permissions.update || vm.permissions.print || vm.buttons.length > 0 || vm.permissions.delete">
+                            <span ng-repeat="button in vm.buttons">
+                                <span ng-if="button.multiple">
+                                  <span ng-if="button.opcion[item[button.key_item]]">
+                                    <md-button class="md-icon-button" ng-class="button.opcion[item[button.key_item]].xclass || 'boton-extra'"  aria-label="button.opcion[item[button.key_item]].tooltip" ng-click="vm.buttonEvent($event, item, button.opcion[item[button.key_item]].onclick)" >
+                                      <md-tooltip>{{button.opcion[item[button.key_item]].tooltip}}</md-tooltip>
+                                      <md-icon>{{button.opcion[item[button.key_item]].icon}}</md-icon>
+                                    </md-button>
+                                  </span>
+                                  <span ng-if="button.opcion['DEFAULT'] && !button.opcion[item[button.key_item]]">
+                                    <md-button class="md-icon-button" ng-class="button.opcion[item[button.key_item]].xclass || 'boton-extra'"  aria-label="button.opcion['DEFAULT'].tooltip" ng-click="vm.buttonEvent($event, item, button.opcion['DEFAULT'].onclick)" >
+                                      <md-tooltip ng-if="button.opcion['DEFAULT'].tooltip">{{button.opcion['DEFAULT'].tooltip}}</md-tooltip>
+                                      <md-icon>{{button.opcion['DEFAULT'].icon}}</md-icon>
+                                    </md-button>
+                                  </span>
+                                </span>
+
+                                <md-button class="md-icon-button boton-extra" aria-label="button.tooltip" ng-click="vm.buttonEvent($event, item, button.onclick)" ng-if="!button.multiple && !button.tipo">
+                                    <md-tooltip>{{button.tooltip}}</md-tooltip>
+                                    <md-icon>{{button.icon}}</md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button (item[button.campo]==true?'icono-activo':'')" aria-label="button.tooltip" ng-click="vm.buttonEvent($event, item, button.onclick)" ng-if="!button.multiple && button.tipo=='icon'">
+                                    <md-icon>{{button.icon}}</md-icon>
+                                </md-button>
+                                {{item[button.campo]}}
+                            </span>
+                        </td>
+
+                        <td md-cell ng-repeat="(key, value) in item" ng-if="$index > 0 && !vm.idShow[key] && key !== 'selected' ">
+                            <div ng-if="!['adjunto_aprobacion_cd', 'aprobarDocumento'].includes(key)" class="mb-2">
+                                <div ng-switch on="value">
+                                    <div ng-switch-default>
+                                        <div ng-if="key.indexOf('fecha') != -1">
+                                            {{value|date:'dd/MM/yyyy'}}
+                                        </div>
+                                        <div ng-if="key.indexOf('fecha') == -1 && key.indexOf('fid_') != 0">
+                                            <div ng-if="!vm.estadoSw || (vm.estadoSw && key!='estado' && key!='impreso' )">
+                                                <div ng-if="(!vm.sw_cite || key!='nombre') && key!='adjunto_aprobacion_cd'">
+                                                    {{value}} 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="buttonTable"> 
+                        <td></td>
+                        <td  class="mb-2" colspan="9" ng-if="item.adjunto_aprobacion_cd.length > 0">
+                            <md-table-container class="initTable" >
+                                <p class="titleDetail">
+                                    Documentos Adjuntos
+                                    <md-icon ng-show="!item.aprobarDocumento">
+                                        error_outline
+                                        <md-tooltip md-direction="center">
+                                            Ten en cuenta que para poder aprobar un documento principal, 
+                                            primero debes aprobar cada documento adjunto.
+                                        </md-tooltip>
+                                    </md-icon>
+                                </p>
+                                <md-radio-group class="detailTable" ng-model="newObject[adjunto.id]">
+                                    <span ng-repeat="adjunto in item.adjunto_aprobacion_cd" class="box">
+                                        <md-radio-button   
+                                        ng-if="adjunto.solicitud_aprobacion_cd.length==0"                                    
+                                        ng-value="adjunto.id" aria-label="Label 1"
+                                        class="titleRadio">
+                                        <md-tooltip>{{adjunto.nombre_publico}}</md-tooltip>
+                                            {{adjunto.nombre_publico.substr(0, 27)}}
+                                        </md-radio-button>
+                                        <span ng-if="adjunto.solicitud_aprobacion_cd.length>0" class="aprobado" style="color: #757575">
+                                            <md-tooltip>{{adjunto.nombre_publico}}</md-tooltip>
+                                            <md-icon>check_circle</md-icon>
+                                            <b>{{adjunto.nombre_publico.substr(0, 27)}}</b>
+                                        </span>
+                                    </span>
+                                </md-radio-group>
+
+                            <div class="footerTable">
+                                <md-button
+                                class="md-raised"
+                                ng-click="vm.aprobarAdjunto(newObject[adjunto.id])"
+                                ng-style="{'background': newObject[adjunto.id] ? '#436791': '#aaa', color: '#fff'}"
+                                style="text-transform: capitalize !important;"
+                                ng-show="!item.aprobarDocumento"
+                                ng-disabled="!newObject[adjunto.id]">
+                                    <!-- <md-icon>done</md-icon> -->
+                                    <md-tooltip md-direction="right">Aprobar Adjunto</md-tooltip>
+                                    <b style="margin: 0px 7px 0px 7px">Aprobar Adjunto</b>
+                                </md-button>
+                            </div>
+                        </md-table-container> 
+                            <md-button 
+                            class="md-raised md-accent footerTable" 
+                            ng-click="vm.aprobarDocumento(item.id_documento)"
+                            style="background: #43916D; color: #fff; text-transform: capitalize !important;"
+                            ng-show="item.aprobarDocumento">
+                                <!-- <md-icon>done</md-icon> -->
+                                <md-tooltip md-direction="right">Aprobar Documento</md-tooltip>
+                                <b style="margin: 0px 7px 0px 7px">Aprobar Documento</b>
+                            </md-button>
+                        </td>
+                    </tr>
+
+                    <tr class="buttonTable">
+                        <td></td>
+                        <td colspan="9">
+                            <md-button 
+                            class="md-raised md-accent"
+                            ng-click="vm.aprobarDocumento(item.id_documento)"
+                            style="background: #43916D; color: #fff; text-transform: capitalize !important;"
+                            ng-show="item.adjunto_aprobacion_cd.length==0">
+                                <!-- <md-icon>done</md-icon> -->
+                                <md-tooltip md-direction="right">Aprobar Documento</md-tooltip>
+                                <b style="margin: 0px 7px 0px 7px">Aprobar Documento</b>
+                            </md-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}" md-limit="vm.query.limit" md-limit-options="vm.limitOptions" md-page="vm.query.page" md-total="{{vm.items.count}}" md-page-select="vm.options.pageSelect" md-boundary-links="vm.options.boundaryLinks" md-on-paginate="vm.getItems"></md-table-pagination>
+    </md-card-content>
+</md-card>

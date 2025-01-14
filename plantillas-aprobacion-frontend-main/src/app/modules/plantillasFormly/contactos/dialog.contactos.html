@@ -1,0 +1,147 @@
+<md-dialog ng-cloak class="formly-dialog formly-column-{{column}}" style="max-width: 800px; width: 100%;">
+
+  <form ng-submit="registrarContacto()" name="contactoForm" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>
+          <md-icon>business</md-icon> {{titulo}}
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Cerrar" ng-click="cerrar()">
+          <md-tooltip>Cerrar</md-tooltip>
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div layout>
+        <md-card flex>
+          <md-card-header>
+            <md-card-header-text>
+              <span class="md-title">Datos del contacto</span>
+            </md-card-header-text>
+          </md-card-header>
+          <md-card-content>
+            <md-input-container class="md-block">
+              <label>Grado</label>
+              <input ng-model="data.grado" type="text" >
+              <div ng-messages="contactoForm.grado.$error" ng-show="contactoForm.grado.$dirty">
+                <div ng-message="required">Debe llenar este campo</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Nombres</label>
+              <input ng-model="data.nombres" type="text" required>
+              <div ng-messages="contactoForm.nombres.$error" ng-show="contactoForm.nombres.$dirty">
+                <div ng-message="required">Debe llenar este campo</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Apellidos</label>
+              <input ng-model="data.apellidos" type="text" required>
+              <div ng-messages="contactoForm.apellidos.$error" ng-show="contactoForm.apellidos.$dirty">
+                <div ng-message="required">Debe llenar este campo</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Cargo</label>
+              <input ng-model="data.cargo" type="text">
+              <div ng-messages="contactoForm.cargo.$error" ng-show="contactoForm.cargo.$dirty">
+                <div ng-message="required">Debe llenar este campo</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Teléfono/Celular</label>
+              <input ng-model="data.telefono" type="text">
+              <div ng-messages="contactoForm.telefono.$error" ng-show="contactoForm.telefono.$dirty">
+                <div ng-message="required">Debe llenar este campo</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label for="estado">Estado</label>
+              <md-select name="estado" ng-model="data.estado" placeholder="Estado" required>
+                <md-option ng-value="item.id" ng-repeat="item in estados">{{ item.name }}</md-option>
+              </md-select>
+              <div ng-messages="contactoForm.estado.$error" ng-show="contactoForm.estado.$dirty">
+                <div ng-message="required">Debe seleccionar una opción</div>
+              </div>
+            </md-input-container>
+
+          </md-card-content>
+        </md-card>
+        <md-card flex>
+          <md-card-header>
+            <md-card-header-text>
+              <span class="md-title">Datos de la entidad</span>
+            </md-card-header-text>
+          </md-card-header>
+          <md-card-content>
+            <md-input-container class="md-block">
+              <label>Entidad</label>
+              <input ng-model="data.entidad" type="text" required>
+              <div ng-messages="contactoForm.entidad.$error" ng-show="contactoForm.entidad.$dirty">
+                <div ng-message="required">Debe llenar este campo</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label for="tipo_entidad">Tipo de entidad</label>
+              <md-select name="tipo_entidad" ng-model="data.tipo_entidad" placeholder="Tipo de entidad" required>
+                <md-option ng-value="item.tipo_entidad" ng-repeat="item in tiposEntidad"
+                ng-click="habilitarOtro(item)">
+                  {{ item.tipo_entidad }}
+                </md-option>
+              </md-select>
+              <div ng-messages="contactoForm.tipo_entidad.$error" ng-show="contactoForm.tipo_entidad.$dirty">
+                <div ng-message="required">Debe seleccionar una opción</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" ng-if="otroEditar==true">
+              <label>Tipo de entidad</label>
+              <input ng-model="data.otro_tipo" type="text" required="otroEditar">
+              <div ng-messages="contactoForm.otro_tipo.$error" ng-show="contactoForm.otro_tipo.$dirty">
+                <div ng-message="required">Debe llenar este campo</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Sigla</label>
+              <input ng-model="data.sigla" type="text">
+              <div ng-messages="contactoForm.sigla.$error" ng-show="contactoForm.sigla.$dirty">
+                <div ng-message="required">Debe llenar este campo</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Dirección</label>
+              <input ng-model="data.direccion" type="text" required>
+              <div ng-messages="contactoForm.direccion.$error" ng-show="contactoForm.direccion.$dirty">
+                <div ng-message="required">Debe llenar este campo</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label for="departamento">Departamento</label>
+              <md-select name="departamento" ng-model="data.departamento" placeholder="Departamento" required>
+                <md-option ng-value="item.id" ng-repeat="item in departamentos">{{ item.name }}</md-option>
+              </md-select>
+              <div ng-messages="contactoForm.departamento.$error" ng-show="contactoForm.departamento.$dirty">
+                <div ng-message="required">Debe seleccionar una opción</div>
+              </div>
+            </md-input-container>
+            
+
+          </md-card-content>
+        </md-card>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout layout-padding>
+      <span flex></span>
+      <md-button type="submit" class="md-raised md-primary" ng-disabled="contactoForm.$invalid">
+        <md-icon>check</md-icon> Guardar
+      </md-button>
+      <md-button type="button" class="md-raised" ng-click="cerrar()">
+        <md-icon>cancel</md-icon> Cancelar
+      </md-button>
+    </md-dialog-actions>
+
+  </form>
+
+</md-dialog>

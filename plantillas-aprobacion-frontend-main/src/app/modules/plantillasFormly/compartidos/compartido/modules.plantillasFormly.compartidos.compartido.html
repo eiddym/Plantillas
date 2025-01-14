@@ -1,0 +1,101 @@
+<div class="container-plantilla">
+  <section layout>
+    <md-content flex>
+      <div class="header botones" layout layout-align="start center">
+        <md-button class="md-fab md-primary" ng-click="compartido.volverAtras()">
+          <md-icon>reply</md-icon>
+          <md-tooltip md-direction="right">Volver atras</md-tooltip>
+        </md-button>
+      </div>
+
+      <div>
+        <md-card flex>
+          <md-card-header>
+            <md-card-header-text>
+              <span class="md-title">Datos generales del catalogo</span>
+            </md-card-header-text>
+          </md-card-header>
+          <md-card-container class="md-block container">
+            <md-input-container class="md-block">
+              <label>Nombre</label>
+              <input type="text" ng-model="compartido.data.nombre" disabled>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Descripción</label>
+              <textarea ng-model="compartido.data.descripcion" disabled></textarea>
+            </md-input-container>
+          </md-card-container>
+
+        </md-card>
+
+        <div layout="row">
+          <md-card style="width:60%;">
+            <md-card-header>
+              <md-card-header-text>
+                <span class="md-title">Documentos</span>
+              </md-card-header-text>
+            </md-card-header>
+            <md-card-container>
+              <div layout="row" class="container" ng-if="compartido.esEditor">
+                <md-input-container flex>
+                  <input ng-model="compartido.buscar_documento">
+                </md-input-container>
+                <md-button class="md-fab md-primary" ng-click="compartido.buscarDocumento($event)" aria-label="Add">
+                  <md-tooltip>Buscar y validar</md-tooltip>
+                  <md-icon>search</md-icon>
+                </md-button>
+              </div>
+              <div layout="row"  class="container" ng-if="compartido.esEditor && compartido.documento.nombre">
+                <form name="compartidoDocumentoForm">
+                  <div class="layout" flex>
+                    <div class="row">
+                      <md-input-container class="row" flex>
+                        <label> Documento</label>
+                        <input ng-model="compartido.documento.nombre" disabled>
+                      </md-input-container>
+                    </div>
+                    <div class="row">
+                      <md-input-container class="md-block row" flex>
+                        <label>Descripción</label>
+                        <textarea ng-model="compartido.documento.descripcion"></textarea>
+                        <div ng-messages="compartidoDocumentoForm.documento.descripcion.$error"
+                          ng-show="compartidoDocumentoForm.documento.descripcion.$dirty">
+                          <div ng-message="required"> Debe llenar este campo</div>
+                        </div>
+                      </md-input-container>
+                      
+                    </div>
+                    <div class="row">
+                      <md-button class="md-fab md-primary" ng-click="compartido.guardarModificarDocumento($event)" aria-label="Add">
+                        <md-tooltip>{{compartido.documento.editar && compartido.esEditor?'Guardar':'Agregar'}}</md-tooltip>
+                        <md-icon>{{compartido.documento.editar && compartido.esEditor?'save':'add'}}</md-icon>
+                      </md-button>
+                      
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <action-table fields="compartido.camposDocumentos" items="compartido.data.documentos"
+                buttons="compartido.botonesDocumentos">
+              </action-table>
+            </md-card-container>
+          </md-card>
+          <md-card flex>
+            <md-card-header>
+              <md-card-header-text layout="row">
+                <span class="md-title">Personas que pueden ver el catalogo</span>
+              </md-card-header-text>
+
+            </md-card-header>
+            <md-card-container>
+              <action-table fields="compartido.camposUsuarios" items="compartido.data.usuarios"
+                buttons="compartido.botonesUsuarios">
+              </action-table>
+            </md-card-container>
+          </md-card>
+        </div>
+
+      </div>
+    </md-content>
+  </section>
+</div>

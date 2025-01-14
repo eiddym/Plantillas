@@ -1,0 +1,22 @@
+.breadcrumb {
+    background-color: white;
+    border-bottom: 1px solid #eaeaea;
+    color: #777;
+    font-size: 0.9rem;
+    line-height: 30px;
+    list-style: outside none none;
+    margin: 0;
+    padding: 0 12px;
+
+	li {
+		display: inline-block;
+
+		&::before {
+			content: ">";
+		    padding-right: 2px;
+		}
+		&.active {
+			color: $colorSecondary;			
+		}
+	}
+}

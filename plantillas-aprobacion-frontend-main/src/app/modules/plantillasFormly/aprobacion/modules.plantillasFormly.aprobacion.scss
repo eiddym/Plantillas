@@ -1,0 +1,52 @@
+.dialog-aprobacion {
+    md-tabs {
+        md-ink-bar {
+            background-color: $colorPrimary;
+        }
+        md-tab-item {
+            @media screen and (max-width: 320px) {
+                min-width: 190px;
+            }
+            &.md-active  {
+                color: white !important;
+            }
+            &.md-active.md-tab:nth-child(1) {
+                background-color:  $colorSuccess;
+            }
+            &.md-active.md-tab:nth-child(2){
+                background-color:  $colorPendiente;
+            }
+            &.md-active.md-tab:nth-child(3){
+                background-color:  $colorSecondary;
+            }
+            &.md-active.md-tab:nth-child(4){
+                background-color:  $colorDanger;
+            }
+        }
+    }
+    button.ap, button.ap:hover {
+        color: white !important;
+        md-icon {
+            color: white !important;
+        }
+        &.bt-bg-success {
+            background-color: $colorSuccess;
+        }
+        &.bt-bg-info {
+            background-color: $colorSecondary;
+        }
+        &.bt-bg-warning {
+            background-color: $colorPendiente;
+        }
+        &.bt-bg-warning[disabled] {
+            background-color: lighten($colorPendiente, 30%);
+        }
+        &.bt-bg-danger {
+            background-color: $colorDanger;
+        }
+        &.bt-bg-danger[disabled] {
+            background-color: lighten($colorDanger, 20%);
+        }
+
+    }
+}

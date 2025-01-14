@@ -1,0 +1,42 @@
+{
+  "development": {
+    "username": "postgres" ,
+    "password": "postgres",
+    "database": "name_database",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "pool": {
+      "max": 15,
+      "min": 0,
+      "idle": 10000
+    },
+    "timezone": "America/La_Paz"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "name_database",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "pool": {
+      "max": 15,
+      "min": 0,
+      "idle": 10000
+    }
+  },
+  "production": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "name_databaese",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "pool": {
+      "max": 15,
+      "min": 0,
+      "idle": 10000
+    }
+  }
+}

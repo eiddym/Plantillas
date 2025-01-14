@@ -1,0 +1,89 @@
+.alert {
+	font-size: 0.8rem;
+    margin: 0 0 15px;
+    padding: 10px 15px;
+    h4, h3 {
+		margin-top: 0;
+		font-weight: 500;
+	}
+}
+.alert-info {
+	background-color: lighten($colorSinDatos, 55%);
+	border: 1px solid lighten($colorSinDatos, 50%);
+	font-size: 0.85rem;
+	text-align: justify;
+	color: $colorSinDatos;
+	md-icon, span {
+		color: $colorSinDatos;
+	}
+}
+div.alert-info {
+	border-left: 5px solid lighten($colorSinDatos, 40%);
+}
+.alert-danger {
+	background-color: lighten($colorDanger, 57%);
+	border: 1px solid lighten($colorDanger, 52%);
+	font-size: 0.75rem;
+	text-align: justify;
+	color: darken($colorDanger, 13%);
+	md-icon, span {
+		color: darken($colorDanger, 13%);
+	}
+}
+div.alert-danger {
+	border-left: 5px solid lighten($colorDanger, 42%);
+}
+.alert-success {
+	background-color: lighten($colorSuccess, 55%);
+	border: 1px solid lighten($colorSuccess, 50%);
+	font-size: 0.75rem;
+	text-align: justify;
+	color: darken($colorSuccess, 13%);
+	md-icon, span {
+		color: darken($colorSuccess, 13%);
+	}
+}
+div.alert-success {
+	border-left: 5px solid lighten($colorSuccess, 40%);
+}
+.alert-warning {
+	background-color: lighten($colorWarning, 45%);
+	border: 1px solid lighten($colorWarning, 40%);
+	font-size: 0.75rem;
+	text-align: justify;
+	color: $colorWarning;
+	md-icon, span {
+		color: $colorWarning;
+	}
+}
+div.alert-warning {
+	border-left: 5px solid lighten($colorWarning, 30%);
+}
+
+.alert-warning-inverse {
+	background-color: $colorSecondary;
+	border: none;
+	font-size: 0.75rem;
+	color: white;
+	md-icon {
+		color: white;
+	}
+}
+.alert-danger-inverse {
+	background-color:$colorDanger;
+	border: none;
+	font-size: 0.75rem;
+	color: white;
+	md-icon {
+		color: white;
+	}
+}
+.alert-success-inverse {
+	background-color: $colorSuccess;
+	border: none;
+	font-size: 0.75rem;
+	color: white;
+	md-icon {
+		color: white;
+	}
+}

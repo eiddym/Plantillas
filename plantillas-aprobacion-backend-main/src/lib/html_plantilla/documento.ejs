@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style type="text/css">
+
+      body{
+        font-family: 'Open Sans';
+      }
+      #pageHeader{
+        font-family:'Open Sans'; font-size:10px;
+      }
+      #pageHeader .cite {
+        /*text-align: center;*/
+        float:left;
+      }
+      #pageHeader .cite .expediente{
+        text-align: none;
+      }
+      .globalPdf{
+        font-size: 10px;
+      }
+      .globalHtml{
+        font-size: 14px;
+      }
+      .cabecera{
+        display: block;
+        border: solid 1px black;
+        height: 68px;
+        border-radius: 3px;
+      }
+      .cabecera-izq{
+        width:80px;
+        height: 100%;
+        vertical-align: top;
+        display: inline-block;
+        text-align: center;
+      }
+      .cabecera-izq-img{
+        width: 52px;
+        height: 52px;
+      }
+      .cabecera-med{
+        width:250px;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 100%;
+        display: inline-block;
+        text-align: center;
+        border-left: solid 1px black;
+        border-right: solid 1px black;
+      }
+      .cabecera-der{
+        width: 100px;
+        height: 100%;
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
+      }
+      .cabecera-m2{
+        width: 80px;
+        height: 80px;
+        background-color: blue;
+        float: right;
+        clear: both;
+        position: absolute;
+      }
+      .expediente {
+        text-align: none !important;
+      }
+      .etiqueta, h1, h2, h3, h4, h5, h6 {
+        font-weight: normal;
+      }
+      .etiqueta{}
+      div .titulo{
+        text-align: center;
+      }
+      .parrafo{}
+      .texto{
+        border: none;
+      }
+      .radio[type=radio]{
+        border-radius:15px;
+        -webkit-appearance:button;
+        border: double 2px #000;
+        background-color:#fff;
+        color:#FFF;
+        white-space: nowrap;
+        overflow:hidden;
+        display: inline;
+        width:15px;
+        height:15px;
+        vertical-align: middle;
+      }
+      .radio[type=radio]:checked{
+        background-color:black;
+        overflow: hidden;
+      }
+      .radio div{
+        display: inline-block;
+      }
+      .checkbox[type=checkbox]{
+        color: #ccc;
+        padding-left:5px;
+        padding-right:5px;
+        -webkit-appearance:none;
+        border: double 2px #000;
+        white-space: nowrap;
+        overflow: hidden;
+        height:15px;
+        width: 15px;
+        vertical-align: middle;
+      }
+      .checkbox[type=checkbox]:checked:before{
+        content: 'X';
+        color:black;
+        margin-left: -4px;
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 36px;
+        height: 20px;
+      }
+      .switch input {display:none;}
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 13px;
+        width: 13px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+      input:checked + .slider {
+        background-color: #2196F3;
+      }
+      input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+      }
+      input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+      .slider.round {
+        border-radius: 34px;
+      }
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .chips{
+        display: block;
+      }
+      .chips div{
+        background-color: #bdc3c7;
+        border-radius: 5px;
+        height: 15px;
+        display: inline-block;
+      }
+      .barra{
+        height: 5px;
+        width: 100%;
+        border: solid 1px gray;
+        border-radius: 3px;
+      }
+      .ap-text-center{
+        align: center;
+      }
+      .ap-text-right{
+        align: right;
+      }
+      .ap-text-left{
+        align: left;
+      }
+      .ap-text-justify{
+        align: justify;
+      }
+      .datosGenerales {
+        vertical-align: top;
+      }
+      .border-test {
+        border: 1px solid black;
+      }
+      .lista ol, .lista ul{
+        padding-left: 25px;
+        margin-top: 0px;
+
+      }
+      .editor-texto table{
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8px;
+      }
+      .editor-texto-html table{
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .editor-texto th{
+        border: 1px solid #BDBDBD;
+        background-color: #ecf0f1;
+
+      }
+      .editor-texto-html th{
+        border: 1px solid #BDBDBD;
+        background-color: #ecf0f1;
+      }
+      .editor-texto td.header,  .editor-texto-html td.header{
+        background-color: #ecf0f1;
+        vertical-align: middle;
+      }
+      .editor-texto td{
+        border: 1px solid #BDBDBD;
+        padding-left: 3px;
+      }
+      .editor-texto-html td{
+        border: 1px solid #BDBDBD;
+        padding-left: 3px;
+      }
+      .sin-bordes th{
+        border: none;
+        font-size: 10px;
+      }
+      .sin-bordes td{
+        border: none;
+        font-size: 10px;
+      }
+      .editor-texto p{
+        text-align: justify;
+      }
+      .fondo-texto {
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\' height=\'200px\' width=\'450px\'><text x=\'0\' y=\'55\' fill=\'rgba(0, 0, 0, 0.4);\' font-size=\'30\' style=\'-webkit-transform: rotate(-6deg)\'> <%=mensaje%></text></svg>");
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 50px;
+        opacity: .4;
+      }
+      .mi-contenido{
+        z-index: 2;
+      }
+      .calendario{}
+      .contenedor{
+        vertical-align: top;
+        vertical-align: text-top;
+      }
+      .contenedor .calendario{
+        margin-left: 10px;
+        margin-right: 5px;
+      }
+      .lista-tabla{
+        border-collapse: collapse;
+        border-spacing:0;
+        vertical-align: text-top;
+
+      }
+      .lista-tabla td{
+        margin: 0;
+        padding: 0;
+        vertical-align: top;
+      }
+      .contenedor .lista-tabla {
+        margin-top: -8px;
+      }
+      .parrafo-margin-top{
+        margin-top:0;
+      }
+      .parrafo-margin-bottom{
+        margin-bottom: 0;
+      }
+      .enlaces{
+        text-decoration: none;
+      }
+      .table-cajachica {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8px;
+      }
+      .table-cajachica-html {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .table-cajachica th {
+        border: 1px solid #BDBDBD;
+        background-color: #ecf0f1;
+
+        vertical-align: middle;
+        font-weight: normal;
+      }
+      .table-cajachica-html th {
+        border: 1px solid #BDBDBD;
+        background-color: #ecf0f1;
+        vertical-align: middle;
+        font-weight: normal;
+      }
+      .table-cajachica td {
+        border: 1px solid #BDBDBD;
+        padding-left: 3px;
+      }
+      .table-cajachica-html td {
+        border: 1px solid #BDBDBD;
+        padding-left: 3px;
+      }
+      .urlVerificacion{
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .td-alinear-derecha {
+        /* text-align: right; */
+        width: auto;
+        height: auto;
+        vertical-align: top;
+      }
+      .td-alinear-izquierda {
+        text-align: left;
+        vertical-align: top;
+        width: 75%;
+      }
+    </style>
+  </head>
+
+  <body class="<%= !html? 'globalPdf': 'globalHtml' %>" >
+
+
+
+    <%
+      if(html) marcaAgua = false;
+      var codigoSeguridad = typeof codigo ==='undefined'? '': codigo;
+    %>
+    <div class="<%= (marcaAgua == true)? 'fondo-texto':'none' %>"></div>
+    <div class="mi-contenido">
+      <%# Funcion que retorna html de acuerdo al tipo de campo  %>
+      <%
+
+      function formatDate(date, horas=false) {
+        let resultado = "";
+        const fecha = new Date(date);
+        const mes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        resultado = `${fecha.getDate()} de ${mes[fecha.getMonth()]} de ${fecha.getFullYear()}`;
+        if (horas===true) resultado = `${resultado} a hrs ${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}.${fecha.getMilliseconds()}`;
+        return resultado;
+      }
+
+      function obtenerCampo(pItem, pDatos, pRuta, pNumeracion, pHost, pFlagHtml,pMarcaAgua, exp, codigoSeguridad){
+        var datos = pDatos;
+        var indiceGuion = 0;
+        var alineacion = '';
+        var claseArriba = 0;
+        var claseAbajo = 0;
+
+        switch(pItem.type) {
+          case 'texto':
+            claseArriba = (!pItem.templateOptions.mTop)? "parrafo-margin-top":"";
+            claseAbajo = (!pItem.templateOptions.mBot)? "parrafo-margin-bottom":"";
+            switch(pItem.templateOptions.tipo){
+              case 'h1':
+                indiceGuion = pItem.templateOptions.className.lastIndexOf('-') +1;
+                alineacion = pItem.templateOptions.className.substr(indiceGuion,pItem.templateOptions.className.length);%>
+                <h1 class="<%=claseArriba%> <%=claseAbajo%>" align="<%= alineacion %>"><%= pItem.templateOptions.label %></h1>
+                <%break;
+              case 'h2':
+                indiceGuion = pItem.templateOptions.className.lastIndexOf('-') +1;
+                alineacion = pItem.templateOptions.className.substr(indiceGuion,pItem.templateOptions.className.length);%>
+                <h2 class="<%=claseArriba%> <%=claseAbajo%>" align="<%= alineacion %>"><%= pItem.templateOptions.label%></h2>
+                <%break;
+              case 'h3':
+                indiceGuion = pItem.templateOptions.className.lastIndexOf('-') +1;
+                alineacion = pItem.templateOptions.className.substr(indiceGuion,pItem.templateOptions.className.length);%>
+                <h3 class="<%=claseArriba%> <%=claseAbajo%>" align="<%= alineacion %>"><%= pItem.templateOptions.label%></h3>
+                <%break;
+              case 'h4':
+                indiceGuion = pItem.templateOptions.className.lastIndexOf('-') +1;
+                alineacion = pItem.templateOptions.className.substr(indiceGuion,pItem.templateOptions.className.length);%>
+                <h4 class="<%=claseArriba%> <%=claseAbajo%>" align="<%= alineacion %>"><%= pItem.templateOptions.label%></h4>
+                <%break;
+              case 'h5':
+                indiceGuion = pItem.templateOptions.className.lastIndexOf('-') +1;
+                alineacion = pItem.templateOptions.className.substr(indiceGuion,pItem.templateOptions.className.length);%>
+                <h5 class="<%=claseArriba%> <%=claseAbajo%>" align="<%= alineacion %>"><%= pItem.templateOptions.label%></h5>
+                <%break;
+              case 'h6':
+                indiceGuion = pItem.templateOptions.className.lastIndexOf('-') +1;
+                alineacion = pItem.templateOptions.className.substr(indiceGuion,pItem.templateOptions.className.length);%>
+                <h6 class="<%=claseArriba%> <%=claseAbajo%>" align="<%= alineacion %>"><%= pItem.templateOptions.label%></h6>
+                <%break;
+              case 'p':
+                indiceGuion = pItem.templateOptions.className.lastIndexOf('-') +1;
+                alineacion = pItem.templateOptions.className.substr(indiceGuion,pItem.templateOptions.className.length);%>
+                <p class="<%=claseArriba%> <%=claseAbajo%>" align="<%= alineacion %>"> <%= pItem.templateOptions.label %></p>
+                <%break;
+            }
+            break;
+          case 'cite':
+            var cite = null;
+            var fecha = null;
+            if(pDatos[pItem.key] && pDatos[pItem.key]['cite'] && pDatos[pItem.key]['fecha']){
+              cite=pDatos[pItem.key]['cite'];
+              fecha=pDatos[pItem.key]['fecha'];
+            }
+            else {
+              cite=pItem.templateOptions.labelCite;
+              fecha=pItem.templateOptions.labelFecha;
+            }
+            if(pItem.templateOptions.tipoMembrete =='externo'){ %>
+            <div id="pageHeader">
+              <div  style="display:block; ">
+                <div style="display:inline-block;">
+                  <span><%= fecha %></span><br>
+                  <span><%= cite %></span><br>
+                  <span>Expediente: <%= exp %>  </span>
+                  <% if(codigoSeguridad !== '') { %>
+                    <br><span>Código de verificación: <%= codigoSeguridad %>  </span>
+                  <%}%>
+                </div>
+                <div style="display:inline-block; float:right;">
+                  <% if(pMarcaAgua==true) {%>
+                    <div style="width:140px;height:182px; border: dashed 1px black;"></div>
+                  <%} else{%>
+                    <div style="width:140px;height:182px;"></div>
+                  <%}%>
+                </div>
+              </div>
+            </div>
+            <%}
+            else if(pItem.templateOptions.tipoMembrete =='legal') { %>
+              <div id="pageHeader">
+                <div  style="display:block; ">
+                  <div style="display:inline-block;">
+                    <span><%= fecha %></span><br>
+                    <span><%= cite %></span><br>
+                    <span>Expediente: <%= exp %></span>
+                    <% if(codigoSeguridad !== '') {%>
+                      <br><span>Código de verificación: <%= codigoSeguridad %></span><br>
+                    <%} %>
+                  </div>
+                  <div style="display:inline-block; float:right;">
+                    <div style="width:140px;height:150px"></div>
+                  </div>
+                </div>
+              </div>
+            <%}
+            else { %>
+              <div id="pageHeader">
+                <div class="cite" >
+                  <%= cite %>
+                  <div class="expediente">Expediente : <%= exp %> </div>
+                  <% if(codigoSeguridad !== '') {%>
+                    <div class="expediente">Código de verificación : <%= codigoSeguridad %> </div><br>
+                  <%}%>
+                </div>
+                <%if(!pFlagHtml){ %>
+                  <div  style="position: absolute;top: -20px;left:40%; z-index:999;">
+                    <img style="width:100px; height:80px;" src="file:///<%= pRuta%>/public/images/logo.svg"  alt="AGETIC" />
+                  </div>
+                <%}%>
+                <div style="float:right; text-align:center;">
+                  <%= fecha %>
+                </div>
+              </div><br>
+            <%}
+            break;
+          case 'lista': %>
+            <table width="100%" class="lista-tabla" cellspacing="0">
+              <tr>
+              <%  if(pItem.templateOptions.className=='ap-text-center'){  %>
+                <td width="25%"> </td>
+                <%  }
+                if(pItem.templateOptions.className=='ap-text-right'){  %>
+                <td width="55%"> </td>
+                <%  }%>
+                <td class="lista">
+                  <p> <%= pItem.templateOptions.label %>  </p>
+                  <%  if(pItem.templateOptions.tipo=='ol'){  %> <ol>  <% }else{ %> <ul> <% } %>
+                    <% for(var j = 0; j < pItem.templateOptions.options.length; j++){ %>
+                      <li> <%= pItem.templateOptions.options[j] %> </li>
+                    <%}%>
+                  <%  if(pItem.templateOptions.tipo=='ol'){  %> </ol>  <% }else{ %> </ul> <% } %>
+                </td>
+                <%  if(pItem.templateOptions.className=='ap-text-center'){  %>
+                <td width="25%"></td>
+                <%  }%>
+              </tr>
+            </table>
+            <%break;
+          case 'documentosRelacionados':
+            if(pDatos[pItem.key]){ %>
+              <br />
+              <span class="textoh6" > <%= pItem.templateOptions.label %>
+                <% for(var j = 0; j < pDatos[pItem.key].length; j++){
+                  var docRel = pDatos[pItem.key][j];
+                  var fechaOrigen = docRel.fecha.substr(0, docRel.fecha.indexOf('T'));
+                  var fechaAux = (fechaOrigen.split('-')).reverse();
+                  var fechaProcesada = (fechaAux.toString()).replace(/,/g,'/');
+                  %>
+                  <span class="ap-cursor-pointer" ng-click="mostrarPdf('<%=docRel.id_documento%>')" > 
+                    <%= docRel.nombre %>
+                  </span>
+                <% } %>
+              </span>
+            <% }
+            break;
+          case 'listaContactos':
+            if(pDatos[pItem.key]) { 
+              var valores = pDatos[pItem.key];
+              var indiceContacto = valores.contacto;
+              var contacto = {};
+              if(!indiceContacto) {
+                for (var ij=0; ij < valores.lista.length; ij++) {
+                  var contactoTemp = valores.lista[ij]; 
+                  var nombreCompleto = contactoTemp.nombres;
+                  if(contactoTemp.grado && contactoTemp.grado !== "") {
+                    nombreCompleto = contactoTemp.grado + ' ' + nombreCompleto + ' ' + contactoTemp.apellidos;
+                  }
+                  else {
+                    nombreCompleto = nombreCompleto + ' ' + contactoTemp.apellidos;
+                    
+                  }
+                  %>
+                  <br>
+                  <span class="textoh6"> Señor(a):
+                    <div>
+                      <div><%= nombreCompleto%></div>
+                      <% if(contactoTemp.cargo && contactoTemp.cargo !== "") { %>
+                        <div><%= contactoTemp.cargo %></div>
+                      <%}
+                        if (contactoTemp.entidad.toUpperCase() !== "NINGUNO") { %>
+                          <div><%= contactoTemp.entidad %> <%= contactoTemp.sigla %></div>
+
+                      <%}%>
+                      <div><%= contactoTemp.direccion %></div>
+                    </div>
+                  </span>
+                  <%}
+                }
+              else {
+                for (var ij=0; ij < valores.lista.length; ij++) {
+                  var contactoTemp = valores.lista[ij];
+                  var nombreCompleto = contactoTemp.nombres;
+                  if(contactoTemp.grado && contactoTemp.grado !== "") {
+                    nombreCompleto = contactoTemp.grado + ' ' + nombreCompleto + ' ' + contactoTemp.apellidos;
+                  }
+                  else {
+                    nombreCompleto = nombreCompleto + ' ' + contactoTemp.apellidos;
+                  }
+                  if(indiceContacto == contactoTemp.id_contacto) {
+                    contacto = contactoTemp;
+                    break;
+                  }
+                }
+                %>
+                <br>
+                <span class="textoh6"> Señor(a):
+                  <div>                  
+                    <div><%= nombreCompleto%></div>
+                    <% if(contacto.cargo && contacto.cargo !== "") { %>
+                      <div><%= contacto.cargo %></div>
+                    <%}
+                    if (contactoTemp.entidad.toUpperCase() !== "NINGUNO") {%>
+                      <div><%= contacto.entidad %> <%= contacto.sigla %></div>
+                    <%}%>
+                    <div><%= contacto.direccion %></div>
+                  </div>
+                </span>
+                <%
+              }
+              }
+                
+          break;
+          case 'documentosAnular':
+            if(pDatos[pItem.key]){ %>
+              <br />
+              <span class="textoh6" > <%= pItem.templateOptions.label %>
+                <% for(var j = 0; j < pDatos[pItem.key].length; j++){
+                  var docRel = pDatos[pItem.key][j]; %>
+                  <span class="ap-cursor-pointer" ng-click="mostrarPdf('<%=docRel.id_documento%>')" >   <%= docRel.nombre %> </span>
+                <% } %>
+              </span>
+            <% }
+            break;
+          case 'datosGenerales':
+            if(pItem.templateOptions.showItem){ %>
+              <table width="100%">
+                <tbody>
+                  <% if(pItem.templateOptions.show.para) { %>
+                    <tr>
+                      <td class="datosGenerales">PARA:</td>
+                      <td><%=pDatos[pItem.key].para.nombres%> <%=pDatos[pItem.key].para.apellidos%><br/><%=pDatos[pItem.key].para.cargo%><br/></td>
+                    </tr>
+                  <% }
+                  if(pItem.templateOptions.show.via) {
+                    if(Array.isArray(pDatos[pItem.key].via)){
+                      if(pDatos[pItem.key].via.length >0){ %>
+                        <tr>
+                          <td class="datosGenerales">VÍA:</td>
+                          <td>
+                            <% for(var j = 0; j < pDatos[pItem.key].via.length; j++){
+                              var via = pDatos[pItem.key].via[j]; %>
+                              <%= via.nombres %> <%= via.apellidos %>
+                              <br /><%=via.cargo%><br />
+                            <%} %>
+                          </td>
+                        </tr>
+                      <%}
+                    }
+                  }
+                  if(pItem.templateOptions.show.de) { %>
+                    <tr>
+                      <td class="datosGenerales">DE:</td>
+                      <td>
+                        <% for(var j = 0; j < pDatos[pItem.key].de.length; j++){
+                          var de = pDatos[pItem.key].de[j]; %>
+                          <%= de.nombres %> <%= de.apellidos %>
+                          <br /><%=de.cargo%><br />
+                          <%}%>
+                      </td>
+                    </tr>
+                  <% } if(pItem.templateOptions.show.ref) { %>
+                    <tr>
+                      <td class="datosGenerales"><%= pItem.templateOptions.labelRef %></td>
+                      <td><%=pDatos[pItem.key].ref%><br /></td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table><br />
+            <%}
+            break;
+          case 'encabezado': %>
+            <table width="100%">
+              <tbody>
+                <% if(pItem.templateOptions.show.para) {
+                  if(Array.isArray(pDatos[pItem.key].para)){ %>
+                    <tr>
+                      <td class="datosGenerales">PARA:</td>
+                      <td>
+                        <% for(var z = 0; z < pDatos[pItem.key].para.length; z++){
+                          var para =pDatos[pItem.key].para[z]; %>
+                          <%=para.nombres%> <%=para.apellidos%><br/>
+                          <% if(para.mostrar_cargo){ %>
+                            <%=para.cargo%><br />
+                            <%}
+                          }%>
+                      </td>
+                    </tr>
+                  <%}
+                }
+                if(pItem.templateOptions.show.via) {
+                  if(Array.isArray(pDatos[pItem.key].via)){
+                    if(pDatos[pItem.key].via.length >0){ %>
+                      <tr>
+                        <td class="datosGenerales">VÍA:</td>
+                        <td>
+                          <% for(var j = 0; j < pDatos[pItem.key].via.length; j++){
+                            var via = pDatos[pItem.key].via[j]; %>
+                            <%= via.nombres %> <%= via.apellidos %><br />
+                            <% if(via.mostrar_cargo){ %>
+                              <%=via.cargo%><br />
+                              <%}
+                            } %>
+                        </td>
+                      </tr>
+                    <%}
+                  }
+                }
+                if(pItem.templateOptions.show.de) { %>
+                  <tr>
+                    <td class="datosGenerales">DE:</td>
+                    <td>
+                      <% for(var j = 0; j < pDatos[pItem.key].de.length; j++){
+                        var de = pDatos[pItem.key].de[j]; %>
+                        <%= de.nombres %> <%= de.apellidos %><br />
+                        <% if(de.mostrar_cargo){ %>
+                          <%=de.cargo%><br />
+                          <%}
+                        }%>
+                    </td>
+                  </tr>
+                <% }
+                if(pItem.templateOptions.show.ref) { %>
+                  <tr>
+                    <td class="datosGenerales"><%= pItem.templateOptions.labelRef %></td>
+                    <td><%=pDatos[pItem.key].ref%><br /></td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table><br />
+            <%break;
+          case undefined:
+            if(pItem.fieldGroup){ %>
+              <div style="clear:both; overflow:auto;">
+                <% for(var j = 0; j < pItem.fieldGroup.length; j++){
+                  var itemHijo=pItem.fieldGroup[j]; %>
+                  <div style="float:left; width:<%= Math.floor(100/pItem.fieldGroup.length) %>%"> <%= obtenerCampo(itemHijo, datos)%></div>
+                <%}%>
+              </div><%
+            }
+            break;
+          case 'input':
+            if(pItem.templateOptions.label.length > 0) { %>
+            <span class="etiqueta"><%= pItem.templateOptions.label %></span><br>
+            <%  }  %>
+            <p class="texto"><%= datos[pItem.key]%></p>
+            <%break;
+          case 'radio':  %>
+            <span class="etiqueta"><%= pItem.templateOptions.label %></span><br>
+            <div class="radio" >
+              <% for(var k = 0; k < pItem.templateOptions.options.length; k++){
+                var opcion=pItem.templateOptions.options[k]
+                if(pItem.templateOptions.vertical){ %>
+                  <label>
+                    <% if(datos[pItem.key] && datos[pItem.key]== opcion.id) { %>
+                      <input class="radio" type="radio" checked="true"> <%= opcion.value%> <br>
+                    <%}
+                    else{ %>
+                      <input class="radio" type="radio" > <%= opcion.value%> <br>
+                    <%}%>
+                  </label>
+                <%}
+                else{  %>
+                  <div><label>
+                    <% if(datos[pItem.key] && datos[pItem.key]== opcion.id) { %>
+                      <input class="radio" type="radio" checked="true"> <%= opcion.value%>
+                    <%}
+                    else{ %>
+                      <input class="radio" type="radio" > <%= opcion.value%>
+                    <%}%>
+                  </label></div>
+                <%}
+
+              }%>
+            </div>
+            <%break;
+          case 'select':
+            var itemsM=pItem.templateOptions.options
+            if(pItem.templateOptions.multiple){ %>
+              <br><span class="etiqueta"><%= pItem.templateOptions.label%></span><br>
+              <% var vector = datos[pItem.key];
+              for(var m = 0; m < itemsM.length; m++){
+                var flag=true;
+                if(vector) {
+                  for(var z = 0; z < vector.length; z++) {
+                    if(vector[z] == itemsM[m].id) {
+                      flag = false; %>
+                      <label>
+                        <input class="checkbox" type="checkbox" checked><%= itemsM[m].value%>
+                      </label>
+                    <%}
+                  }
+                }
+                if(flag){%>
+                  <label><input class="checkbox" type="checkbox"><%= itemsM[m].value%></label>
+                <%}
+              }
+            }
+            else {
+              if(pItem.templateOptions.showItem === undefined) { %>
+                <br><span class="etiqueta"><%= pItem.templateOptions.label%> : <%= pDatos[pItem.key]%> </span>
+              <%}
+              else if(pItem.templateOptions.showItem === true) { %>
+                <br><span class="etiqueta"><%= pItem.templateOptions.label%> : <%= pDatos[pItem.key]%> </span>
+              <%}
+            }
+            break;
+          case 'textarea':
+            var interlineado = pItem.templateOptions.interlineado || false;
+            if(pItem.templateOptions.label.length > 0) {%>
+              <%if(pNumeracion && pRuta){%><br><%}%>
+              <span class="etiqueta"><%= pItem.templateOptions.label %></span>
+            <%  }
+            var pes = datos[pItem.key];
+            if(datos[pItem.key]) pes = datos[pItem.key].split('\n');
+            if(pNumeracion && pRuta) {
+              if(datos[pItem.key]){
+                if(interlineado){ %>
+                  <p>
+                    <% for(var s = 0 ; s < pes.length; s++ ){ %>
+                      <div style="text-align: justify"> <% if(pes[s]==''){ %> <div style="height: 10px;"></div> <% }else{ %> <%= pes[s] %> <% } %> </div>
+                    <%} %>
+                  </p>
+                <%} else {
+                  for(var s = 0 ; s < pes.length; s++ ){ %>
+                    <p style="text-align: justify"><%= pes[s] %></p>
+                  <%}
+                }
+              }
+            }
+            else {
+              if(datos[pItem.key]){
+                if(interlineado){ %>
+                  <p>
+                    <%for(var s = 0 ; s < pes.length; s++ ){ %>
+                      <div style="text-align: justify;margin-top:<%= (pRuta)?'10px':'0px'%>;"><% if(pes[s]==''){ %> <div style="height: 10px;"></div> <% }else{ %> <%= pes[s] %> <% } %></div>
+                    <%}%>
+                  </p>
+                <%}
+                else {
+                  for(var s = 0 ; s < pes.length; s++ ){ %>
+                    <p style="text-align: justify;margin-top:<%= (pRuta)?'10px':'0px'%>;"><%= pes[s] %></p>
+                  <%}
+                }
+              }
+            }
+            break;
+          case 'ccArchivo':
+            if(datos[pItem.key]){
+              var vectorDatos = datos[pItem.key].split('\n') || [];
+              var htmlDatos = "";
+              for(var s = 0; s < vectorDatos.length; s++) {
+                if(s-1 === vectorDatos.length) htmlDatos += "<span>"+ vectorDatos[s]+"</span>";
+                else htmlDatos += "<span>"+ vectorDatos[s]+"</span><br>";
+              }              
+              %>
+              <div> <%- htmlDatos%> </div>
+                
+            <%}
+            break;
+          case 'checkbox': %>
+            <label>
+              <% if(datos[pItem.key] && datos[pItem.key]== true){%>
+                <input class="checkbox" type="checkbox" checked><%= pItem.templateOptions.label %>
+              <%}
+              else{ %>
+                <input class="checkbox" type="checkbox"><%= pItem.templateOptions.label %>
+              <%}%>
+            </label>
+            <%break;
+          case 'datepicker':
+            var fechaMostrar = 'SIN FECHA!!!';
+            if(datos[pItem.key] !== null && datos[pItem.key] !== undefined){
+              var fecha = datos[pItem.key].substr(0,datos[pItem.key].indexOf('T'))
+              var aux = (fecha.split('-')).reverse();
+              fechaMostrar = (aux.toString()).replace(/,/g,'/');
+            } %>
+            <div class="calendario">
+              <span class="etiqueta"><%= pItem.templateOptions.label %></span>
+              <p><%= fechaMostrar %></p>
+            </div>
+            <%break;
+          case 'switch':%>
+            <br><span class="etiqueta"><%= pItem.templateOptions.label %></span><br><br>
+            <label class="switch">
+              <% if(datos[pItem.key]){ %>
+                <input type="checkbox" checked="">
+              <%}else{%>
+                <input type="checkbox">
+              <%}%>
+                <div class="slider round"></div>
+            </label><br>
+            <%break;
+          case 'chips':
+            var chips=datos[pItem.key]%>
+            <br><div class="chips">
+            <%for(var c = 0; c < chips.length; c++){ %>
+              <div><%= chips[c] %></div>
+              <%}%>
+            </div><br>
+            <%break;
+          case 'slider':
+            var inicio= pItem.templateOptions.min;
+            var final= pItem.templateOptions.max;
+            var actual = datos[pItem.key];
+            var progreso = (actual*100)/final
+            %>
+            <br><span class="etiqueta"><%= pItem.templateOptions.label%></span><br>
+            <span style="margin-left:<%= progreso %>%;"><%= actual%></span>
+            <div class="barra">
+              <div style="background-color:black; width:<%= progreso %>%; height:5px;"></div>
+            </div>
+            <%break;
+          case 'editorTexto':
+            if(pDatos[pItem.key]){
+              pDatos[pItem.key] = pDatos[pItem.key].replace('<b>','');
+              pDatos[pItem.key] = pDatos[pItem.key].replace('</b>','');
+              pDatos[pItem.key] = pDatos[pItem.key].replace('<i>','');
+              pDatos[pItem.key] = pDatos[pItem.key].replace('</i>','');
+              %>
+              <div class="<%= pFlagHtml? 'editor-texto-html':'editor-texto'%>">
+                <%- pDatos[pItem.key] %>
+              </div>
+            <%}
+            break;
+          case 'inputt':
+            var valorAsunto =  pDatos[pItem.key] || '';
+            if(pDatos[pItem.key]){
+              valorAsunto = pDatos[pItem.key].replace(/\n/g, '<br>')
+            }
+            var alineacionAsunto = 'right';
+            if(pItem.templateOptions.alineacion){
+              var indiceGuionAsunto = pItem.templateOptions.alineacion.lastIndexOf('-') +1;
+              alineacionAsunto = pItem.templateOptions.alineacion.substr(indiceGuionAsunto,pItem.templateOptions.alineacion.length);
+            }
+            var mod5= parseInt(pItem.templateOptions.labelw)%5;
+            var anchoAsunto= (mod5 == 0)?parseInt(pItem.templateOptions.labelw) : 0;
+            if(valorAsunto != ''){  %>
+            <table width="100%" style="border-collapse:collapse;">
+              <tr valign="top">
+                <td width="<%= anchoAsunto %>%;"  align="<%= alineacionAsunto %>">
+                  <%= pItem.templateOptions.labelx%>
+                </td>
+                <td width="100%" align="justify">
+                  <%- valorAsunto %>
+                </td>
+              </tr>
+            </table>
+            <%}
+            break;
+          case 'vacio':
+            var alto = 1
+            var esCm = 28;
+            if(pItem.templateOptions){
+              alto = pItem.templateOptions.height;
+              if(pItem.templateOptions.style && (pItem.templateOptions.style.height || 'cm').indexOf('px') !== -1){
+                esCm = 1;
+              }
+            } %>
+            <div style="width:100%; height:<%= alto*esCm %>px;"></div>
+            <%break;
+          case 'archivo':
+            var documentos = pDatos[pItem.key];
+            if(documentos){
+              if(Array.isArray(documentos)){ %>
+                <span>Documentos adjuntos:</span><br>
+                <%for(var j = 0; j<documentos.length; j++){ %>
+                  <div class="enlaces">
+                    <span class="ap-cursor-pointer" ng-click="mostrarPdf('<%= documentos[j].url%>',true)" > <%= documentos[j].nombre_publico%> </span>
+                  </div>
+                <%}
+              } else { %>
+                <span>Documentos adjuntos</span>
+                <div class="enlaces">
+                  <span class="ap-cursor-pointer" ng-click="mostrarPdf('<%= documentos.url%>',true)" > <%= documentos.nombre_publico%> </span>
+                </div>
+              <%}
+            } else{%>
+              <span>Documentos adjuntos</span>
+              <div class="enlaces">
+                No hay documentos adjuntos.
+              </div>
+            <%}
+            break;
+          case 'pdfsAprobacionCD':
+            var documentos = pDatos[pItem.key];
+            if(documentos){
+              if(Array.isArray(documentos)){ %>
+                <span>Documentos adjuntos:</span><br>
+                <%for(var j = 0; j<documentos.length; j++){ %>
+                  <div class="enlaces">
+                    <span class="ap-cursor-pointer" ng-click="mostrarPdf('<%= documentos[j].url%>',true)" > <%= documentos[j].nombre_publico%> </span>
+                  </div>
+                <%}
+              } else { %>
+                <span>Documentos adjuntos</span>
+                <div class="enlaces">
+                  <span class="ap-cursor-pointer" ng-click="mostrarPdf('<%= documentos.url%>',true)" > <%= documentos.nombre_publico%> </span>
+                </div>
+              <%}
+            } else{%>
+              <span>Documentos adjuntos</span>
+              <div class="enlaces">
+                No hay documentos adjuntos.
+              </div>
+            <%}
+            break;
+          case 'cajachica':
+            if (pDatos[pItem.key]) {
+              var partidas = pDatos[pItem.key].rows || [];
+              var certificacion = pDatos[pItem.key].certificacion || undefined;
+              var tipo = pDatos[pItem.key].tipo || '';
+              var monto_total = pDatos[pItem.key].monto_total;
+              if(Array.isArray(partidas) && partidas.length>0 && tipo!=''){  
+                var existe_multiple = 0; %>
+                <table class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+                  <thead>
+                    <tr>
+                      <%if (tipo=='PAGADO'){%> <th> Cite </th> <%}%>
+                      <th> Partida </th>
+                      <th> <%= (tipo=='COMPROMETIDO' || tipo=='PAGADO')? 'Detalle':'Descripción'%> </th>
+                      <%if (tipo=='PAGADO'){%> <th> Comprometido </th> <%}%>
+                      <th> <%= (tipo=='PAGADO')? 'Pagado':'Monto'%> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%for(var j = 0; j<partidas.length; j++){%>
+                      <%  if (partidas[j].pago_multiple) existe_multiple++;
+                      var row=partidas[j]; %>
+                      <tr>
+                        <%if (tipo=='PAGADO'){%> <td> <%=row.cite.nombre%> </td> <%}%>
+                        <td> <%= (tipo=='INICIAL')? row.partida : row.partida.num_des%> </td>
+                        <td> <%= row.pago_multiple? '(*)':''%> <%=row.descripcion%> </td>
+                        <%if (tipo=='PAGADO'){%> <td> <%=row.comprometido%> </td> <%}%>
+                        <td> <%=row.monto%> </td>
+                      </tr>
+                    <%}%>
+                  </tbody>
+                  <% if(monto_total){ %>
+                    <tfoot>
+                      <tr>
+                        <%if (tipo=='PAGADO'){%> <td>  </td> <%}%>
+                        <td> </td>
+                        <%if (tipo=='PAGADO'){%> <td> </td> <%}%>
+                        <td>  Total</td>
+                        <td> <%=monto_total%> </td>
+                      </tr>
+                    </tfoot>
+                  <% } %>
+                </table>
+                <%if (existe_multiple>0) {%>
+                  <div class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>" style="text-align:center;">
+                    <%if (tipo=='PAGADO') {%>
+                      <%if (existe_multiple==1) {%>
+                        Nota.- El detalle de la fila marcada con (*), hace referencia a que el pago es a un comprometido de varias cuotas.
+                      <%} else {%>
+                        Nota.- Los detalles de las filas marcadas con (*), hacen referencia a que el pago es a un comprometido de varias cuotas.
+                      <%}%>
+                    <%} else if (tipo=='COMPROMETIDO') {%>
+                      <%if (existe_multiple==1) {%>
+                        Nota.- El detalle de la fila marcada con (*), hace referencia a que el comprometido se pagara en varias cuotas.
+                      <%} else {%>
+                        Nota.- Los detalles de las filas marcadas con (*), hacen referencia a que el comprometido se pagara en varias cuotas.
+                      <%}%>
+                    <%}%>
+                  </div>
+                <%}%>
+              <%}
+
+              if(tipo = 'COMPROMETIDO' && certificacion!= undefined) { %>
+                <table class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+                  <thead>
+                    <tr>
+                      <th>Partida</th>
+                      <th>Saldo inicial</th>
+                      <th>Monto comprometido</th>
+                      <th>Saldo final</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                    for (var item in certificacion) { %>
+                      <tr>
+                        <td><%= item %> v</td>
+                        <td><%= certificacion[item].saldoInicial %></td>
+                        <td><%= certificacion[item].montoComprometido %></td>
+                        <td><%= certificacion[item].saldoFinal %></td>
+                      </tr>
+                    <%}
+                    %>
+                  </tbody>
+                </table>
+                <%
+                
+              }
+            } else {%>
+            <%}
+            break;
+          case 'certificacionComprometido':
+            if (pDatos[pItem.key]) {
+              %>
+
+              <table class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+                <thead>
+                  <tr>
+                    <th>Partida</th>
+                    <th>Saldo inicial</th>
+                    <th>Monto comprometido</th>
+                    <th>Saldo final</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% 
+                  for (var item in pDatos[pItem.key]) { %>
+                  <tr>
+                    <td>
+                      <%= item %></td>
+                    <td>
+                      <%= pDatos[pItem.key][item].saldoInicial %>
+                    </td>
+                    <td>
+                      <%= pDatos[pItem.key][item].montoComprometido %>
+                    </td>
+                    <td>
+                      <%= pDatos[pItem.key][item].saldoFinal %>
+                    </td>
+                  </tr>
+                  <%}%>
+                </tbody>
+              </table>
+            <%}
+            break;
+          case 'consultaAlmacen':
+            %>
+            <table  class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+              <thead>
+                <tr>
+                  <th> Código</th>
+                  <th> Descripción</th>
+                  <th> Unidad</th>
+                  <th> Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% 
+                var itemsAlmacen = pDatos[pItem.key].filas;
+                for (var indiceAlmacen in itemsAlmacen ) { %>
+                  <tr>
+                    <td> <%= itemsAlmacen[indiceAlmacen].codigo %></td>
+                    <td> <%= itemsAlmacen[indiceAlmacen].descripcion %> </td>
+                    <td> <%= itemsAlmacen[indiceAlmacen].unidad %></td>
+                    <td> <%= itemsAlmacen[indiceAlmacen].cantidad %></td>
+                  </tr>
+                <% }%>
+              </tbody>
+            </table>
+            <%
+          break;
+          case 'recuperarEntregaAlmacen':
+            %>
+            <table  class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+              <thead>
+                <tr>
+                  <th> Código</th>
+                  <th> Descripción</th>
+                  <th> Unidad</th>
+                  <th> Cantidad solicitada</th>
+                  <th> Cantidad entregada</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% 
+                var itemsEntrega = pDatos[pItem.key].filas;
+                for (var indiceEntrega in itemsEntrega ) { %>
+                  <tr>
+                    <td> <%= itemsEntrega[indiceEntrega].codigo %></td>
+                    <td> <%= itemsEntrega[indiceEntrega].descripcion %> </td>
+                    <td> <%= itemsEntrega[indiceEntrega].unidad %></td>
+                    <td> <%= itemsEntrega[indiceEntrega].solicitado %></td>
+                    <td> <%= itemsEntrega[indiceEntrega].cantidad %></td>
+                  </tr>
+                <% }%>
+              </tbody>
+            </table>
+            <div>
+              <div>Solicitado por: <%= pDatos[pItem.key].solicitado_por.nombre_completo %></div>
+              <div>Entregado por: <%= pDatos[pItem.key].entregado_por.nombre_completo %></div>
+              <div>Fecha de entrega: <%= pDatos[pItem.key].fecha_entrega %></div>
+            </div>
+            <%
+          break;
+          case 'ingresoAlmacen':
+          %>
+            <table width="100%" style="border-collapse:collapse;">
+              <tr>
+                <td class="td-alinear-derecha">Tipo ingreso: </td>
+                <td class="td-alinear-izquierda"> <%= pDatos[pItem.key].listaTipos[pDatos[pItem.key].tipoIngreso]%></td>
+              </tr>
+              <% if (pDatos[pItem.key].tipoIngreso === 1) { %>
+                <tr>
+                  <td class="td-alinear-derecha">Proveedor</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].proveedor.nombre%></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">NIT Proveedor</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].proveedor.nit %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Nro Factura</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].factura_numero %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Nro Autorización</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].factura_autorizacion %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Fecha Factura</td>
+                  <td class="td-alinear-izquierda">:<%= formatDate(pDatos[pItem.key].factura_fecha) %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Número fecha de entrega</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].nota_entrega %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Fecha de la nota de entrega</td>
+                  <td class="td-alinear-izquierda">:<%= formatDate(pDatos[pItem.key].nota_entrega_fecha) %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Nro requerimiento / Nro preventivo</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].c31 %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Fecha requerimiento / Fecha Preventivo</td>
+                  <td class="td-alinear-izquierda">:<%= formatDate(pDatos[pItem.key].c31_fecha) %></td>
+                </tr>
+
+              <%} else if (pDatos[pItem.key].tipoIngreso === 2) { %>
+                <tr>
+                  <td class="td-alinear-derecha">Entidad donante</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].donante %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Documento de respaldo</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].respaldo.nombre %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Fecha respaldo</td>
+                  <td class="td-alinear-izquierda">:<%= formatDate(pDatos[pItem.key].respaldo.fecha) %></td>
+                </tr>
+              <%} else if (pDatos[pItem.key].tipoIngreso === 3) { %>
+                <tr>
+                  <td class="td-alinear-derecha">Documento de respaldo</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].respaldo.nombre %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Fecha respaldo</td>
+                  <td class="td-alinear-izquierda">:<%= formatDate(pDatos[pItem.key].respaldo.fecha) %></td>
+                </tr>
+              <%}%>
+            
+            </table>
+            <br>
+            
+            <table  class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+              <thead>
+                <tr>
+                  <th> Código</th>
+                  <th> Grupo contable</th>
+                  <th> Unidad</th>
+                  <th> Detalle</th>
+                  <th> Cantidad</th>
+                  <th> Precio</th>
+                  <th> Precio Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% 
+                var itemsIngreso = pDatos[pItem.key].items;
+                for (var indiceIngreso in itemsIngreso ) { %>
+                  <tr>
+                    <td> <%= itemsIngreso[indiceIngreso].codigo %></td>
+                    <td> <%= itemsIngreso[indiceIngreso].cuenta %></td>
+                    <td> <%= itemsIngreso[indiceIngreso].unidad %></td>
+                    <td> <%= itemsIngreso[indiceIngreso].descripcion %> </td>
+                    <td> <%= itemsIngreso[indiceIngreso].cantidad %></td>
+                    <td> <%= itemsIngreso[indiceIngreso].precio %></td>
+                    <td> <%= itemsIngreso[indiceIngreso].total %></td>
+                  </tr>
+                <% }%>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>SubTotal</td>
+                  <td><%=pDatos[pItem.key].subtotal%></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>Descuento</td>
+                  <td><%=pDatos[pItem.key].descuento%></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>Total</td>
+                  <td><%=pDatos[pItem.key].total%></td>
+                </tr>
+              </tbody>
+            </table>
+            <%
+          break;
+          case 'consultaActivo':
+            %>
+            <table  class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+              <thead>
+                <tr>
+                  <th> ID </th>
+                  <th> Código de barras </th>
+                  <th> Descripción </th>
+                  <th> Cantidad </th>
+                </tr>
+              </thead>
+              <tbody>
+                <%
+                var itemsActivos = pDatos[pItem.key].filas;
+                for (var indiceActivos in itemsActivos ) { %>
+                  <tr>
+                    <td> <%= itemsActivos[indiceActivos].id %></td>
+                    <td> <%= itemsActivos[indiceActivos].barcode %> </td>
+                    <td> <%= itemsActivos[indiceActivos].description %></td>
+                    <td> <%= itemsActivos[indiceActivos].cantidad %></td>
+                  </tr>
+                <% }%>
+              </tbody>
+            </table>
+            <%
+          break;
+          case 'asignacionActivo':
+            %>
+            <table  class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+              <thead>
+                <tr>
+                  <th> ID </th>
+                  <th> Código de barras </th>
+                  <th> Descripción </th>
+                  <th> Cantidad </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% 
+                var itemsActivos = pDatos[pItem.key].filas;
+                for (var indiceActivos in itemsActivos ) { %>
+                  <tr>
+                    <td> <%= itemsActivos[indiceActivos].id %></td>
+                    <td> <%= itemsActivos[indiceActivos].barcode %> </td>
+                    <td> <%= itemsActivos[indiceActivos].description %></td>
+                    <td> <%= itemsActivos[indiceActivos].cantidad %></td>
+                  </tr>
+                <% }%>
+              </tbody>
+            </table>
+            <%
+          break;
+          case 'devolucionActivo':
+            %>
+            <table  class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+              <thead>
+                <tr>
+                  <th> ID </th>
+                  <th> Código de barras </th>
+                  <th> Descripción </th>
+                  <th> Cantidad </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% 
+                var itemsActivos = pDatos[pItem.key].filas;
+                for (var indiceActivos in itemsActivos ) { %>
+                  <tr>
+                    <td> <%= itemsActivos[indiceActivos].id %></td>
+                    <td> <%= itemsActivos[indiceActivos].barcode %> </td>
+                    <td> <%= itemsActivos[indiceActivos].description %></td>
+                    <td> <%= itemsActivos[indiceActivos].cantidad %></td>
+                  </tr>
+                <% }%>
+              </tbody>
+            </table>
+            <%
+          break;
+          case 'tablaActivos':
+            %>
+            <% if(pDatos[pItem.key].citeBusqueda) { %>
+              <p>CITE del solicitante: <%= pDatos[pItem.key].citeBusqueda %></p>
+            <%}%>
+
+            <% if(pDatos[pItem.key].usuario_ci) { %>
+              <p>CI del usuario asignado: <%= pDatos[pItem.key].usuario_ci %></p>
+            <%}%>
+
+            <% if(!pDatos[pItem.key].devolucionPropia) { %>
+              <table width="100%" style="border-collapse:collapse;">
+                <tr>
+                  <td class="td-alinear-derecha">Motivo</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].motivo %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Referencias</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].referencia %></td>
+                </tr>
+                <tr>
+                  <td class="td-alinear-derecha">Asunto</td>
+                  <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].descripcion %></td>
+                </tr>
+              </table>
+              <br>
+            <%} %>
+
+            <table  class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+              <thead>
+                <tr>
+                  <!-- <th> ID </th> -->
+                  <th> Código </th>
+                  <th> Descripción </th>
+                  <th> Cantidad </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% 
+                var itemsActivos = pDatos[pItem.key].filas;
+                for (var indiceActivos in itemsActivos ) { %>
+                  <tr>
+                    <!-- <td> <%= itemsActivos[indiceActivos].id %></td> -->
+                    <td> <%= itemsActivos[indiceActivos].barcode %> </td>
+                    <td> <%= itemsActivos[indiceActivos].description %></td>
+                    <td> <%= itemsActivos[indiceActivos].cantidad %></td>
+                  </tr>
+                <% }%>
+              </tbody>
+            </table>
+            <%
+          break;
+          case 'ingresoActivos':
+          %>
+
+          <table width="100%" style="border-collapse:collapse;">
+            <tr>
+              <td class="td-alinear-derecha">Tipo ingreso </td>
+              <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].listaTipos[pDatos[pItem.key].tipoIngreso] %></td>
+            </tr>
+
+            <% if (pDatos[pItem.key].tipoIngreso === 1) { %>
+              <tr>
+                <td  class="td-alinear-derecha">Proveedor </td>
+                <td  class="td-alinear-izquierda">:<%= pDatos[pItem.key].proveedor.nombre %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">NIT Proveedor</td>
+                <td  class="td-alinear-izquierda">:<%= pDatos[pItem.key].proveedor.nit %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Nro Factura </td>
+                <td  class="td-alinear-izquierda">:<%= pDatos[pItem.key].numeroFactura %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Nro Autorización</td>
+                <td  class="td-alinear-izquierda">:<%= pDatos[pItem.key].autorizacionFactura %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Fecha Factura</td>
+                <td  class="td-alinear-izquierda">:<%= formatDate(pDatos[pItem.key].fechaFactura) %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Nro nota de entrega</td>
+                <td  class="td-alinear-izquierda">:<%= pDatos[pItem.key].numeroEntrega? pDatos[pItem.key].numeroEntrega: '' %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Fecha nota de entrega</td>
+                <td  class="td-alinear-izquierda">:<%= formatDate(pDatos[pItem.key].fechaEntrega) %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Nro requerimiento / Nro preventivo </td>
+                <td  class="td-alinear-izquierda">:<%= pDatos[pItem.key].numeroPreventivo %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Fecha requerimiento / Fecha Preventivo</td>
+                <td  class="td-alinear-izquierda">:<%= formatDate( pDatos[pItem.key].fechaPreventivo) %></td>
+              </tr>
+            <%} else if (pDatos[pItem.key].tipoIngreso === 2) {%> 
+              <tr>
+                <td  class="td-alinear-derecha">Entidad donante</td>
+                <td  class="td-alinear-izquierda">:<%= pDatos[pItem.key].donante %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Documento de respaldo</td>
+                <td  class="td-alinear-izquierda">:<%= pDatos[pItem.key].respaldo.nombre %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Fecha respaldo</td>
+                <td  class="td-alinear-izquierda">:<%= formatDate(pDatos[pItem.key].respaldo.fecha) %></td>
+              </tr>
+            <%} else if (pDatos[pItem.key].tipoIngreso === 3) { %>
+              <tr>
+                <td  class="td-alinear-derecha">Documento de respaldo</td>
+                <td  class="td-alinear-izquierda">:<%= pDatos[pItem.key].respaldo.nombre %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Fecha respaldo</td>
+                <td  class="td-alinear-izquierda">:<%= formatDate(pDatos[pItem.key].respaldo.fecha) %></td>
+              </tr>
+              <tr>
+                <td  class="td-alinear-derecha">Activo a aplicar reposicion </td>
+                <td  class="td-alinear-izquierda">:  <%= pDatos[pItem.key].activoBaja.barcode %> - <%= pDatos[pItem.key].activoBaja.description %></td>
+              </tr>
+            <%}%>
+                    
+          </table>
+          
+          <br>
+          <div>
+            Observaciones: <p><%= pDatos[pItem.key].observaciones? pDatos[pItem.key].observaciones:''%></p>
+          </div>
+
+          <table class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+            <thead>
+              <tr>
+                <!-- <th> ID </th> -->
+                <th> Código de barras</th>
+                <th> Grupo contable</th>
+                <th> Descripción </th>
+                <th> Precio unitario </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% var itemsActivos = pDatos[pItem.key].activos;
+              for (var indiceActivos in itemsActivos ) { %>
+              <tr>
+                <td> <%= itemsActivos[indiceActivos].barcode %> </td>
+                <td> <%= itemsActivos[indiceActivos].cuenta %></td>
+                <td> <%= itemsActivos[indiceActivos].description %></td>
+                <td> <%= itemsActivos[indiceActivos].precio %></td>
+              </tr>
+              <% }%>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td><%= pDatos[pItem.key].total%></td>
+              </tr>
+            </tbody>
+          </table>
+          <%
+          break;
+
+          case 'bajaActivos':
+            
+          %>
+            <table width="100%" style="border-collapse:collapse;">
+              <tr>
+                <td width="auto" class="td-alinear-derecha">Causal </td>
+                <td width="80%" class="td-alinear-izquierda">:<%= pDatos[pItem.key].listaMotivos[pDatos[pItem.key].motivo] %></td>
+              </tr>
+              <tr>
+                <td class="td-alinear-derecha">Respaldo</td>
+                <td class="td-alinear-izquierda">
+                  :<span class="ap-cursor-pointer" ng-click="mostrarPdf('<%=pDatos[pItem.key].respaldo.id_documento%>')">
+                    <%= pDatos[pItem.key].respaldo.nombre %>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="td-alinear-derecha">Fecha de respaldo</td>
+                <td class="td-alinear-izquierda">:<%= pDatos[pItem.key].respaldo.fechaMostrar %></td>
+              </tr>
+            </table>
+            <br>
+            <div>
+              Observaciones: <p><%= pDatos[pItem.key].observaciones? pDatos[pItem.key].observaciones:''%></p>
+            </div>
+
+            <table class="<%= pFlagHtml? 'table-cajachica-html':'table-cajachica'%>">
+              <thead>
+                <tr>
+                  <th> Código de barras</th>
+                  <th> Grupo contable</th>
+                  <th> Descripción </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% var itemsActivos = pDatos[pItem.key].activos;
+                  for (var indiceActivos in itemsActivos ) { %>
+                <tr>
+                  <td> <%= itemsActivos[indiceActivos].barcode %> </td>
+                  <td> <%= itemsActivos[indiceActivos].cuenta %></td>
+                  <td> <%= itemsActivos[indiceActivos].description %></td>
+                </tr>
+                <% }%>
+              </tbody>
+            </table>
+          <%
+          break;
+        };
+      };
+
+      var items = form_actual
+
+
+      for (var i = 0; i< items.length; i++){ %>
+        <div class="contenedor" >
+          <%= obtenerCampo(items[i], model_actual,ruta, numeracion,host, html, marcaAgua, exp, codigoSeguridad) %>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- TODO: SI es html debe mostrarse???, deberia irse al final. en todo caso no mostrar -->
+    <div id="pageFooter-last">
+      <div style="float:left; font-size: 9px">
+        <div id="ccArchivoContent"></div>
+        <% if(html === false  && codigoSeguridad !== '') { %>
+          Este documento puede ser verificado en <%= urlVerificar%>
+        <%}%>
+      </div>
+      <% if(numeracion == true || numeracion == 'true'){ %>
+        <div style="float:right;">
+          <span style="color: #444;">{{page}}</span>
+        </div>
+        <%}%>
+    </div>
+
+  </body>
+</html>

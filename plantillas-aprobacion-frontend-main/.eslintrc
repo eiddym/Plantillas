@@ -1,0 +1,17 @@
+{
+  "extends": "eslint:recommended",
+  "plugins": ["angular"],
+  "rules":{
+    "angular/di":[0] 
+    },
+  "env": {
+    "browser": true,
+    "jasmine": true
+  },
+  "globals": {
+    "angular": true,
+    "module": true,
+    "inject": true,
+    "axios": true
+  }
+}

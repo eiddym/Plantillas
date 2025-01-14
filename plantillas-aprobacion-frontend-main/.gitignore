@@ -1,0 +1,13 @@
+node_modules/
+bower_components/
+coverage/
+.sass-cache/
+.idea/
+.tmp/
+dist/
+/src/app/index.constants.js
+src/app/index.constants.js
+/nbproject/private/
+.jshintrc
+oauth/config.js
+runtime.env

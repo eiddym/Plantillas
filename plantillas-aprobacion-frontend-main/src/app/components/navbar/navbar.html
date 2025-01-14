@@ -1,0 +1,45 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="vm.toggle()" aria-label="Menu collapse" show-gt-md>
+            <md-tooltip>Mostrar/ocultar menú</md-tooltip>
+            <i class="md-icon">menu</i>
+        </md-button>        
+        <!-- <span class="navbar-user-name" flex>{{vm.getFirstName()}}</span> -->
+        <span flex></span>
+        <md-button class="margin-0 md-icon-button btn-fullscreen" ng-click="vm.fullscreen()" aria-label="Fullscreen" show-gt-md id="btn-fullscreen">
+            <md-icon>fullscreen</md-icon>
+            <md-icon>fullscreen_exit</md-icon>
+            <md-tooltip class="tooltip-fullscreen"><span class="exit">Salir </span>Pantalla completa</md-tooltip>
+        </md-button>
+        <md-menu>
+            <!-- <md-button aria-label="interactions menu" class="md-icon-button navbar-user-icon bg-{{vm.getColor()}}-user" ng-click="vm.openMenu($mdOpenMenu, $event)">
+                {{vm.getInitial()}}
+            </md-button> -->            
+            <md-button class="margin-0 md-icon-button" aria-label="Más" ng-click="vm.openMenu($mdOpenMenu, $event)">
+                <md-tooltip>Más opciones</md-tooltip>
+                <md-icon>more_vert</md-icon>
+            </md-button>
+            <md-menu-content class="navbar-options">
+                <md-menu-item>
+                    <md-button ng-click="vm.profile()">
+                        <i class="md-icon">account_circle</i> Mi cuenta
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="vm.cambiarUsuario()">
+                        <i class="md-icon">refresh</i> Cambio de usuario
+                    </md-button>
+                </md-menu-item>
+                <!-- <md-menu-divider></md-menu-divider> -->
+                <md-menu-item style="width: 200px;">
+                    <md-button ng-click="vm.logout()">
+                        <i class="md-icon">power_setting_new</i> Salir
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-button class="md-icon-button" aria-label="More" style="display: none">
+            <i class="md-icon">more_vert</i>
+        </md-button>
+    </div>
+</md-toolbar>

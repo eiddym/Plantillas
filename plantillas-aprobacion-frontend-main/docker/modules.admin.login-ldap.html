@@ -1,0 +1,37 @@
+<md-toolbar style="display: none;">
+    <div class="logo"><img src="assets/images/logo.png"></div>
+</md-toolbar>
+<div class="container">
+    <div class="logo-agetic">
+        <img src="assets/images/logo.png">
+    </div>
+    <md-card class="login-panel md-whiteframe-3dp">
+        <md-card-content>
+            <br>
+                <div layout="row" layout-align="center center">
+                    <img class="icon-image" src="assets/images/icon_doc.png">
+                </div>
+            <br>
+            <div layout="row" layout-align="center center" class="md-headline">Inicio de sesión con:</div>
+            <br>
+            <form name="form" ng-submit="login.login()">
+                <md-input-container>
+                    <label>Nombre de usuario</label>
+                    <md-icon>person</md-icon><input ng-model="login.username" required>
+                </md-input-container>
+                <md-input-container>
+                    <label>Contraseña</label>
+                    <md-icon>lock</md-icon><input ng-model="login.password" type="password" required>
+                </md-input-container>
+                <md-button type="submit" class="md-raised md-primary" ng-disabled="form.$invalid">
+                    Iniciar con LDAP
+                </md-button>
+            </form>
+            <!-- <br>
+            <div class="recuperar-pwd" >
+              <span ng-click="login.abrirDialog()">Recuperar contraseña</span>
+            </div> -->
+            <br>
+        </md-card-content>
+    </md-card>
+</div>

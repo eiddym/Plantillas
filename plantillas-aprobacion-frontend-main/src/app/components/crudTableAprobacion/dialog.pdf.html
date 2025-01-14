@@ -1,0 +1,14 @@
+<md-dialog aria-label="Imprimir" ng-cloak class="formly-dialog formly-column-{{column}}" style="width: 960px;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{title}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button md-toast-button-close" ng-click="cancel()">
+                <md-icon aria-label="Close dialog">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>        
+        <iframe src="{{data}}" style="width:100%; height:600px; border: none;" id="iframe-pdf-crud"></iframe>
+    </md-dialog-content>
+</md-dialog>

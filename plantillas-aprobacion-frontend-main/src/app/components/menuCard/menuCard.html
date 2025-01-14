@@ -1,0 +1,31 @@
+<md-card>
+    <md-toolbar class="md-table-toolbar" ng-show="true">
+        <div class="md-toolbar-tools">
+            <md-icon>grid_on</md-icon> <span>{{vm.titleTable}}</span>
+            <div flex></div>
+            <md-button class="md-icon-button btn-collapsed">
+                <md-tooltip>Ocultar/Ver</md-tooltip>
+                <md-icon>keyboard_arrow_down</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-card-content>
+        <div class="menuCard-list" ng-repeat="item in vm.items">
+          <h4 class="menuCard-titulo" ng-click="item.show=!item.show">{{item.name}}</h4>
+          <div class="menuCard-animated-hide" ng-if="!item.show" layout="row" layout-padding layout-fill layout-wrap  ng-cloak>
+            <a class="menuCard-link" ng-repeat="xitem in item.data" ng-href="#/{{xitem.url}}">
+              <md-whiteframe  md-whiteframe="{{height}}" layout layout-align="center center"
+                  ng-init="height = 1" ng-mouseenter="height = 3" ng-mouseleave="height = 1"
+                  >
+                  <div layout="column" layout-align="center center">
+                    <md-icon class="md-display-3">{{xitem.icono || 'details'}}</md-icon>
+                    <span class="text-center">
+                      {{xitem.name}}
+                    </span>
+                  </div>
+              </md-whiteframe>
+            </a>
+          </div>
+        </div>
+    </md-card-content>
+</md-card>

@@ -1,0 +1,10 @@
+{
+  "descripcion":"Archivo de configuracion para parchar librerias, modulos.",
+  "parches":[
+    {
+      "ruta_origen":"handlers",
+      "ruta_destino":"node_modules/sequelize-handlers/src"
+    }
+  ]
+
+}

@@ -1,0 +1,41 @@
+.menuCard-link
+{
+  text-decoration: none;
+  color: inherit;
+  padding: 0px;
+  margin: 10px;
+  width: 150px;
+}
+
+.menuCard-link:hover md-whiteframe
+{
+  color: $colorPrimary;
+  background: #f4f4f4;
+  // border-bottom-color: red;
+}
+.menuCard-link:hover md-whiteframe md-icon
+{
+  color: $colorPrimary;
+  // background: #f4f4f4;
+  // border-bottom-color: red;
+}
+
+.menuCard-link div
+{
+  padding: 20px;
+}
+.menuCard-titulo
+{
+  margin: 0px 0px 0px 15px;
+  color: $colorPrimary;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.text-center
+{
+  font-weight: 500;
+  display: block;
+  text-align: center;
+}

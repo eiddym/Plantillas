@@ -1,0 +1,169 @@
+<ng-form name="datosGeneralesForm">
+    <div class="ap-text-warning ap-text-center" ng-if="!to.showItem">
+        Esta sección no se mostrará al imprimir en PDF.
+    </div>
+    <div ng-class="{'border-div': !to.showItem}">
+        <div layout ng-if="to.show.para">
+            <div ng-class="'flex-'+to.labelw" layout="column">
+                <div class="label" flex layout layout-align="start start">
+                    <span class="ap-cursor-pointer" ng-click="vm.openSelect($event, 'para')"><span>PARA:</span> </span>
+                </div>
+                <md-input-container class="input-search" ng-show="vm.show_para">
+                    <label>Usuarios</label>
+                    <md-select ng-model="model[options.key]['para']" name="select_para" required
+                    md-on-close="vm.buscar_para=''; vm.show_para=false;"
+                    data-md-container-class="select-search">
+                    <md-select-header class="select-header">
+                        <input ng-model="vm.buscar_para"
+                        placeholder="Buscar destinatario .."
+                        class="header-searchbox md-text">
+                    </md-select-header>
+                    <md-optgroup label="usuarios">
+                        <md-option ng-value="u" ng-repeat="u in vm.usuarios_jefes | filter:vm.buscar_para">
+                            {{ u.nombres+' '+u.apellidos }}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+            <div flex></div>
+        </div>
+
+        <div flex>
+            <div>
+                {{ model[options.key]['para'].nombres+' '+model[options.key]['para'].apellidos }}
+                <md-icon class="ap-text-success" ng-if="vm.usuarios_check[model[options.key]['para'].id_usuario]">
+                    check
+                    <md-tooltip>
+                        Aprobó
+                    </md-tooltip>
+                </md-icon>
+            </div>
+            <span>  {{ model[options.key]['para'].cargo }}  </span>
+
+
+            <div class="ap-ng-msg" ng-messages="datosGeneralesForm.select_para.$error" ng-show="datosGeneralesForm.$submitted || datosGeneralesForm.select_para.$touched">
+                <div ng-message="required">Debe elegir una opción haciendo click en PARA:</div>
+            </div>
+        </div>
+
+    </div>
+
+        <div layout ng-if="to.show.via">
+        <div ng-class="'flex-'+to.labelw" layout="column">
+            <div class="label" flex layout layout-align="start start">
+                <span class="ap-cursor-pointer" ng-click="vm.openSelect($event, 'via')"> <span>VÍA:</span> </span>
+            </div>
+            <md-input-container class="input-search" ng-show="vm.show_via">
+                <label>Usuarios</label>
+                <md-select ng-model="model[options.key]['via']" name="select_via"
+                md-on-close="vm.buscar_via=''; vm.show_via=false;"
+                data-md-container-class="select-search"
+                multiple>
+                <md-select-header class="select-header">
+                    <input ng-model="vm.buscar_via"
+                    type="search"
+                    placeholder="Buscar .."
+                    class="header-searchbox md-text">
+                </md-select-header>
+                <md-optgroup label="usuarios">
+                    <md-option ng-value="u" ng-repeat="u in vm.usuarios_jefes | filter:vm.buscar_via">
+                        {{ u.nombres+' '+u.apellidos }}
+                    </md-option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+        <div flex></div>
+    </div>
+    <div flex>
+        <div ng-repeat="p in model[options.key]['via']">
+            <div>
+                {{ p.nombres+' '+p.apellidos }}
+                <md-icon class="ap-text-success" ng-if="vm.usuarios_check[p.id_usuario]">
+                    check
+                    <md-tooltip>
+                        Aprobó
+                    </md-tooltip>
+                </md-icon>
+            </div>
+            <span>
+                {{ p.cargo }}
+                <md-icon class="ap-cursor-pointer" ng-click="vm.moverUsuario($index,'down')" ng-if=" $index!=(model[options.key]['via'].length-1) && !to.disabled ">
+                    arrow_downward
+                    <md-tooltip>
+                        Bajar
+                    </md-tooltip>
+                </md-icon>
+                <md-icon class="ap-cursor-pointer" ng-click="vm.moverUsuario($index,'up')" ng-if=" $index!=0 && !to.disabled ">
+                    arrow_upward
+                    <md-tooltip>
+                        Subir
+                    </md-tooltip>
+                </md-icon>
+            </span>
+        </div>
+        <div class="ap-ng-msg" ng-messages="datosGeneralesForm.select_via.$error" ng-show="datosGeneralesForm.$submitted || datosGeneralesForm.select_via.$touched">
+            <div ng-message="required">Debe elegir una opción haciendo click en VÍA:</div>
+        </div>
+    </div>
+</div>
+
+        <div layout ng-if="to.show.de">
+    <div ng-class="'flex-'+to.labelw" layout="column">
+        <div class="label" flex layout layout-align="start start">
+            <span class="ap-cursor-pointer" ng-click="vm.openSelect($event, 'de')"><span>DE:</span> </span>
+        </div>
+        <md-input-container class="input-search" ng-show="vm.show_de">
+            <label>Usuarios</label>
+            <md-select ng-model="model[options.key]['de']" name="select_de"
+            md-on-close="vm.buscar_de=''; vm.show_de=false;"
+            data-md-container-class="select-search"
+            multiple required>
+            <md-select-header class="select-header">
+                <input ng-model="vm.buscar_de"
+                type="search"
+                placeholder="Buscar .."
+                class="header-searchbox md-text">
+            </md-select-header>
+            <md-optgroup label="usuarios">
+                <md-option ng-value="u" ng-repeat="u in vm.usuarios | filter:vm.buscar_de">
+                    {{ u.nombres+' '+u.apellidos }}
+                </md-option>
+            </md-optgroup>
+        </md-select>
+    </md-input-container>
+    <div flex></div>
+</div>
+<div flex>
+    <div ng-repeat="p in model[options.key]['de']">
+        <div>
+            {{ p.nombres+' '+p.apellidos }}
+        </div>
+        <span>
+            {{ p.cargo }}
+        </span>
+    </div>
+    <div class="ap-ng-msg" ng-messages="datosGeneralesForm.select_de.$error" ng-show="datosGeneralesForm.$submitted || datosGeneralesForm.select_de.$touched">
+        <div ng-message="required">Debe elegir una opción haciendo click en De:</div>
+    </div>
+</div>
+</div>
+        <div layout ng-if="to.show.ref">
+    <div ng-class="'flex-'+to.labelw" layout="column">
+        <div class="label" flex layout layout-align="start end" >
+            <span>{{to.labelRef}}</span>
+        </div>
+        <div flex></div>
+    </div>
+    <div flex>
+        <md-input-container style="width: 100%">
+            <input name="ref" ng-model="model[options.key]['ref']" required md-no-asterisk>
+            <div ng-messages="datosGeneralesForm.ref.$error">
+                <div ng-message="required">Debe llenar este campo</div>
+            </div>
+        </md-input-container>
+    </div>
+</div>
+    </div>
+    <div class="separador"></div>
+
+</form>

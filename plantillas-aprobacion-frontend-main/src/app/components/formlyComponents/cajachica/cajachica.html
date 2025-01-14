@@ -1,0 +1,126 @@
+<ng-form name="cajaChicaForm">
+  <div layout layout-align="start center" >
+    <md-button class="md-fab md-mini md-icon-button md-primary" aria-label="add" ng-click="vm.addRow(model[options.key].tipo,1)" ng-if="!to.disabled && model[options.key].tipo!='PAGADO'">
+      <md-icon>add</md-icon>
+      <md-tooltip>Agregar fila</md-tooltip>
+    </md-button>
+    <md-autocomplete ng-if="!to.disabled && model[options.key].tipo=='PAGADO'" flex="40"
+      md-no-cache="true"
+      md-selected-item="vm.buscar.doc_seleccionado"
+      md-search-text="vm.buscar.doc"
+      md-items="item in vm.buscarDocumentos(vm.buscar.doc)"
+      md-selected-item-change="vm.cargarPartidas(item.nombre)"
+      md-item-text="item.nombre"
+      md-min-length="0"
+      placeholder="Seleccione un cite para añadir">
+      <md-item-template>
+        <span>{{item.nombre}}</span>
+      </md-item-template>
+      <md-not-found> Escriba un cite válido.</md-not-found>
+    </md-autocomplete>
+    <md-autocomplete ng-if="(model[options.key].tipo=='COMPROMETIDO' || model[options.key].tipo=='MODIFICADO') && !to.disabled" flex="40"
+        md-no-cache="true"
+        md-selected-item="vm.buscar.par_seleccionado"
+        md-search-text="vm.buscar.par"
+        md-items="item in vm.buscarPartidas(vm.buscar.par)"
+        md-selected-item-change="vm.addRow(model[options.key].tipo)"
+        md-item-text="item.num_des"
+        md-min-length="0"
+        ng-disabled="to.disabled"
+        placeholder="Partida ...">
+      <md-item-template>
+        <span>{{item.num_des}}</span>
+      </md-item-template>
+      <md-not-found>
+        No se encontraron coincidencias para "{{vm.buscar.par}}".
+      </md-not-found>
+    </md-autocomplete>
+    <span flex></span>
+    <md-input-container md-no-float flex="25">
+      <input type="text" placeholder="Buscar... " ng-model="vm.filter" ng-disabled="false">
+    </md-input-container>
+    <md-input-container ng-if="to.tipo=='GESTION'" flex="10">
+        <md-select ng-model="model[options.key].tipo" ng-change="model[options.key].rows=[]">
+            <md-option value="INICIAL"> INICIAR PARTIDAS </md-option>
+            <md-option value="MODIFICADO"> MODIFICAR PARTIDAS </md-option>
+        </md-select>
+    </md-input-container>
+  </div>
+
+  <div layout layout-align="start center" class="alert" ng-class="'alert-'+vm.alert.tipo" ng-show="vm.alert.show">
+      <md-icon>{{vm.alert.icono}}</md-icon>
+      <div flex>{{vm.alert.mensaje}}</div>
+      <md-icon class="ap-cursor-pointer" ng-click="vm.alert.show=false" ng-if="vm.alert.time==0">close</md-icon>
+  </div>
+
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th ng-if="!to.disabled"> </th>
+        <th ng-if="to.tipo=='PAGADO'"> Cite </th>
+        <th> Partida </th>
+        <th> {{to.tipo=='COMPROMETIDO' || to.tipo=='PAGADO'? 'Detalle':'Descripción'}} </th>
+        <th ng-if="to.tipo=='PAGADO'"> Comprometido </th>
+        <th> {{to.tipo=='PAGADO'? 'Pagado':'Monto'}} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in model[options.key].rows | filter: vm.filter">
+        <td class="buttons" ng-if="!to.disabled" layout-gt-sm>
+          <span ng-if="to.tipo=='COMPROMETIDO'">
+            <md-checkbox ng-model="row.pago_multiple"></md-checkbox>
+            <md-tooltip>Pagado múltiple</md-tooltip>
+          </span>
+          <md-button class="md-icon-button" aria-label="getSaldo" ng-click="vm.deleteRow($index)">
+            <md-icon>delete</md-icon>
+            <md-tooltip>Eliminar fila</md-tooltip>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="delete" ng-click="vm.obtenerSaldo(row.id_comprometido)" ng-if="to.tipo=='PAGADO' && row.pago_multiple">
+            <md-icon>attach_money</md-icon>
+            <md-tooltip>Obtener saldo actual</md-tooltip>
+          </md-button>
+        </td>
+        <td ng-if="to.tipo=='PAGADO'">
+          <md-input-container>
+            <textarea ng-model="row.cite.nombre" disabled></textarea>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container ng-if="model[options.key].tipo=='INICIAL'">
+            <textarea ng-model="row.partida" ></textarea>
+          </md-input-container>
+          <md-input-container ng-if="model[options.key].tipo!='INICIAL'">
+            <textarea ng-model="row.partida.num_des" disabled></textarea>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <textarea ng-model="row.descripcion" ng-disabled="to.tipo=='PAGADO' || to.disabled"></textarea>
+          </md-input-container>
+        </td>
+        <td ng-if="to.tipo=='PAGADO'">
+          <md-input-container>
+            <input type="text" ng-model="row.comprometido" disabled>
+          </md-input-container>
+          <!-- <div class="saldo" ng-if="row.saldo"> Saldo={{row.saldo}} </div> -->
+        </td>
+        <td>
+          <md-input-container>
+            <input type="text" ng-model="row.monto" ng-blur="vm.calcularTotal(row)">
+          </md-input-container>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td ng-if="!to.disabled"></td>
+        <td ng-if="to.tipo=='PAGADO'">
+        <td></td>
+        <td ng-if="to.tipo=='PAGADO'">
+        <td>Total</td>
+        <td><md-input-container><input type="text" ng-model="model[options.key].monto_total" disabled></md-input-container></td></tr>
+    </tfoot>
+  </table>
+
+  </form>

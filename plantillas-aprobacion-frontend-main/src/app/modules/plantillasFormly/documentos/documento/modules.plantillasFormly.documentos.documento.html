@@ -1,0 +1,76 @@
+<div class="container-plantilla">
+    <section layout>
+
+        <md-content flex>
+            <div class="header botones" layout layout-align="start center">
+                <md-button class="md-fab md-primary" ng-click="documento.guardarDocumento()" ng-if="!documento.sw_enviado">
+                    <md-icon>save</md-icon>
+                    <md-tooltip md-direction="right">
+                        Guardar documento
+                    </md-tooltip>
+                </md-button>
+                <md-button class="md-fab md-primary" ng-click="documento.volverAtras()" ng-if="documento.sw_enviado">
+                    <md-icon>reply</md-icon>
+                    <md-tooltip md-direction="right">
+                        Volver atras
+                    </md-tooltip>
+                </md-button>
+                <md-button class="md-fab md-primary" ng-click="documento.vistaPrevia()" >
+                    <md-icon>remove_red_eye</md-icon>
+                    <md-tooltip md-direction="right"> Vista previa
+                    </md-tooltip>
+                </md-button>
+                <!-- <md-button class="md-fab md-primary" ng-click="documento.firmar()" >
+                    <md-icon>done_all</md-icon>
+                    <md-tooltip md-direction="right"> Firmar Digitalmente</md-tooltip>
+                </md-button> -->
+                <md-button class="md-fab md-primary" ng-click="documento.copearDocumento()" ng-if="documento.id_documento!=0">
+                    <md-icon>content_copy</md-icon>
+                    <md-tooltip md-direction="right"> Duplicar documento sin cite
+                    </md-tooltip>
+                </md-button>
+                <!-- <p>
+                  {{documento.enviarEjecutandose}} <br>
+                  bbb
+                  {{!documento.enviarEjecutandose}} <br>
+                  aaa
+                </p> -->
+                <md-button class="md-fab md-primary" ng-click="documento.guardarDocumento(true)" ng-if="!documento.sw_enviado" ng-disabled="documento.enviarEjecutandose ==1? true:false">
+                    <md-icon>send</md-icon>
+                    <md-tooltip md-direction="right">
+                        {{ (documento.id_documento==0)? 'Guardar y enviar documento' : 'Enviar documento' }}
+                    </md-tooltip>
+                </md-button>
+                <div flex></div>
+                <md-input-container>
+                    <label for="documento-nombre"> Nombre del documento </label>
+                    <input ng-model="documento.doc.nombre" size="50" maxlength="250" ng-disabled="documento.sw_enviado" required>
+                </md-input-container>
+                <div flex>
+                    <md-button class="md-fab md-warning" ng-click="documento.verObservaciones($event)" ng-if="documento.sw_rechazado">
+                        <md-icon>find_in_page</md-icon>
+                        <md-tooltip md-direction="right">
+                            Ver observaciones
+                        </md-tooltip>
+                    </md-button>
+                </div>
+                <div flex ng-if="!documento.sw_enviado"></div>
+
+            </div>
+            <div class="documento-edit">
+              <div class="header header-doc" ng-if="documento.sw_grupo && documento.docs_grupo.length > 0">
+                <div class="ap-text-center ap-text-warning">Referencias:</div>
+                <div class="ap-text-center ap-text-warning" ng-repeat="dg in documento.docs_grupo"  ng-if="dg.id_documento!=documento.id_documento">
+                  * {{dg.nombre_plantilla}} -- <span class="ap-cursor-pointer" ng-click="documento.verDocumento(dg.id_documento)">{{dg.nombre}}</span>
+                </div>
+              </div>
+              <div class="pagina" ng-if="documento.load">
+                <form name="documento.formu" novalidate>
+                  <img class="img-membrete" ng-src="{{documento.url_img}}" ng-if="documento.url_img" />
+                  <formly-form class="view-formly-form" model="documento.model_actual" fields="documento.form_actual"></formly-form>
+                </form>
+              </div>
+            </div>
+        </md-content>
+    </section>
+</div>

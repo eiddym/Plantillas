@@ -1,0 +1,14 @@
+<div layout layout-align="start start">
+    <div class="label" ng-class="[to.alineacion||'ap-text-right','flex-'+to.labelw]" ng-if="to.labelw>0">
+        {{to.labelx}}
+    </div>
+    <div class="label" ng-class="[to.alineacion||'ap-text-right']"  ng-if="to.labelw==0">
+        {{to.labelx}}
+    </div>
+    <md-input-container flex >
+        <textarea ng-model="model[options.key]" ng-required="to.required" md-no-asterisk ng-disabled="to.disabled"> </textarea>
+        <div ng-messages="fc.$error">
+            <div ng-message="required">Debe llenar este campo</div>
+        </div>
+    </md-input-container>
+</div>

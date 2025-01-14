@@ -1,0 +1,58 @@
+<md-dialog aria-label="Ver historial" class="formly-dialog formly-column-{{column}} dialog-progreso"
+  style="max-width: 800px; width: 100%;">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>
+        <md-icon>dashboard</md-icon> Historial de acciones   </h2>
+
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Cerrar" ng-click="cerrar()">
+        <md-tooltip>Cerrar</md-tooltip>
+        <md-icon aria-label="Close dialog">close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="md-dialog-content">
+    <timeline>
+      <timeline-event ng-repeat="item in catalogos">
+        <timeline-badge class="bg-firmo">
+          <md-icon aria-label="description">create</md-icon>
+          <md-tooltip>{{item.accion}} - {{item.tipo}}</md-tooltip>
+        </timeline-badge>
+        <timeline-panel >
+          <timeline-heading>
+            <h3>{{item.accion}} - {{item.tipo}}</h3>
+          </timeline-heading>
+          
+          <p ng-if="item.accion == 'CREAR'">
+            <span class="ap-text-danger">{{item.autor}}</span>
+            creó el catalogo: <strong>{{item.nombreCatalogo}}</strong>
+            <br>
+          </p>
+          <div ng-if="item.accion =='MODIFICAR'">
+            <span class="ap-text-danger">{{item.autor}}</span>
+            modificó los siguientes datos: <br>
+          </div>
+          <table md-table >
+            <tbody md-body>
+              <tr md-row ng-repeat="dato in item.datos">
+                <td md-cell>{{dato.campo}}</td>
+                <td md-cell><strong>{{dato.valor}}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+          
+          En fecha {{item.fecha}} a horas {{item.hora}}
+        </timeline-panel>
+        
+      </timeline-event>
+    </timeline>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <div flex></div>
+    <md-button class="md-raised" ng-click="cerrar()">
+      <md-icon>check</md-icon>
+      <span>Cerrar</span>
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

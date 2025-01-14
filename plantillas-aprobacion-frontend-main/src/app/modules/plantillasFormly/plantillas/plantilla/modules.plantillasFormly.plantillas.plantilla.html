@@ -1,0 +1,198 @@
+<div class="container-plantilla">
+    <section layout>
+
+        <md-content flex class="documento">
+            <div class="header-plantillas" layout layout-align="start center">
+                <md-button class="md-fab md-primary" ng-click="plantilla.guardarPlantilla()">
+                    <md-icon>save</md-icon>
+                    <md-tooltip md-direction="right">
+                        {{ (plantilla.id_plantilla==0)? 'Guardar plantilla' : 'Modificar plantilla' }}
+                    </md-tooltip>
+                </md-button>
+
+                <md-menu>
+                    <md-button aria-label="open menu" class="md-fab md-primary" md-menu-origin ng-click="$mdOpenMenu($event)">
+                        <md-icon>location_searching</md-icon>
+                        <md-tooltip md-direction="right">
+                            Ver json de estructura
+                        </md-tooltip>
+                    </md-button>
+                    <md-menu-content class="menu-content-json" width="4" style="max-width: 400px;">
+                        <h3>Cuerpo json del formulario</h3>
+                        <pre>{{plantilla.data | json}}</pre>
+                    </md-menu-content>
+                </md-menu>
+
+
+                <md-button class="md-fab md-primary" ng-click="plantilla.vistaPrevia()" ng-if="!plantilla.vista_previa">
+                    <md-icon>visibility</md-icon>
+                    <md-tooltip md-direction="right">
+                        Vista previa
+                    </md-tooltip>
+                </md-button>
+                <md-button class="md-fab md-primary" ng-click="plantilla.vista_previa=false" ng-if="plantilla.vista_previa">
+                    <md-icon>visibility_off</md-icon>
+                    <md-tooltip md-direction="right">
+                        Cancelar vista previa
+                    </md-tooltip>
+                </md-button>
+
+                <md-menu ng-if="plantilla.vista_previa">
+                    <md-button aria-label="open menu" class="md-fab md-primary" md-menu-origin ng-click="$mdOpenMenu($event)">
+                        <md-icon>location_searching</md-icon>
+                        <md-tooltip md-direction="right">
+                            Ver json de valores
+                        </md-tooltip>
+                    </md-button>
+                    <md-menu-content class="menu-content-json" width="4" style="max-width: 400px;">
+                        <h3>Cuerpo json de valores</h3>
+                        <pre>{{plantilla.form_model | json}}</pre>
+                    </md-menu-content>
+                </md-menu>
+                <md-button class="md-fab md-primary" ng-click="plantilla.verPdf()" ng-if="plantilla.vista_previa">
+                    <md-icon>picture_as_pdf</md-icon>
+                    <md-tooltip md-direction="right">
+                        Ver pdf
+                    </md-tooltip>
+                </md-button>
+
+                <div flex="10" ng-if="!plantilla.vista_previa"></div>
+                <md-input-container>
+                    <label for="plantilla-nombre">Nombre de la plantilla</label>
+                    <input ng-model="plantilla.nombre" size="50" ng-disabled="plantilla.existe_documento" required>
+                </md-input-container>
+                <!-- <md-input-container>
+                    <label for="plantilla-abreviacion">Abreviación</label>
+                    <input ng-model="plantilla.abreviacion" required ng-disabled="plantilla.existe_documento" ng-keyup="plantilla.abreviacion=plantilla.abreviacion.toUpperCase()">
+                </md-input-container> -->
+                <div flex>
+                    <!-- <md-button class="md-fab md-primary" ng-click="plantilla.togglePalette($event)" >
+                        <md-icon>
+                            reorder
+                        </md-icon>
+                        <md-tooltip>
+                            Abrir paleta
+                        </md-tooltip>
+                    </md-button> -->
+                </div>
+            </div>
+            <div class="pagina" ng-if="plantilla.vista_previa">
+                <form name="plantilla.formu_prueba" novalidate>
+                    <img class="img-membrete" ng-src="{{plantilla.url_img}}" ng-if="plantilla.url_img" />
+                    <formly-form class="view-formly-form"  model="plantilla.form_model" fields="plantilla.form_previo"></formly-form>
+                </form>
+            </div>
+
+            <div class="pagina" ng-if="!plantilla.vista_previa">
+                    <img class="img-membrete" ng-src="{{plantilla.url_img}}" ng-if="plantilla.url_img" />
+                    <md-card-content class="lista"
+                        dnd-list="plantilla.items"
+                        dnd-drop="plantilla.dropCallback(index, item)">
+
+                        <p class="content-drop" ng-if="plantilla.items.length == 0">
+                            Arrastre alg&uacute;n elemento en esta secci&oacute;n o haga clic en el bot&oacute;n '+' de alg&uacute;n elemento
+                        </p>
+
+                        <div class="div-{{item.val.element[0].type}}" ng-repeat="item in plantilla.items" ng-show="!item.notvisualize">
+
+                            <div class="column" layout layout-align="center center" ng-switch on="item.val.element[0].type">
+
+                                <div flex ng-switch-when="layout">
+                                    <div ng-class="'sublista-'+item.val.element[0].elementAttributes['num-cols']"
+                                        dnd-list="item.val.element[0].fieldGroup"
+                                        dnd-drop="plantilla.dropLayoutCallback(index, item, $index)">
+                                        <div ng-class="'div-li-'+item.val.element[0].elementAttributes['num-cols']" ng-if="item.val.element[0].fieldGroup.length==0" class="layout-drop"> &nbsp;&nbsp;&nbsp;Puede arrastrar alg&uacute;n elemento en esta secci&oacute;n</div>
+                                        <div ng-class="'div-li-'+item.val.element[0].elementAttributes['num-cols']" ng-repeat="subitem in item.val.element[0].fieldGroup" ng-mouseover="layoutIndex=$parent.$index">
+                                            <div layout layout-align="center center" ng-switch on="subitem.val.element[0].type" ng-show="!subitem.notvisualize">
+                                                <!-- <pre>{{subitem | json}}</pre> -->
+                                                <div flex ng-switch-when="layout">
+                                                    No puede añadir contenedores dentro de contenedores
+                                                </div>
+                                                <div flex ng-switch-default>
+                                                    <formly-form class="view-formly-form" model="subitem.val.model" fields="subitem.val.element"></formly-form>
+                                                </div>
+                                                <div layout="column">
+                                                    <md-icon class="ap-text-success ap-cursor-pointer"
+                                                        dnd-draggable="subitem.val.element[0]"
+                                                        dnd-effect-allowed="move"
+                                                        dnd-dragstart="plantilla.startLayoutCallback($index, subitem, layoutIndex)"
+                                                        dnd-dragend="plantilla.endLayoutCallback(layoutIndex)"
+                                                        ng-click="plantilla.openMenu(subitem, $event, $index, layoutIndex)">
+                                                        <md-tooltip>
+                                                            Click para editar o puede arrastrar
+                                                        </md-tooltip>
+                                                        blur_on
+                                                    </md-icon>
+                                                    <md-icon class="ap-cursor-pointer ap-text-error" ng-click="plantilla.removeItem(item, $index, layoutIndex)">
+                                                        <md-tooltip>
+                                                            Eliminar
+                                                        </md-tooltip>
+                                                        delete
+                                                    </md-icon>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div flex ng-switch-default>
+                                    <formly-form class="view-formly-form" model="item.val.model" fields="item.val.element"></formly-form>
+                                </div>
+                                <div layout="column">
+                                    <md-icon class="ap-cursor-pointer"
+                                        dnd-draggable="item.val.element[0]"
+                                        dnd-effect-allowed="move"
+                                        dnd-dragstart="plantilla.startCallback($index, item)"
+                                        dnd-dragend="plantilla.endCallback()"
+                                        ng-click="plantilla.openMenu(item, $event, $index)">
+                                        <md-tooltip>
+                                            Click para editar o puede arrastrar
+                                        </md-tooltip>
+                                        blur_on
+                                    </md-icon>
+                                    <md-icon class="ap-cursor-pointer ap-text-error" ng-click="plantilla.removeItem(item, $index)" ng-if="item.val.element[0].type!='cite'">
+                                        <md-tooltip>
+                                            Eliminar
+                                        </md-tooltip>
+                                        delete
+                                    </md-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </md-car-content>
+
+                </div>
+
+            <div flex></div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+        </md-content>
+
+        <md-sidenav
+            class="md-sidenav-right ap-sidenav-right md-whiteframe-1dp"
+            md-component-id="right"
+            md-disable-backdrop
+             md-is-locked-open="$mdMedia('gt-sm')"
+            >
+            <md-content>
+                <!-- <md-card-title-text>
+                    <span class="md-headline">Paleta</span>
+                </md-card-title-text> -->
+
+                <palette-formly funcion-agregar="plantilla.funcionAgregar" >
+                </palette-formly>
+            </md-content>
+        </md-sidenav>
+
+
+    </section>
+</div>

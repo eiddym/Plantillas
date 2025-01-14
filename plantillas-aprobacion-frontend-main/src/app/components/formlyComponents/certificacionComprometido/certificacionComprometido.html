@@ -1,0 +1,30 @@
+<ng-form name="certificacionComprometido" >
+  <div class="ap-text-warning ap-text-center" ng-if="!to.showItem">
+    Esta sección no se mostrará en el PDF hasta que se apruebe y se le asigne un "CITE".
+  </div>
+
+  <div class="certificacion-comprometido">
+    <h3>{{to.label}}</h3>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Partida</th>
+          <th>Saldo inicial</th>
+          <th>Monto comprometido</th>
+          <th>Saldo final</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in model[options.key].rows">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+
+</ng-form>

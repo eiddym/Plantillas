@@ -1,0 +1,11 @@
+.simditor-toolbar {
+    display: none !important;
+
+    &.active-editor {
+        display: block !important;
+    }
+
+    .toolbar-menu ul > li .menu-item {
+        font-size: 14px;
+    }
+}

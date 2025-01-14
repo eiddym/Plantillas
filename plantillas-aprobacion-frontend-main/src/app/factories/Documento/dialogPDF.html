@@ -1,0 +1,40 @@
+<md-dialog aria-label="Documento PDF" class="formly-dialog formly-column-{{column}} dialog-pdf" style="max-width: 800px; width: 100%;" >
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+          <h2><md-icon>picture_as_pdf</md-icon> Vista previa</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Ver pdf" ng-click="verPdf()" ng-show="data.flag_html">
+              <md-tooltip>Ver PDF</md-tooltip>
+              <md-icon aria-label="Close dialog">picture_as_pdf</md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Ver html" ng-click="verHtml()" ng-show="!data.flag_html">
+              <md-tooltip>Ver html</md-tooltip>
+              <md-icon aria-label="Close dialog">code</md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Cerrar" ng-click="cerrar()">
+              <md-tooltip>Cerrar</md-tooltip>
+              <md-icon aria-label="Close dialog">close</md-icon>
+          </md-button>
+      </div>
+  </md-toolbar>
+
+  <div class="dialog-firmas">
+    <div ng-repeat="(indice, item) in data.firmas" class="{{(item.firmo===true?'firmado':'sin-firma')}}">
+      {{item.firmante}}
+      <md-tooltip>{{item.firmante}}</md-tooltip>
+    </div>
+  </div>
+  <md-dialog-content class="md-dialog-content">
+     <div ng-show="data.flag_html" bind-html-compile="data.html"></div>
+    <iframe class="iframe-pdf" src="{{data.pdf}}" style="width:100%; height:600px; border: none;" ng-if="data.show_pdf && !data.flag_html" allowfullscreen></iframe>
+    <div id="canvasContainer" ng-show="!data.flag_html"></div>
+
+  </md-dialog-content>
+
+  <md-dialog-actions>
+      <span flex></span>
+      <md-button class="md-raised" ng-click="cerrar()">
+          <md-icon>cancel</md-icon> Cancelar
+      </md-button>
+  </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,251 @@
+<ng-form name="ingresoAlmacenForm">
+  <div layout layout-align="start start">
+    <md-input-container flex>
+      <label>Tipo de ingreso</label>
+      <div layout layout-align="end center" style="margin-bottom: 20px;background-color:#fafafa;padding:5px;">
+        <md-radio-group layout ng-model="model[options.key].tipoIngreso"
+          ng-change="vm.controlSeleccionTipoIngreso(model[options.key].tipoIngreso)">
+          <md-radio-button ng-repeat="option in vm.listaTipos" ng-value="{{option.key}}">
+            {{option.value}}
+          </md-radio-button>
+        </md-radio-group>
+      </div>
+  
+  </div>
+  <div ng-if="model[options.key].tipoIngreso === 1">
+    <div layout layout-align="start start" flex>
+      <md-input-container class="input-search" flex>
+          <label>Proveedores</label>
+          <md-select ng-model="model[options.key].proveedor" name="seleccionarProveedor" required
+            data-md-container-class="select-search" >
+            <md-select-header class="select-header" >
+              <div layout  layout-align="start start" flex>
+                <md-input-container flex>
+                  <input ng-model="vm.proveedor_buscar" placeholder="Escriba el nombre del proveedor a buscar..."
+                  ng-keydown="$event.stopPropagation($event)"
+                  ng-keyup="$event.stopPropagation($event)"
+                  class="header-searchbox md-text"
+                  >
+                </md-input-container>
+                <md-button class="md-fab md-mini md-icon-button md-primary" aria-label="add"
+                  ng-click="vm.buscarProveedor()">
+                  <md-icon>search</md-icon>
+                  <md-tooltip>Buscar proveedor</md-tooltip>
+                </md-button>
+              </div>
+            </md-select-header>
+            <md-optgroup label="proveedores">
+            <md-option ng-value="p" ng-repeat="p in vm.proveedores" ng-click="vm.controlSeleccionProveedor(p)" >
+              <div>
+                {{p.nombre}}  {{p.nit}}
+              </div>
+              </md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex>
+          <input type="text" ng-model="model[options.key].nitProveedor" placeholder="NIT Proveedor" disabled required>
+        </md-input-container>
+    </div>
+
+    <div layout layout-align="start start">
+      <md-input-container flex>
+        <input type="text" ng-model="model[options.key].factura_numero" placeholder="{{model[options.key].reingreso? 'Número de informe':'Número de factura.'}}" required>
+      </md-input-container>
+      <md-input-container flex>
+        <input type="text" ng-model="model[options.key].factura_autorizacion"
+          placeholder="Número autorización." ng-required="!model[options.key].reingreso">
+      </md-input-container>
+      <md-input-container flex>
+        <label>{{model[options.key].reingreso? 'Fecha de informe':'Fecha de la factura.'}}</label>
+        <md-datepicker style="width: 100%!important;" ng-model="model[options.key].factura_fecha" required></md-datepicker>
+      </md-input-container>
+    </div>
+    <div layout layout-align="start start">
+      <md-input-container flex>
+        <input type="text" ng-model="model[options.key].nota_entrega" placeholder="Número de nota de entrega.">
+      </md-input-container>
+      <md-input-container flex>
+        <label>Fecha de la nota entrega.</label>
+        <md-datepicker style="width: 100%!important;" ng-model="model[options.key].nota_entrega_fecha"
+          ng-required="!model[options.key].reingreso"></md-datepicker>
+      </md-input-container>
+    </div>
+    
+    <div layout layout-align="start start">
+      <md-input-container flex>
+        <input type="text" ng-model="model[options.key].c31" placeholder="Nro requerimiento / Nro preventivo" ng-required="!model[options.key].reingreso">
+      </md-input-container>
+      <md-input-container flex>
+        <label>Fecha requerimiento / Fecha preventivo</label>
+        <md-datepicker style="width: 100%!important;" ng-model="model[options.key].c31_fecha" required ="!model[options.key].reingreso"></md-datepicker>
+      </md-input-container>
+    </div>
+    <div layout layout-align="start start">
+      <md-input-container flex>
+        <input type="number" ng-model="model[options.key].descuento"
+        ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"
+        ng-change="vm.calcularTotalConDescuento()"
+        placeholder="Escríba el descuento.">
+      </md-input-container>
+  
+      
+    </div>
+
+  </div>
+  
+  <!-- Seccion donacion o reingreso tipo ingreso = 2 || 3 -->
+  <div ng-if="model[options.key].tipoIngreso === 2 || model[options.key].tipoIngreso === 3">
+    <div layout layout-align="start start" ng-if="model[options.key].tipoIngreso === 2">
+      <md-input-container flex>
+        <input type="text" ng-model="model[options.key].donante" placeholder="Entidad donante">
+      </md-input-container>
+    </div>
+
+    <div layout layout-align="start start">
+      <md-input-container flex>
+
+        <div class="layout" flex>
+          <div class="row" flex>
+            <md-input-container class="input-search" flex>
+              <label>Respaldo</label>
+              <md-select ng-model="vm.docSeleccionado" name="select_doc_respaldo_almacen" md-on-close="vm.closeSelectDoc()"
+                data-md-container-class="select-search" required flex>
+                <md-select-header class="select-header" flex>
+                  <input ng-model="vm.buscar_doc" placeholder="Buscar ..." class="header-searchbox md-text" 
+                  ng-keydown="$event.stopPropagation($event)"
+                  ng-keyup="$event.stopPropagation($event)"
+                  flex>
+                </md-select-header>
+                <md-optgroup label="documentos_respaldo">
+                  <md-option ng-value="d" ng-repeat="d in vm.documentos" ng-click="vm.controlSelectDoc(d)">
+                    {{d.nombre}}
+                  </md-option>
+                </md-optgroup>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div class="row">
+            <md-icon class="ap-cursor-pointer md-mini" ng-click="vm.mostrarPdf(model[options.key].respaldo.id_documento)">
+              description
+            </md-icon>
+            
+          </div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <input type="text" ng-model="model[options.key].respaldo.fechaMostrar" placeholder="Fecha respaldo" required
+          disabled>
+      </md-input-container>
+    </div>
+    
+  </div>
+  
+  <div layout layout-align="start start" flex>
+    <md-input-container flex>
+      <textarea ng-model="model[options.key].observaciones" placeholder="Observaciones"></textarea>
+    </md-input-container>
+  </div>
+
+  <div layout layout-align="start start" flex>
+    <md-input-container class="input-search" flex>
+      <label>Artículo/Subartículo</label>
+      <md-select ng-model="vm.articulo" name="seleccionarArticulo"
+        data-md-container-class="select-search" >
+        <md-select-header class="select-header" flex>
+          <div layout layout-align="start start">
+            <md-input-container flex>
+              <input ng-model="vm.articulo_buscar" placeholder="Buscar articulo/subarticulo..." 
+              ng-keydown="$event.stopPropagation($event)"
+              class="header-searchbox md-text">
+            </md-input-container>
+            <md-button class="md-fab md-mini md-icon-button md-primary" aria-label="add"
+              ng-click="vm.buscarArticulo()">
+              <md-icon>search</md-icon>
+              <md-tooltip>Buscar articulo/subarticulo</md-tooltip>
+            </md-button>
+          </div>
+        </md-select-header>
+        <md-optgroup label="articulos">
+          <md-option ng-value="art" ng-repeat="art in vm.articulos">
+            <div ng-click="vm.agregarFila($index)">
+              {{art.codigo}} {{art.descripcion}}
+            </div>
+          </md-option>
+        </md-optgroup>
+      </md-select>
+    </md-input-container>
+  </div>
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th ng-if="!to.disabled"> </th>
+        <th> Código </th>
+        <th> Grupo contable </th>
+        <th> Unidad </th>
+        <th> Detalle </th>
+        <th> Cantidad </th>
+        <th> Precio </th>
+        <th> Precio Total </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in model[options.key].items | filter: vm.filter">
+        <td class="buttons" ng-if="!to.disabled" layout-gt-sm>
+          <md-button class="md-icon-button" aria-label="getSaldo" ng-click="vm.eliminarFila($index)">
+            <md-icon>delete</md-icon>
+            <md-tooltip>Eliminar fila</md-tooltip>
+          </md-button>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="text" ng-model="row.codigo" disabled>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="text" ng-model="row.cuenta" disabled>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="text" ng-model="row.unidad" disabled>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <textarea ng-model="row.descripcion" disabled></textarea>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="text" ng-model="row.cantidad" ng-change="vm.calcularSubTotal($index)" >
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="text" ng-model="row.precio" ng-change="vm.calcularSubTotal($index)"
+            ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" step="0.0001">
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="text" ng-model="row.total" disabled>
+          </md-input-container>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{model[options.key].total}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </form>

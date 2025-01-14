@@ -1,0 +1,25 @@
+<div ng-if="!to.multiple">
+    <md-button class="md-raised md-warn" ng-click="vm.elegirPdf($event)" ng-if="!model[options.key]">{{to.label}}</md-button>
+    <input ng-show="false" type="file" ng-model="model[options.key]" base-sixty-four-input accept=".pdf" on-after-validate="vm.onLoadModel">
+    <div ng-if="model[options.key]">
+        Documento: {{ model[options.key].filename}} Peso: {{ vm.redondear(model[options.key].filesize/1024, 2)}} kb
+        <md-icon ng-click="vm.showPdf(model[options.key].url)" class="ap-cursor-pointer" ng-if="model[options.key].url">
+            picture_as_pdf
+            <md-tooltip>Ver pdf</md-tooltip>
+        </md-icon>
+        <md-icon class="ap-text-warning ap-cursor-pointer" ng-click="vm.limpiarPdf()" ng-if="!to.disabled">delete<md-tooltip>Eliminar</md-tooltip></md-icon>
+        <br>
+    </div>
+</div>
+<div ng-if="to.multiple">
+    <md-button class="md-raised md-warn" ng-click="vm.elegirPdf($event)">{{to.label}}</md-button>
+    <input ng-show="false" type="file" ng-model="model[options.key]" base-sixty-four-input accept=".pdf" on-after-validate="vm.onLoadModel" multiple>
+    <div ng-repeat="pdf in model[options.key]">
+        Documento: {{ pdf.filename}} Peso: {{ vm.redondear(pdf.filesize/1024, 2)}} kb
+        <md-icon ng-click="vm.showPdf(pdf.url)" class="ap-cursor-pointer" ng-if="pdf.url">
+            picture_as_pdf
+            <md-tooltip>Ver pdf</md-tooltip>
+        </md-icon>
+        <md-icon class="ap-text-warning ap-cursor-pointer" ng-click="vm.limpiarPdf($index)" ng-if="!to.disabled">delete</md-icon>
+    </div>
+</div>

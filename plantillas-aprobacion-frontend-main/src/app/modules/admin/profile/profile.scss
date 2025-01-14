@@ -1,0 +1,100 @@
+.profile {
+	.profile-user-bg {
+		background-image: url("../assets/images/bg.jpg");
+		background-repeat: no-repeat;
+		background-size: 100% auto;
+		height: 350px;
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+	}
+	.profile-user-photo {
+		border: 5px solid white;
+		border-radius: 50%;
+		color: white;
+		font-size: 5rem;
+		height: 120px;
+		line-height: 124px;
+		margin: 30px auto 10px;
+		position: relative;
+		text-align: center;
+		width: 120px;
+
+		.md-icon {
+			display: block;
+			font-size: 9rem;
+			left: -12px;
+			position: absolute;
+			top: -12px;
+		}
+	}
+
+	.profile-data {
+		background-color: rgba(0, 0, 0, 0.5);
+		margin: 0 auto;
+		max-width: 800px;
+		padding: 20px;
+
+		.profile-user-name {
+			color: white;
+			font-size: 1.3rem;
+			font-weight: 400;
+			line-height: 1.3rem;
+			margin: 0;
+			text-align: center;
+		}
+		.profile-user-item {
+			color: lighten($colorSuccess, 30%);
+			font-size: 1rem;
+			font-weight: 400;
+			margin: 0 0 15px;
+			text-align: center;
+		}
+		.profile-user-data {
+			margin: 0;
+			padding: 0;
+			text-align: center;
+
+			li {
+				color: white;
+			    display: inline-block;
+			    vertical-align: top;
+			    width: 30%;
+				.profile-data-number {
+					display: block;
+					font-size: 1.8rem;
+					line-height: 1.8rem;
+				}
+				.profile-data-details {
+					display: block;
+					font-size: 0.8rem;
+					line-height: 0.9rem;
+				}
+			}
+		}
+	}
+
+	.profile-statistics {
+		background-color: white;
+		border-bottom: 1px solid #eee;
+	}
+
+	.profile-char {
+		border-right: 1px solid #eee;
+		padding: 25px;
+		text-align: center;
+
+		.chart-container {
+			max-width: 600px;
+			margin: 0 auto;
+		}
+		p md-icon{
+			cursor: pointer;
+		}
+	}
+	.profile-char-edit {
+		border-right: 1px solid #eee;
+		padding: 25px;
+		// text-align: center;
+	}
+}

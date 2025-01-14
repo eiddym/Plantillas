@@ -1,0 +1,97 @@
+<md-dialog ng-cloak class="formly-dialog formly-column-{{column}}" style="max-width: 800px; width: 100%;">
+
+    <form ng-submit="registrarRol()" name="rolForm" novalidate>
+      <md-toolbar>
+          <div class="md-toolbar-tools">
+              <h2><md-icon>business</md-icon> {{data.id_rol == null ? "Agregar" :  "Editar"}} </h2>
+              <span flex></span>
+              <md-button class="md-icon-button" aria-label="Cerrar" ng-click="cerrar()">
+                  <md-tooltip>Cerrar</md-tooltip>
+                  <md-icon>close</md-icon>
+              </md-button>
+          </div>
+      </md-toolbar>
+      <md-dialog-content>
+        <div layout>
+        <md-card flex>
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Datos del rol</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content>
+                <md-input-container class="md-block">
+                    <label>Nombre</label>
+                    <input ng-model="data.nombre"  type="text"  required>
+                    <div ng-messages="rolForm.nombre.$error" ng-show="rolForm.nombre.$dirty">
+                        <div ng-message="required">Debe llenar este campo</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Descripcion</label>
+                    <input ng-model="data.descripcion" type="text"  required>
+                    <div ng-messages="rolForm.descripcion.$error" ng-show="rolForm.descripcion.$dirty">
+                        <div ng-message="required">Debe llenar este campo</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Peso</label>
+                    <input ng-model="data.peso" type="text"  required>
+                    <div ng-messages="rolForm.peso.$error" ng-show="rolForm.peso.$dirty">
+                        <div ng-message="required">Debe llenar este campo</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label for="estado">Estado</label>
+                  <md-select name="estado" ng-model="data.estado" placeholder="Estado" required>
+                    <md-option ng-value="item.id" ng-repeat="item in estados">{{ item.name }}</md-option>
+                  </md-select>
+                  <div ng-messages="rolForm.estado.$error" ng-show="rolForm.estado.$dirty">
+                    <div ng-message="required">Debe seleccionar una opción</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label for="fecha_creacion"> Fecha de creación </label>
+                  <md-datepicker ng-model="data._fecha_creacion" disabled></md-datepicker>
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label for="fecha_creacion"> Fecha de modificación </label>
+                  <md-datepicker ng-model="data._fecha_modificacion" disabled></md-datepicker>
+                </md-input-container>
+
+            </md-card-content>
+        </md-card>
+        <md-card flex>
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Menus del rol</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content>
+                <div ng-repeat="m in menus">
+                    <h3 ng-if="m.fid_menu_padre===null">{{m.nombre}}</h3>
+                    <md-input-container class="md-block" ng-if="m.fid_menu_padre!==null">
+                        <md-checkbox ng-model="m.checked" aria-label="{{m.nombre}}">
+                            {{m.nombre}}
+                        </md-checkbox>
+                    </md-input-container>
+                </div>
+
+            </md-card-content>
+        </md-card>
+        </div>
+      </md-dialog-content>
+
+      <md-dialog-actions layout layout-padding>
+          <span flex></span>
+          <md-button type="submit" class="md-raised md-primary" ng-disabled="rolForm.$invalid">
+              <md-icon>check</md-icon> Guardar
+          </md-button>
+          <md-button type="button" class="md-raised" ng-click="cerrar()">
+              <md-icon>cancel</md-icon> Cancelar
+          </md-button>
+      </md-dialog-actions>
+
+    </form>
+
+</md-dialog>

@@ -1,0 +1,23 @@
+<div class="container">
+  <md-card-content>
+    <div layout layout-xs="column" layout-sm="column" layout-align="center center">
+      <div class="contenedor-virtual" ng-repeat="item in virtual.usuariosVirtuales">
+        <center  >
+          <div class=" virtual-icon {{(!item.activo || item.activo ==false ? 'boton-circular':'desactivar')}}"  layout-xs="row" >
+            <md-tooltip md-direction="top">{{item.cargo}} </md-tooltip>
+            <img class="icon-circular-imagen" src="assets/images/robo{{$index}}.png" ng-click="virtual.seleccionar(item)" ng-if="!item.activo">
+            <img class="icon-circular-imagen" src="assets/images/robo{{$index}}.png" ng-if="item.activo && item.activo== true">
+          </div>
+          <div>
+            <md-icon class="{{(!item.activo || item.activo ==false ? 'inactivo':'activo')}}"">check</md-icon>
+            <div> <strong>{{item.nombres}}</strong></div>
+          </div>
+        </center>
+      </div>
+    </div>
+    
+    
+    
+  </md-card-content>
+
+</div>

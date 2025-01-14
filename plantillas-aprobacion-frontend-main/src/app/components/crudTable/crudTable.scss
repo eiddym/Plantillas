@@ -1,0 +1,278 @@
+.bg-success {
+    color: lighten($colorSuccess, 10%);
+}
+.bg-gray {
+    color: #aaaaaa;
+}
+.bg-danger {
+    color: $colorDanger;
+}
+
+.formly-column-1 {
+    .formly-field-datepicker {
+        margin-bottom: 20px;
+    }
+}
+.seleccionado:hover{
+  background-color: lighten($colorSuccess,68%)
+  // background-color: lighten($colorPrimary,60%)
+}
+
+.boton-extra:hover{
+  md-icon{
+    color:$colorSuccess;
+  }
+}
+.boton-eliminar:hover{
+  md-icon{
+    color:darken(lighten($colorDanger,7%),4%);
+  }
+}
+.icono-activo {
+  md-icon{
+    color:$colorSuccess;
+  }
+}
+
+.crud-table-filter {
+    border: medium none;
+    line-height: 36px;
+    padding: 0 10px;
+    width: 100%;
+}
+
+.crud-table-content {
+    @media screen and (max-width: 960px) {
+        padding-top: 200px;
+    }
+}
+
+.select-crud-estado {
+    max-width: 120px;
+}
+.select-crud-estado.md-input-has-value {
+    >label{
+        margin-bottom: -10px;
+    }
+}
+
+.crud-table-searchpro {
+    background-color: white;
+    >input {
+        border: medium none;
+        line-height: 36px;
+        padding: 0 10px;
+    }
+    label {
+        font-size: 0.8em;
+        margin: auto 10px;
+
+        vertical-align: bottom;
+    }
+    .select-tipo {
+        font-size: 0.8em;
+        md-select {
+            // margin-top: 4px;
+            margin-bottom: 0px;
+        }
+    }
+    .date-pick {
+        padding-top: 2px;
+        md-datepicker {
+            >.md-datepicker-button {
+                display: none;
+            }
+            input {
+                max-width: 100px;
+            }
+        }
+    }
+    md-checkbox {
+        transform: scale(0.8);
+        margin: auto -10px 0px 10px;
+        padding-top: 10px;
+    }
+
+}
+
+.formly-column-2 {
+    max-width: 640px;
+    width: 100%;
+
+    .formly-field {
+        box-sizing: border-box;
+        display: inline-block;
+        margin-bottom: 0;
+        padding: 0 10px;
+        vertical-align: top;
+        width: 50%;
+    }
+}
+
+.formly-column-2,
+.formly-column-3,
+.formly-column-4
+{
+    .formly-field-datepicker {
+
+        label {
+            display: block;
+            font-size: 11px !important;
+            margin: -13px 0 -2px 2px;
+        }
+
+        .md-datepicker-input-container {
+            padding-bottom: 0;
+        }
+    }
+
+    .md-datepicker-container {
+        label {
+            display: block;
+            font-size: 11px !important;
+        }
+    }
+
+    .formly-field-datepicker {
+        height: 70px;
+    }
+}
+
+.formly-column-3 {
+    max-width: 850px;
+    width: 100%;
+
+    .formly-field {
+        box-sizing: border-box;
+        display: inline-block;
+        margin-bottom: 0;
+        padding: 0 10px;
+        vertical-align: top;
+        width: 33.3%;
+    }
+}
+
+td.crud-table-informacion-de-bienes{
+    .items {
+        padding: 5px 12px;
+        text-align: center;
+        margin-right: 3px;
+        color: #fff;
+        font-weight: 600;
+        cursor: default;
+        width: auto;
+        float: left;
+        border-radius: 20px;
+    }
+    .bg-pendiente {
+        background-color: $colorPendiente;
+    }
+    .bg-sin_datos {
+        background-color: $colorSinDatos;
+    }
+    .bg-con_datos {
+        background-color: $colorConDatos;
+    }
+    .bg-enviado {
+        background-color: $colorEnviado;
+    }
+    .bg-observado, .bg-observado_sup {
+        background-color: $colorObservado;
+    }
+    .bg-verificado {
+        background-color: $colorVerificado;
+    }
+}
+
+.formly-column-4 {
+    max-width: 960px;
+    width: 100%;
+
+    .formly-field {
+        box-sizing: border-box;
+        display: inline-block;
+        margin-bottom: 0;
+        padding: 0 10px;
+        vertical-align: top;
+        width: 25%;
+    }
+}
+
+.formly-dialog {
+    .md-dialog-content {
+        padding: 10px;
+    }
+}
+.formly-dialog-error {
+  .md-toolbar-tools {
+    background-color: $colorObservado;
+  }
+
+  .md-dialog-content {
+    // color:red;
+    font-size: 20px;
+  }
+}
+
+.formly {
+
+    & > div:first-child {
+        display: none;
+    }
+}
+
+md-dialog .md-actions, md-dialog md-dialog-actions {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.formly-table-editable {
+    md-input-container {
+        .md-errors-spacer {
+            display: none;
+        }
+        label {
+            color: #bbb !important;
+            font-size: 0.8rem !important;
+        }
+
+        &.md-default-theme.md-input-focused:not(.md-input-invalid) label,
+        &.md-input-focused:not(.md-input-invalid) label,
+        &.md-input-focused label:not(.md-no-float),
+        &.md-input-has-placeholder label:not(.md-no-float),
+        &.md-input-has-value label:not(.md-no-float) {
+            display: none;
+        }
+    }
+
+}
+md-select-menu {
+    label {
+        font-size: .8rem;
+        text-align: center;
+        display: block;
+        color: #777;
+    }
+}
+.md-datepicker-input {
+    font-family: Poppins;
+    font-size: 13px;
+}
+@media (max-width: 768px) {
+    .formly-column-2,
+    .formly-column-3,
+    .formly-column-4 {
+        .formly-field {
+            width: 100%;
+        }
+    }
+    md-dialog .md-actions, md-dialog md-dialog-actions {
+        min-height: 60px;
+        padding: 10px 10px 15px;
+    }
+}
+.formly-field.formly-field-input {
+    md-input-container {
+        width: 100%;
+    }
+}

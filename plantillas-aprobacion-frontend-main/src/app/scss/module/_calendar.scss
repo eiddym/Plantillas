@@ -1,0 +1,23 @@
+// Calendar
+.fc-content-skeleton > table {
+  height: 100px;
+}
+.fc-toolbar h2 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: $colorSecondary;
+}
+.fc-event-container .fc-content {
+    font-size: 0.8rem;
+}
+
+.md-calendar-height {
+	height: 700px;
+	.fc-scroller {
+		height: auto !important;
+    	overflow: visible;
+	}
+}
+.fc-day-header {
+    font-weight: 500;
+}

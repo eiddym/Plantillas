@@ -1,0 +1,18 @@
+// _modals.scss..................Modal elements. OR Dialog
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+	background-color: $colorPrimary;
+}
+md-dialog-actions {
+    padding-bottom: 20px;
+}
+
+md-dialog {
+	min-width: 360px;
+}
+// estilo que nace en PanelFactory
+div.md-panel {
+	md-card {
+		margin: 0px;
+	}
+}

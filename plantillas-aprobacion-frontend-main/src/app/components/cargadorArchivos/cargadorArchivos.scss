@@ -1,0 +1,41 @@
+.caja-up{
+    min-height: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    // border: 1px solid #e3e3e3;
+    font-size: 0.4em;
+    text-align: justify;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+    border: dotted 3px lightgray;
+}
+.resumen {
+    font-style: italic;
+    margin: 30px 0;
+}
+
+.titulo {
+    font-size: 16px;
+}
+
+.fecha {
+    font-size: 12px
+}
+
+canvas {
+    background-color: #f3f3f3;
+    -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+    -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+    box-shadow: 3px 3px 3px 0 #e3e3e3;
+    border: 1px solid #c3c3c3;
+    height: 100px;
+    margin: 6px 0 0 6px;
+}
+
+.imagen {
+    float: left;
+    text-align: center;
+    margin: 0 5px 0 5px;   
+}

@@ -1,0 +1,184 @@
+<ng-form name="cabeceraForm">
+    <div layout ng-if="to.show.para">
+        <div ng-class="'flex-'+to.labelw" layout="column">
+            <div class="label" flex layout layout-align="start start">
+                <span class="ap-cursor-pointer" ng-click="vm.openSelect($event, 'para')"><span>PARA:</span> </span>
+            </div>
+            <md-input-container class="input-search" ng-show="vm.show_para">
+                <label>Usuarios</label>
+                <md-select ng-model="model[options.key]['para']" name="select_para"
+                    md-on-close="vm.buscar_para=''; vm.show_para=false;"
+                    data-md-container-class="select-search"
+                    multiple>
+                    <md-select-header class="select-header">
+                        <input ng-model="vm.buscar_para"
+                        placeholder="Buscar destinatario .."
+                        class="header-searchbox md-text">
+                    </md-select-header>
+                    <md-optgroup label="usuarios">
+                        <md-option ng-value="u" ng-repeat="u in vm.usuarios_jefes | filter:vm.buscar_para">
+                            {{ u.nombres+' '+u.apellidos }}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+            <div flex></div>
+        </div>
+
+        <div flex>
+            <div ng-repeat="p in model[options.key]['para']" ng-init="p.mostrar_cargo= (p.mostrar_cargo==undefined)? true : p.mostrar_cargo">
+                <div>
+                    {{ p.nombres+' '+p.apellidos }}
+                    <span ng-if="!to.disabled">
+                        <md-checkbox class="cargo" ng-model="p.mostrar_cargo" aria-label="cargo">
+                        </md-checkbox>
+                        <md-tooltip>{{(p.mostrar_cargo)? 'Ocultar ': 'Mostrar '}}cargo</md-tooltip>
+                    </span>
+                    <md-icon class="ap-cursor-pointer" ng-click="vm.moverUsuario($index,'down','para')" ng-if=" $index!=(model[options.key]['para'].length-1) && !to.disabled ">
+                        arrow_downward
+                        <md-tooltip>
+                            Bajar
+                        </md-tooltip>
+                    </md-icon>
+                    <md-icon class="ap-cursor-pointer" ng-click="vm.moverUsuario($index,'up','para')" ng-if=" $index!=0 && !to.disabled ">
+                        arrow_upward
+                        <md-tooltip>
+                            Subir
+                        </md-tooltip>
+                    </md-icon>
+                </div>
+                <span ng-if="p.mostrar_cargo">
+                    {{ p.cargo }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div layout ng-if="to.show.via">
+        <div ng-class="'flex-'+to.labelw" layout="column">
+            <div class="label" flex layout layout-align="start start">
+                <span class="ap-cursor-pointer" ng-click="vm.openSelect($event, 'via')"> <span>VÍA:</span> </span>
+            </div>
+            <md-input-container class="input-search" ng-show="vm.show_via">
+                <label>Usuarios</label>
+                <md-select ng-model="model[options.key]['via']" name="select_via"
+                    md-on-close="vm.buscar_via=''; vm.show_via=false;"
+                    data-md-container-class="select-search"
+                    multiple>
+                    <md-select-header class="select-header">
+                        <input ng-model="vm.buscar_via"
+                        type="search"
+                        placeholder="Buscar .."
+                        class="header-searchbox md-text">
+                    </md-select-header>
+                    <md-optgroup label="usuarios">
+                        <md-option ng-value="u" ng-repeat="u in vm.usuarios_jefes | filter:vm.buscar_via">
+                            {{ u.nombres+' '+u.apellidos }}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+            <div flex></div>
+        </div>
+        <div flex>
+            <div ng-repeat="p in model[options.key]['via']" ng-init="p.mostrar_cargo= (p.mostrar_cargo==undefined)? true : p.mostrar_cargo">
+                <div>
+                    {{ p.nombres+' '+p.apellidos }}
+                    <span ng-if="!to.disabled">
+                        <md-checkbox class="cargo" ng-model="p.mostrar_cargo" aria-label="cargo">
+                        </md-checkbox>
+                        <md-tooltip>{{(p.mostrar_cargo)? 'Ocultar ': 'Mostrar '}}cargo</md-tooltip>
+                    </span>
+                    <md-icon class="ap-cursor-pointer" ng-click="vm.moverUsuario($index,'down','via')" ng-if=" $index!=(model[options.key]['via'].length-1) && !to.disabled ">
+                        arrow_downward
+                        <md-tooltip>
+                            Bajar
+                        </md-tooltip>
+                    </md-icon>
+                    <md-icon class="ap-cursor-pointer" ng-click="vm.moverUsuario($index,'up','via')" ng-if=" $index!=0 && !to.disabled ">
+                        arrow_upward
+                        <md-tooltip>
+                            Subir
+                        </md-tooltip>
+                    </md-icon>
+                </div>
+                <span ng-if="p.mostrar_cargo">
+                    {{ p.cargo }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div layout ng-if="to.show.de">
+        <div ng-class="'flex-'+to.labelw" layout="column">
+            <div class="label" flex layout layout-align="start start">
+                <span class="ap-cursor-pointer" ng-click="vm.openSelect($event, 'de')"><span>DE:</span> </span>
+            </div>
+            <md-input-container class="input-search" ng-show="vm.show_de">
+                <label>Usuarios</label>
+                <md-select ng-model="model[options.key]['de']" name="select_de"
+                    md-on-close="vm.buscar_de=''; vm.show_de=false;"
+                    data-md-container-class="select-search"
+                    multiple>
+                    <md-select-header class="select-header">
+                        <input ng-model="vm.buscar_de"
+                        type="search"
+                        placeholder="Buscar .."
+                        class="header-searchbox md-text">
+                    </md-select-header>
+                    <md-optgroup label="usuarios">
+                        <md-option ng-value="u" ng-repeat="u in vm.usuarios | filter:vm.buscar_de">
+                            {{ u.nombres+' '+u.apellidos }}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+            <div flex></div>
+        </div>
+        <div flex>
+            <div ng-repeat="p in model[options.key]['de']" ng-init="p.mostrar_cargo= (p.mostrar_cargo==undefined)? true : p.mostrar_cargo">
+                <div>
+                    {{ p.nombres+' '+p.apellidos }}
+                    <span ng-if="!to.disabled">
+                        <md-checkbox class="cargo" ng-model="p.mostrar_cargo" aria-label="cargo">
+                        </md-checkbox>
+                        <md-tooltip>{{(p.mostrar_cargo)? 'Ocultar ': 'Mostrar '}}cargo</md-tooltip>
+                    </span>
+                    <md-icon class="ap-cursor-pointer" ng-click="vm.moverUsuario($index,'down','de')" ng-if=" $index!=(model[options.key]['de'].length-1) && !to.disabled ">
+                        arrow_downward
+                        <md-tooltip>
+                            Bajar
+                        </md-tooltip>
+                    </md-icon>
+                    <md-icon class="ap-cursor-pointer" ng-click="vm.moverUsuario($index,'up','de')" ng-if=" $index!=0 && !to.disabled ">
+                        arrow_upward
+                        <md-tooltip>
+                            Subir
+                        </md-tooltip>
+                    </md-icon>
+                </div>
+                <span ng-if="p.mostrar_cargo">
+                    {{ p.cargo }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div layout ng-if="to.show.ref">
+        <div ng-class="'flex-'+to.labelw" layout="column">
+            <div class="label" flex layout layout-align="start end" >
+                <span>{{to.labelRef}}</span>
+            </div>
+            <div flex></div>
+        </div>
+        <div flex>
+            <md-input-container style="width: 100%">
+                <input name="ref" ng-model="model[options.key]['ref']" required md-no-asterisk>
+                <div ng-messages="cabeceraForm.ref.$error">
+                    <div ng-message="required">Debe llenar este campo</div>
+                </div>
+            </md-input-container>
+        </div>
+    </div>
+    <div class="separador"></div>
+
+</form>

@@ -1,0 +1,28 @@
+<md-dialog aria-label="Agregar/Editar" ng-cloak class="login-dialog">
+    <form id="data-form" name="form" ng-submit="answer('login')">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2><md-icon>lock_outline</md-icon> Iniciar su sesión</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <p class="bg-warning-user alert">Su sesión ha expirado, debe iniciarla de nuevo.</p>
+                <md-content layout-gt-sm="column" layout-padding style="overflow: initial;">
+                    <md-input-container>
+                        <label>Nombre de usuario</label>
+                        <md-icon>person</md-icon><input ng-model="data.username" required>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Contraseña</label>
+                        <md-icon>lock</md-icon><input ng-model="data.password" type="password" required>
+                    </md-input-container>
+                    <md-button type="submit" class="md-raised md-primary"  ng-disabled="form.$invalid">
+                        Iniciar sesión
+                    </md-button>
+                </md-content>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

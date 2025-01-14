@@ -1,0 +1,9 @@
+<md-toast class="md-toast-{{type}}">
+    <div class="md-toast-title">
+        <md-icon class="md-toast-icon">{{icon}}</md-icon> {{title}}
+        <md-button class="md-toast-close md-icon-button" aria-label="Close">
+            <md-icon class="md-icon">close</md-icon></md-icon>
+        </md-button>
+    </div>
+    <div class="md-toast-message" ng-bind-html="message"></div>
+</md-toast>

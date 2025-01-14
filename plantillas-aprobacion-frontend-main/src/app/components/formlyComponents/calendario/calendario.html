@@ -1,0 +1,20 @@
+<div layout layout-align="start start" class="calendario ">
+  <div >
+<label flex layout layout-align="start start">{{to.label}}</label>
+    <div>
+      <md-input-container flex >
+          <md-datepicker ng-model ="model[options.key]"      
+            md-min-date="to.minDate"
+            md-max-date="to.maxDate"
+            ng-required="to.required" 
+            md-no-asterisk ng-disabled="to.disabled"
+          ></md-datepicker>
+          <div ng-messages="fc.$error">
+              <div ng-message="required">Debe llenar este campo</div>
+              <div ng-message="mindate">La fecha no se encuentra en el rango</div>
+              <div ng-message="maxdate">La fecha no se encuentra en el rango</div>
+          </div>
+        </md-input-container>
+    </div>
+  </div>
+</div>

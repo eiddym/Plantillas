@@ -1,0 +1,21 @@
+.component-palette-formly {
+    .header-accordion {
+        .titulo {
+            padding-left: 4px;
+        }
+    }
+    .body-accordion > .submenu {
+        padding: 0px;
+        margin: 2px;
+        div.li-text {
+            padding: 0px;
+            margin: 2px;
+        }
+        .button-mini {
+            transform: scale(0.7);
+            md-icon {
+                transform: scale(1.3);
+            }
+        }
+    }
+}

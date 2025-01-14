@@ -1,0 +1,14 @@
+.loading-progress {
+    display: none;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+}
+md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {
+	background-color: lighten($colorPrimary, 80%);
+}
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
+	background-color: lighten($colorPrimary, 10%);
+}

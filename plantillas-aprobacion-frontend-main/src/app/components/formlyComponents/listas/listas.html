@@ -1,0 +1,15 @@
+<div layout>
+    <div flex ng-if="to.className=='ap-text-right' || to.className=='ap-text-center'"></div>
+
+    <div>
+        <span>{{to.label}}</span>
+        <ul ng-if="to.tipo=='ul'">
+            <li ng-repeat="i in to.options"> {{i}} </li>
+        </ul>
+        <ol ng-if="to.tipo=='ol'">
+            <li ng-repeat="i in to.options"> {{i}} </li>
+        </ol>
+    </div>
+
+    <div flex ng-if="to.className=='ap-text-center'"></div>
+</div>

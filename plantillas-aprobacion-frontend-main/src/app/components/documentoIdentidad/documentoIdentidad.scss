@@ -1,0 +1,17 @@
+.md-raised.md-primary.doc-identidad-button {
+    height: 36px;
+}
+.doc-identidad-tipo {
+    width: 180px;
+}
+.alert.alert-info.doc-identidad-cedula-info {
+	display: inline-block;
+    font-size: 0.7rem;
+    padding: 6px 10px;
+    &.display {
+    	display: block;
+    }
+}
+.doc-identidad, .container-main .doc-identidad {
+	margin: 0;
+}

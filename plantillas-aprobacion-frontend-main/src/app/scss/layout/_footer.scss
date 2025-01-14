@@ -1,0 +1,31 @@
+// _footer.scss..................Page footer.
+
+.no-login {
+    footer {
+        color: #eee;
+        text-align: center;
+
+        a {
+            color: #eee;
+        }
+        span {
+            padding: 3px 5px;
+            background-color: transparent;
+        }
+    }
+}
+
+footer {
+    bottom: 0;
+    color: #333;
+    font-size: 0.75rem;
+    margin: 0 20px 5px;
+    text-align: right;
+    a {
+        color: $colorPrimary;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

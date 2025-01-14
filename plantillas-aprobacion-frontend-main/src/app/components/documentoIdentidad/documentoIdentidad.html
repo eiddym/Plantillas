@@ -1,0 +1,25 @@
+<div class="doc-identidad">	
+	<md-input-container class="doc-identidad-tipo" ng-if="vm.onlyCi === undefined || !vm.onlyCi">
+		<label>Tipo de documento</label>
+		<md-select ng-model="vm.tipo_documento" required ng-disabled="vm.ngDisabled">
+			<md-option ng-repeat="option in vm.tipos" value="{{option.value}}">
+				{{option.name}}
+			</md-option>
+		</md-select>
+	</md-input-container>
+	<div class="alert alert-info doc-identidad-cedula-info" ng-class="{display: vm.onlyCi}" ng-if="vm.tipo_documento == 'CI' && !vm.ngDisabled"><md-icon>info_outline </md-icon> Ingrese número de documento, complemento y fecha de nacimiento para su búsqueda.</div>
+	<div layout="row" class="form-horizontal">
+		<md-input-container>
+			<label>Número de documento</label>
+			<input ng-model="vm.nro_documento" required ng-disabled="vm.ngDisabled">
+		</md-input-container>
+		<md-input-container ng-if="vm.tipo_documento == 'CI'">
+			<label>Complemento</label>
+			<input ng-model="vm.complemento" ng-disabled="vm.ngDisabled">
+		</md-input-container>
+		<md-select-date ng-model="vm.fecha_nacimiento" ng-label="Fecha de nacimiento:" ng-disabled="vm.ngDisabled" ng-required="true"></md-select-date>		
+		<md-button class="md-raised md-primary doc-identidad-button" ng-click="vm.search()" ng-disabled="vm.isDisabled()" ng-if="!vm.ngDisabled && vm.tipo_documento == 'CI'">
+			<md-icon>search</md-icon> Buscar
+		</md-button>
+	</div>
+</div>

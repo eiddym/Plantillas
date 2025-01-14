@@ -1,0 +1,42 @@
+<md-dialog aria-label="Error" class="formly-dialog-error" style="max-width: 800px; width: 100%;" >
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+          <h2><md-icon>error</md-icon> Error</h2>
+          <span flex></span>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Cerrar" ng-click="cerrar()">
+              <md-tooltip>Cerrar</md-tooltip>
+              <md-icon aria-label="Close dialog">close</md-icon>
+          </md-button>
+      </div>
+  </md-toolbar>
+  <md-dialog-content class="md-dialog-content">
+
+    <div class="" ng-if="data.tipo=='formu'">
+      Debe completar los datos de todos los campos requeridos del documento para poder enviarlo. <br><br>
+
+      Los campos requeridos tienen un (*) y se muestran con una linea roja.
+
+
+    </div>
+    <div class="" ng-if="data.tipo=='timeZone'">
+      Esta plantilla tiene fechas para llenar y la zona horaria de su ordenador no es la correcta.
+      <br><br>
+      Por favor configure la zona horaria a UTC-4, La Paz - Bolivia, para evitar futuros errores de impresión.
+      <br><br>
+      Si usted no sabe configurar la zona horaria, puede pedir ayuda al personal de soporte técnico.
+
+    </div>
+
+    <br>
+
+  </md-dialog-content>
+
+  <md-dialog-actions>
+      <span flex></span>
+
+      <md-button class="md-raised" ng-click="cerrar()">
+          <md-icon>check</md-icon> Aceptar
+      </md-button>
+  </md-dialog-actions>
+</md-dialog>

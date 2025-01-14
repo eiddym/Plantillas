@@ -1,0 +1,97 @@
+<md-dialog aria-label="Firmar Digitalmente" class="formly-dialog formly-column-{{column}}" style="max-width: 700px; width: 100%;">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2><md-icon>done_all</md-icon> Firmar documentos</h2>
+      <span flex></span>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content class="md-dialog-content">
+    <div ng-if="iniciado === false">
+      Iniciando...
+    </div>
+
+    <div ng-if="iniciado === true">
+      <div ng-if="!demofi_ejecutandose" class="alert alert-warning" ng-if="data.certificado === null">
+        <i class="fa fa-warning"></i>
+        <span> Demofi no se está ejecutando en su equipo o no tiene agregado el certificado de seguridad en su navegador.</span>
+        <br/>
+        <ul>
+            <li>
+                <span>Visite el siguiente enlace para su instalación y/o configuración. Presione
+                <a target="_blank" href="http://test.local.agetic.gob.bo/firmador/#">aquí</a>.
+                <help message="helpMessage.demofi_no_instalado"></help>
+                </span>
+            </li>
+            <li>
+                <span>Para verificar que el certificado de seguridad de Demofi se encuentra instalado. Presione
+                <a href="#" ng-click="verificarServidor()">aquí</a>.</span>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+    <div layout="row" ng-if="demofi_ejecutandose">
+      <div flex layout-align="center center">
+        <img class="img-certificado" src="assets/images/certificate.png">
+      </div>
+      <div flex="66">
+        <br>
+        <div ng-if="demofi_ejecutandose">
+          <span style="font-weight: bold">TOKEN: </span>
+          <span ng-if="tokens.length == 0">
+            Conecte su token
+          </span>
+          <span ng-repeat="tokenName in tokens">
+            <span>{{tokenName}}</span>
+          </span>
+        </div>
+        <br>
+        <div flex-gt-xs>
+          <md-input-container>
+            <label>PIN:</label>
+            <md-icon>vpn_key</md-icon>
+            <input name="pin" type="password" class="form-control" ng-model="formData.pin" ng-disabled="!token_conectado" required />
+          </md-input-container>
+          <md-button class="md-raised md-primary" ng-click="autenticar()" ng-disabled="!token_conectado || autenticado ">
+            <md-icon>verified_user</md-icon>
+            Autenticar
+          </md-button>
+        </div>
+        <md-input-container>
+          <label>CERTIFICADO DIGITAL:</label>
+          <md-icon>content_copy</md-icon>
+          <md-select ng-model="formData.certificado_seleccionado" required ng-disabled="!autenticado">
+            <md-option ng-repeat="(index, cer) in certificados" value="{{cer}}" ng-select="index == 1 && formData.uniqueValue">
+              {{cer.nombreComunSubject}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
+    <h4 ng-if="documentosParaFirmar.length > 0">Se firmarán los siguientes documentos:</h4>
+    <h4 ng-if="documentosParaFirmar.length == 0">No se seleccionaron documentos para firmar</h4>
+
+    <span class="chip {{yaFirmo ? doc.class : 'enCola'}}" ng-repeat="doc in documentosParaFirmar">
+      {{doc.nombre}}
+    </span>
+
+    <h4 ng-if="yaFirmo ==true">Se firmaron
+      <strong>{{firmados}}</strong> documentos de
+      <strong>{{documentosParaFirmar.length}}</strong>.
+    </h4>
+  </md-dialog-content>
+
+  <md-dialog-actions>
+    <div flex></div>
+    <md-button class="md-raised md-secondary" ng-click="cancelar()">
+      <md-icon>cancel</md-icon>
+      <span>{{yaFirmo==true? 'Listo': 'Cancelar'}}</span>
+    </md-button>
+    <md-button class="md-raised md-primary" ng-click="firmar()" ng-disabled="(documentosParaFirmar.length == 0) || !token_conectado|| !autenticado || yaFirmo">
+      <md-icon>check</md-icon>
+      <span>Firmar</span>
+    </md-button>
+  </md-dialog-actions>
+
+</md-dialog>

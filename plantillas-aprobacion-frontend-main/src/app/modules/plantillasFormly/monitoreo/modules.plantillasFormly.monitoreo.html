@@ -1,0 +1,466 @@
+<div class="container container-monitoreo">
+    <md-card>
+        <md-toolbar class="md-table-toolbar">
+            <div class="md-toolbar-tools">
+                <md-icon>grid_on</md-icon> <span>Monitoreo</span>
+                <div flex></div>
+                <md-button class="md-icon-button" ng-click="monitoreo.refrescarChart()">
+                    <md-tooltip>Actualizar</md-tooltip>
+                    <md-icon>refresh</md-icon>
+                </md-button>
+                <md-button class="md-icon-button btn-collapsed">
+                    <md-tooltip>Ocultar/Ver</md-tooltip>
+                    <md-icon>keyboard_arrow_down</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-card-content>
+            <div layout="column" layout-gt-sm style="margin-top: 15px">
+                <div>
+                    <md-input-container>
+                        <label>Gráfico</label>
+                        <md-select ng-model="monitoreo.grafico" placeholder="Selecciona que grafico ver" ng-change="monitoreo.reiniciarChart()">
+                            <md-option ng-value="g" ng-repeat="g in monitoreo.graficos">{{g.nombre}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container ng-if="monitoreo.grafico.cod==4 || monitoreo.grafico.cod==7 || monitoreo.grafico.cod==8">
+                        <label>Gestión</label>
+                        <md-select ng-model="monitoreo.gestion" ng-change="monitoreo.refrescarChart()">
+                            <md-option ng-value="$index" ng-repeat="a in monitoreo.gestiones">{{a.gestion}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container ng-if="[4, 5, 6, 7, 8, 9].indexOf(monitoreo.grafico.cod) == -1">
+                        <label>Año</label>
+                        <md-select ng-model="monitoreo.anio" ng-change="monitoreo.refrescarChart()">
+                            <md-option ng-value="$index" ng-repeat="a in monitoreo.anios">{{a}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container ng-if="monitoreo.grafico.cod === 9">
+                        <label>Año</label>
+                        <md-select ng-model="monitoreo.anioContable" ng-change="monitoreo.refrescarChart()">
+                            <md-option ng-value="$index" ng-repeat="a in monitoreo.aniosContables">{{a}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container ng-if="monitoreo.grafico.cod!==4 && monitoreo.grafico.cod!=5 && monitoreo.grafico.cod!=6 && monitoreo.grafico.cod!=7 && monitoreo.grafico.cod!=8 && monitoreo.grafico.cod!=9">
+                        <label>Mes</label>
+                        <md-select ng-model="monitoreo.mes" ng-change="monitoreo.refrescarChart()">
+                            <md-option ng-value="$index" ng-repeat="m in monitoreo.meses">{{m}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container ng-if="monitoreo.grafico.cod===9">
+                        <label>Tipo documento</label>
+                        <md-select ng-model="monitoreo.tipoInformePago" ng-change="monitoreo.refrescarChart()">
+                            <md-option ng-value="$index" ng-repeat="m in monitoreo.docsContables">{{m}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="input-search" ng-if="monitoreo.grafico.cod==3">
+                        <label>Usuarios</label>
+                        <md-select ng-model="monitoreo.usuario" ng-change="monitoreo.refrescarChart()">
+                            <md-option ng-value="u.id_usuario" ng-repeat="u in monitoreo.usuarios | filter:monitoreo.usuario_buscar">
+                                {{u.usuario}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="input-search" ng-if="monitoreo.grafico.cod==3">
+                        <label>Nombres</label>
+                        <md-select ng-model="monitoreo.usuario" ng-change="monitoreo.refrescarChart()">
+                            <md-option ng-value="u.id_usuario" ng-repeat="u in monitoreo.usuarios | filter:monitoreo.usuario_buscar">
+                                {{u.nombres}} {{u.apellidos}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <div class="paginador" ng-if="[0, 4, 5, 6, 7, 8, 9].indexOf(monitoreo.grafico.cod) == -1 ">
+                    <!-- <div class="paginador" ng-if="monitoreo.grafico.cod!=0 && monitoreo.grafico.cod!=4 && monitoreo.grafico.cod!=5 && monitoreo.grafico.cod!=6 && monitoreo.grafico.cod!=7 && monitoreo.grafico.cod!=8"> -->
+                        <md-button ng-click="monitoreo.paginar('aa')" ng-disabled="monitoreo.page<=1"><md-icon>first_page</md-icon></md-button>
+                        <md-button ng-click="monitoreo.paginar('a')" ng-disabled="monitoreo.page<=1"><md-icon>chevron_left</md-icon></md-button>
+                        <md-input-container >
+                            <label>Intervalo</label>
+                            <input ng-model="monitoreo.page_text" size="7" disabled>
+                        </md-input-container>
+                        <md-button ng-click="monitoreo.paginar('s')" ng-disabled="monitoreo.page*20>=monitoreo.page_tot"><md-icon>chevron_right</md-icon></md-button>
+                        <md-button ng-click="monitoreo.paginar('ss')" ng-disabled="monitoreo.page*20>=monitoreo.page_tot"><md-icon>last_page</md-icon></md-button>
+                    </div>
+                    <md-input-container ng-if="monitoreo.grafico.cod==5">
+                        <label>Fecha Inicial</label>
+                        <md-datepicker ng-model="monitoreo.fechaInicial" md-placeholder="Fecha Inicial" ng-change="monitoreo.reiniciarChart()"></md-datepicker>
+                    </md-input-container>
+                    <md-input-container ng-if="monitoreo.grafico.cod==5">
+                        <label>Fecha Final</label>
+                        <md-datepicker ng-model="monitoreo.fechaFinal" md-placeholder="Fecha Final" ng-change="monitoreo.reiniciarChart()"></md-datepicker>
+                    </md-input-container> 
+                </div>
+                <div flex></div>
+                <div style="float:right;" ng-if="monitoreo.grafico.cod==4 ">
+                    <md-button class="md-fab md-primary" ng-csv="monitoreo.filasPresupuesto()" field-separator="|" 
+                    csv-header="monitoreo.cabeceraPresupuesto()" filename="Presupuesto.csv" >
+                        <md-icon>library_books</md-icon>
+                        <md-tooltip md-direction="left">Exportar a CSV</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-primary" ng-click="monitoreo.generarPDF()">
+                        <md-icon>picture_as_pdf</md-icon>
+                        <md-tooltip md-direction="left">Exportar a PDF</md-tooltip>
+                    </md-button>
+                </div>
+                <div style="float:right;" ng-if="monitoreo.grafico.cod===9 ">
+                    <md-button class="md-fab md-primary" ng-csv="monitoreo.filasPresupuesto()" field-separator="|" 
+                    csv-header="monitoreo.cabeceraPresupuesto()" filename="{{monitoreo.generarNombre('ABC')}}.csv" >
+                        <md-icon>library_books</md-icon>
+                        <md-tooltip md-direction="left">Exportar a CSV</md-tooltip>
+                    </md-button>
+                </div>
+            </div>
+            <div layout layout-align="center start" ng-if="[4, 5, 6, 7, 8, 9].indexOf(monitoreo.grafico.cod) == -1">
+                <chart-graph ancho="1000" alto="500" tipo="monitoreo.chart.tipo" datos="monitoreo.chart.datos" actualizar="monitoreo.chart.actualizar" reiniciar="monitoreo.chart.reiniciar" ></chart-graph>
+            </div>
+            
+            <!--Presupuesto-->
+            <div ng-if="monitoreo.grafico.cod==4">
+                <div flex style="float:right">
+                    <md-checkbox ng-repeat="header in monitoreo.headers" ng-model="header.mostrar" aria-label="Mostrar/Ocultar" ng-if="!header.mostrar"> 
+                        {{header.title}}                    
+                    </md-checkbox>                    
+                </div>
+                <md-table-container>
+                    <table md-table ng-model="selected" md-progress="promise">
+                        <thead md-head>
+                            <tr md-row>
+                                <th ng-repeat="header in monitoreo.headers" md-column ng-if="header.mostrar">
+                                    <span>
+                                        <md-checkbox ng-model="header.mostrar" aria-label="Mostrar/Ocultar"></md-checkbox>
+                                        <md-tooltip md-direction="bottom">Ocultar esta columna</md-tooltip>                                                                                                                                       
+                                        <md-button ng-click="monitoreo.ordenarPor = header.name;  monitoreo.ordenInverso = !monitoreo.ordenInverso">{{header.title}}
+                                            <md-icon ng-show="monitoreo.ordenarPor == header.name && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                            <md-icon ng-show="monitoreo.ordenarPor == header.name && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                        </md-button>                                        
+                                    </span>   
+                                    <md-input-container class="md-block" flex-gt-sm ng-show="header.name === 'numero'">                                          
+                                        <input ng-model="monitoreo.busqueda.numero" >           
+                                    </md-input-container>                              
+                                    <md-input-container class="md-block" flex-gt-sm ng-show="header.name === 'descripcion'">                                         
+                                        <input ng-model="monitoreo.busqueda.descripcion" >                                        
+                                    </md-input-container>                                    
+                                    <div style="height: 65px; width: 20px; border: 0px solid red" ng-show="header.name !== 'descripcion' && header.name !== 'numero'"> </div>
+                                </th>                       
+                            </tr>                           
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="item" ng-repeat="item in monitoreo.items | orderBy:monitoreo.ordenarPor:monitoreo.ordenInverso | filter:monitoreo.busqueda">                        
+                                <td md-cell ng-if="monitoreo.mostrarOcultar('numero')" style="text-align: right">{{item.numero.replace(',00', '') }}</td>
+                                <td md-cell ng-if="monitoreo.mostrarOcultar('descripcion')">{{item.descripcion}}</td>
+                                <td md-cell ng-if="monitoreo.mostrarOcultar('inicial')" style="text-align: right">{{item.inicial}}</td>
+                                <td md-cell ng-if="monitoreo.mostrarOcultar('comprometido')" style="text-align: right">{{item.comprometido}}</td>
+                                <td md-cell ng-if="monitoreo.mostrarOcultar('pagado')" style="text-align: right">{{item.pagado}}</td>
+                                <td md-cell ng-if="monitoreo.mostrarOcultar('modificado')" style="text-align: right">{{item.modificado}}</td>
+                                <td md-cell ng-if="monitoreo.mostrarOcultar('vigente')" style="text-align: right">{{item.vigente}}</td>
+                                <td md-cell ng-if="monitoreo.mostrarOcultar('saldo')" style="text-align: right">{{item.saldo}}</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </md-table-container>
+            </div>
+              
+            <!--Documentos por estado y usuario-->
+            <div ng-if="monitoreo.grafico.cod==5">  
+                <md-table-container>
+                    <table md-table ng-model="selected" md-progress="promise">
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor = 'nombres'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Usuario
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'nombres' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'nombres' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor = 'CREADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Creados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'CREADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'CREADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='ENVIADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Enviados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'ENVIADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'ENVIADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='DERIVADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Derivados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'DERIVADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'DERIVADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='APROBADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Aprobados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'APROBADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'APROBADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='RECHAZADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Rechazados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'RECHAZADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'RECHAZADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='CERRADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Cerrados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'CERRADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'CERRADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='ELIMINADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Eliminados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'ELIMINADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'ELIMINADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                       
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="item" ng-repeat="item in monitoreo.estados | orderBy:monitoreo.ordenarPor:monitoreo.ordenInverso ">                        
+                                <td md-cell>{{item.nombres}} {{item.apellidos}}</td>                           
+                                <td md-cell style="text-align: left; padding-left:20px; background-color: rgb({{255-item.CREADO}}, 255 ,{{255+item.CREADO}})">{{item.CREADO}}</td>                           
+                                <td md-cell style="text-align: left; padding-left:20px; background-color: rgb({{255-item.ENVIADO}}, 255 , {{255+item.ENVIADO}})">{{item.ENVIADO}}</td>                           
+                                <td md-cell style="text-align: left; padding-left:20px; background-color: rgb({{255-item.DERIVADO}}, 255 ,{{255+item.DERIVADO}})">{{item.DERIVADO}}</td>                           
+                                <td md-cell style="text-align: left; padding-left:20px; background-color: rgb({{255-item.APROBADO}}, 255 ,{{255+item.APROBADO}})">{{item.APROBADO}}</td>                           
+                                <td md-cell style="text-align: left; padding-left:20px; background-color: rgb({{255-item.RECHAZADO}}, 255 ,{{255+item.RECHAZADO}})">{{item.RECHAZADO}}</td>                           
+                                <td md-cell style="text-align: left; padding-left:20px; background-color: rgb({{255-item.CERRADO}}, 255 ,{{255+item.CERRADO}})">{{item.CERRADO}}</td>                           
+                                <td md-cell style="text-align: left; padding-left:20px; background-color: rgb({{255-item.ELIMINADO}}, 255 ,{{255+item.ELIMINADO}})">{{item.ELIMINADO}}</td>                            
+                            </tr>
+                        </tbody>
+                    </table> 
+                </md-table-container>
+            </div>
+            
+            <!--Documentos pendientes por usuario-->
+            <div ng-if="monitoreo.grafico.cod==6">  
+                <md-table-container>
+                    <table md-table ng-model="selected" md-progress="promise">
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='nombres'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Usuario
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'nombres' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'nombres' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='ENVIADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Enviados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'ENVIADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'ENVIADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>
+                                <th md-column>
+                                     <md-button ng-click="monitoreo.ordenarPor='RECHAZADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Rechazados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'RECHAZADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'RECHAZADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='DERIVADO'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Derivados
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'DERIVADO' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'DERIVADO' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                                                   
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='total'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Total pendientes
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'total' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'total' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                </th>                                                   
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="item" ng-repeat="item in monitoreo.pendientes | orderBy:monitoreo.ordenarPor:monitoreo.ordenInverso ">                        
+                                <td md-cell>{{item.nombres}} {{item.apellidos}}</td>                           
+                                <td md-cell>{{item.ENVIADO}}</td>                                                       
+                                <td md-cell>{{item.RECHAZADO}}</td>                           
+                                <td md-cell>{{item.DERIVADO}}</td>    
+                                <td md-cell>{{item.total}}</td> 
+                            </tr>
+                        </tbody>
+                    </table> 
+                </md-table-container>
+            </div>
+            
+            <!--Comprometido-->
+            <div ng-if="monitoreo.grafico.cod==7">  
+                <md-table-container>
+                    <table md-table ng-model="selected" md-progress="promise">
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='numero'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Número
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'numero' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'numero' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <md-input-container class="md-block" flex-gt-sm>                                          
+                                        <input ng-model="monitoreo.busqueda.numero" >           
+                                    </md-input-container>                                       
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='descripcion'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Descripción
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'descripcion' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'descripcion' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <md-input-container class="md-block" flex-gt-sm>                                          
+                                        <input ng-model="monitoreo.busqueda.descripcion" >           
+                                    </md-input-container> 
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='monto'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Monto
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'monto' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'monto' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <div style="height: 65px; width: 20px; border: 0px solid red"> </div>
+                                </th>                       
+                                <th md-column>                                    
+                                    <md-button ng-click="monitoreo.ordenarPor='cite'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Documento relacionado
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'cite' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'cite' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <div style="height: 65px; width: 20px; border: 0px solid red"> </div>
+                                </th>                       
+                                <th md-column>                                    
+                                    <md-button ng-click="monitoreo.ordenarPor='_fecha_creacion'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Fecha del comprometido
+                                        <md-icon ng-show="monitoreo.ordenarPor == '_fecha_creacion' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == '_fecha_creacion' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <md-input-container class="md-block" flex-gt-sm>                                          
+                                        <input ng-model="monitoreo.busqueda._fecha_creacion" >           
+                                    </md-input-container> 
+                                </th>                                                       
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="item" ng-repeat="item in monitoreo.comprometido | orderBy:monitoreo.ordenarPor:monitoreo.ordenInverso | filter:monitoreo.busqueda">                        
+                                <td md-cell style="text-align: right">{{item.numero}}</td>
+                                <td md-cell>{{item.descripcion}}</td>
+                                <td md-cell style="text-align: right">{{item.monto}}</td>
+                                <td md-cell>                                 
+                                    <md-button ng-click="monitoreo.vistaPrevia(item.id_documento)">{{item.cite}}</md-button>
+                                </td>
+                                <td md-cell>{{item._fecha_creacion |date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </md-table-container>
+            </div>
+            
+            <!--Pagado-->
+            <div ng-if="monitoreo.grafico.cod==8">  
+                <md-table-container>
+                    <table md-table ng-model="selected" md-progress="promise">
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='numero'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Número
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'numero' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'numero' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <md-input-container class="md-block" flex-gt-sm>                                          
+                                        <input ng-model="monitoreo.busqueda.numero" >           
+                                    </md-input-container>                                       
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='descripcion'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Descripción
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'descripcion' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'descripcion' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <md-input-container class="md-block" flex-gt-sm>                                          
+                                        <input ng-model="monitoreo.busqueda.descripcion" >           
+                                    </md-input-container> 
+                                </th>                       
+                                <th md-column>
+                                    <md-button ng-click="monitoreo.ordenarPor='monto'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Monto
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'monto' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'monto' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <div style="height: 65px; width: 20px; border: 0px solid red"> </div>
+                                </th>                       
+                                <th md-column>                                    
+                                    <md-button ng-click="monitoreo.ordenarPor='cite_ref'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Documento relacionado
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'cite_ref' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == 'cite_ref' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <div style="height: 65px; width: 20px; border: 0px solid red"> </div>
+                                </th>                       
+                                <th md-column>                                    
+                                    <md-button ng-click="monitoreo.ordenarPor='_fecha_creacion'; monitoreo.ordenInverso = !monitoreo.ordenInverso">Fecha del comprometido
+                                        <md-icon ng-show="monitoreo.ordenarPor == '_fecha_creacion' && !monitoreo.ordenInverso"> keyboard_arrow_down </md-icon>
+                                        <md-icon ng-show="monitoreo.ordenarPor == '_fecha_creacion' && monitoreo.ordenInverso"> keyboard_arrow_up </md-icon>
+                                    </md-button>
+                                    <md-input-container class="md-block" flex-gt-sm>                                          
+                                        <input ng-model="monitoreo.busqueda._fecha_creacion" >           
+                                    </md-input-container> 
+                                </th>                                                       
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="item" ng-repeat="item in monitoreo.pagado | orderBy:monitoreo.ordenarPor:monitoreo.ordenInverso | filter:monitoreo.busqueda">                        
+                                <td md-cell style="text-align: right">{{item.numero}}</td>
+                                <td md-cell>{{item.descripcion}}</td>
+                                <td md-cell style="text-align: right">{{item.monto}}</td>
+                                <td md-cell>                                 
+                                    <md-button ng-click="monitoreo.vistaPrevia(item.id_documento)">{{item.cite_ref}}</md-button>
+                                </td>
+                                <td md-cell>{{item._fecha_creacion |date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </md-table-container>
+            </div>
+            <div ng-if="monitoreo.grafico.cod===9">
+                <div class="infoContable">
+                    <div><strong>IPV</strong>: Informe de pago de viáticos</div>
+                    <div><strong>IPBS</strong>: Informe de pago de bienes y servicios</div>
+                    <div><strong>IPSPCL-A</strong>: Informe de pago de servicios personales y consultorias de linea</div>
+                </div>
+                <div flex style="float:right">
+                <md-checkbox ng-repeat="header in monitoreo.headers" ng-model="header.mostrar" aria-label="Mostrar/Ocultar" ng-if="!header.mostrar">
+                    {{header.title}}
+                </md-checkbox>
+                </div>
+                <md-table-container>
+                <table md-table ng-model="selected" md-progress="promise">
+                    <thead md-head>
+                    <tr md-row>
+                        <th ng-repeat="header in monitoreo.headers" md-column ng-if="header.mostrar">
+                        <span>
+                            <md-checkbox ng-model="header.mostrar" aria-label="Mostrar/Ocultar"></md-checkbox>
+                            <md-tooltip md-direction="bottom">Ocultar esta columna</md-tooltip>
+                            <md-button ng-click="monitoreo.ordenarPor = header.name;  monitoreo.ordenInverso = !monitoreo.ordenInverso">{{header.title}}
+                            <md-icon ng-show="monitoreo.ordenarPor == header.name && !monitoreo.ordenInverso"> keyboard_arrow_down
+                            </md-icon>
+                            <md-icon ng-show="monitoreo.ordenarPor == header.name && monitoreo.ordenInverso"> keyboard_arrow_up
+                            </md-icon>
+                            </md-button>
+                        </span>
+                        <md-input-container class="md-block" flex-gt-sm ng-show="header.name === 'cite'">
+                            <input ng-model="monitoreo.busqueda.cite">
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm ng-show="header.name === 'detalle'">
+                            <input ng-model="monitoreo.busqueda.detalle">
+                        </md-input-container>
+                        <div style="height: 65px; width: 20px; border: 0px solid red" ng-show="header.name !== 'detalle' && header.name !== 'cite'">
+                        </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row md-select="item" ng-repeat="item in monitoreo.items | orderBy:monitoreo.ordenarPor:monitoreo.ordenInverso | filter:monitoreo.busqueda">
+                        <td md-cell ng-if="monitoreo.mostrarOcultar('cite')" style="text-align: right">{{item.cite}}</td>
+                        <td md-cell ng-if="monitoreo.mostrarOcultar('detalle')">{{item.detalle}}</td>
+                        <td md-cell ng-if="monitoreo.mostrarOcultar('c31')" style="text-align: right">{{item.c31}}</td>
+                        <td md-cell ng-if="monitoreo.mostrarOcultar('importe')" style="text-align: right">{{item.importe}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </md-table-container>
+
+            </div>
+            
+            <br>
+            <br>
+        </md-card-content>
+    </md-card>
+</div>

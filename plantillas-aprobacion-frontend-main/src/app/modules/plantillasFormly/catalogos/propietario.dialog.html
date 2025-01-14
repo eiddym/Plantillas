@@ -1,0 +1,46 @@
+<md-dialog aria-label="Cambiar propietario" 
+  ng-cloak>
+  <form ng-submit="transferir()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2><md-icon>people</md-icon> Cambiar propietario</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+      <md-input-container class="input-search" >
+        <label>Seleccionar propietario</label>
+        <md-select ng-model="usuario" name="select_propietario" required
+          md-on-close="buscarPropietario=''; " data-md-container-class="select-search">
+          <md-select-header class="select-header" flex>
+            <input ng-model="buscarPropietario" placeholder="Buscar nuevo propietario..." class="header-searchbox md-text">
+          </md-select-header>
+          <md-optgroup label="usuarios">
+            <md-option ng-value="u" ng-repeat="u in usuarios | filter:buscarPropietario">
+              {{ u.nombres+' '+u.apellidos }}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+      <br>
+      <span>Documentos a transferir al nuevo propietario</span>
+      <ul>
+        <li ng-repeat="catalogo in listaCatalogos">{{catalogo.nombre}}</li>
+      </ul>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+      <div flex></div>
+      <md-button class="md-raised" ng-click="cerrar()">
+        <md-icon>cancel</md-icon> Cancelar
+      </md-button>
+      <md-button type="submit" class="md-raised md-primary" ng-disabled="form.$invalid">
+        <md-icon>check</md-icon> Transferir
+      </md-button>
+     
+    </md-dialog-actions>
+  </form>
+</md-dialog>

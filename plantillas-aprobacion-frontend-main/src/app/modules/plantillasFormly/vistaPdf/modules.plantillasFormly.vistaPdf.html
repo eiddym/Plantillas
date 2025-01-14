@@ -1,0 +1,25 @@
+<div class="container">
+    <div layout layout-align="center start">
+        <md-card flex-gt-sm="50" flex>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2><md-icon>picture_as_pdf</md-icon> Vista previa</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" aria-label="Ver pdf" ng-click="vistaPdf.verPdf()" ng-show="vistaPdf.flag_html">
+                        <md-tooltip>Ver PDF</md-tooltip>
+                        <md-icon aria-label="Close dialog">picture_as_pdf</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button" aria-label="Ver html" ng-click="vistaPdf.verHtml()" ng-show="!vistaPdf.flag_html">
+                        <md-tooltip>Ver html</md-tooltip>
+                        <md-icon aria-label="Close dialog">code</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                <div ng-show="vistaPdf.flag_html" bind-html-compile="vistaPdf.html"></div>
+                <iframe class="iframe-pdf" src="{{vistaPdf.pdf}}" style="width:100%; height:600px; border: none;" ng-if="vistaPdf.show_pdf && !vistaPdf.flag_html" allowfullscreen></iframe>
+                <div id="canvasContainer" ng-show="!vistaPdf.show_pdf && !vistaPdf.flag_html"></div>
+            </md-card-content>
+        </md-card>
+    </div>
+</div>

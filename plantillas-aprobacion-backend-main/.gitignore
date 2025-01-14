@@ -1,0 +1,19 @@
+logs/*
+node_modules/
+public/informes/*.pdf
+public/plantillas/*.pdf
+public/documentos/*.pdf
+public/externos/*.pdf
+public/apidoc/
+public/documentos/*
+public/aprobacion
+#ingnore config.json
+src/config/config.json
+#ignore config.js
+src/config/config.js
+npm-debug.log
+*.env
+.jshintrc
+.vscode
+#ignore all documents pdf
+public/aprobacion/*.pdf

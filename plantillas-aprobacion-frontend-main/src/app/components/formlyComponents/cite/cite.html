@@ -1,0 +1,29 @@
+<div layout ng-if="!to.tipoMembrete || to.tipoMembrete=='sin membrete'">
+    <div flex layout layout-align="start end" ng-if="(model[options.key] && model[options.key]['cite'])">
+        {{ model[options.key]['cite'] }}
+    </div>
+    <div class="placeholder" flex layout layout-align="start end" ng-if="!(model[options.key] && model[options.key]['cite'])">
+        {{ to.labelCite }}
+    </div>
+    <div flex layout layout-align="end end" ng-if="(model[options.key] && model[options.key]['fecha'])">
+        {{ model[options.key]['fecha'] }}
+    </div>
+    <div class="placeholder" flex layout layout-align="end end" ng-if="!(model[options.key] && model[options.key]['fecha'])">
+        {{ to.labelFecha }}
+    </div>
+</div>
+<div ng-if="to.tipoMembrete=='externo'">
+    <div flex ng-if="(model[options.key] && model[options.key]['fecha'])">
+        {{ model[options.key]['fecha'] }}
+    </div>
+    <div class="placeholder" flex ng-if="!(model[options.key] && model[options.key]['fecha'])">
+        {{ to.labelFecha }}
+    </div>
+    <div flex ng-if="(model[options.key] && model[options.key]['cite'])">
+        {{ model[options.key]['cite'] }}
+    </div>
+    <div class="placeholder" flex ng-if="!(model[options.key] && model[options.key]['cite'])">
+        {{ to.labelCite }}
+    </div>
+</div>
+<br>

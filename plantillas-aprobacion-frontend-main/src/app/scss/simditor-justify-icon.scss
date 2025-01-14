@@ -1,0 +1,60 @@
+.simditor-icon-align-justify {
+    font-family: 'Material Icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.simditor-icon-align-justify:before {
+    content: "\E235";
+}
+
+.simditor .simditor-body, .editor-style {
+    table {
+      td.header {
+        background-color: #f9f9f9;
+        vertical-align: middle;
+        &.active {
+            background-color: #f9f9f9 !important;
+        }
+      }
+      td.active {
+          background-color: #fff !important;
+      }
+    }
+    table.sin-bordes {
+      td {
+          border: 0px;
+      }
+    }
+    li>ol{
+        margin: 8px auto;
+    }
+}
+
+div.simditor-wrapper > div.simditor-toolbar {
+    position: fixed;
+    max-width: 770px;
+    top: 172px;
+    border: 3px solid #d3d3d3;
+    z-index: 3;
+    @media screen and (max-width: 600px) {
+        max-width: 300px;
+        left: 8%;
+        top: 164px;
+    }
+}

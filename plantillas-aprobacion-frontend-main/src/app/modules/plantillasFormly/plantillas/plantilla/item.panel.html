@@ -1,0 +1,432 @@
+<md-card class="animated" style="max-width: 400px; min-width: 300px;">
+    <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{titulos[item.val.element[0].type] || item.val.element[0].type}}</span>
+            <!-- <span class="md-subhead">Extra Large</span> -->
+          </md-card-title-text>
+    </md-card-title>
+    <md-card-content ng-switch on="item.val.element[0].type" style="max-height: 280px; overflow-y: auto; padding-top: 10px;">
+        <div class="container container-elementos">
+            <div ng-switch-when="input" layout="column">
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.required" aria-label="Requerido">
+                    Requerido ?
+                </md-checkbox>
+                <label>Validación</label>
+                <md-select ng-model="item.val.element[0].templateOptions.pattern">
+                    <md-option ng-value="v.pattern" ng-repeat="v in validaciones">{{ v.name }}</md-option>
+                </md-select>
+            </div>
+
+            <div ng-switch-when="radio" layout="column">
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.required" aria-label="Requerido">
+                    Requerido ?
+                </md-checkbox>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.vertical" aria-label="vertical">
+                    Orientacion vertical ?
+                </md-checkbox>
+                <label>Opciones</label>
+                <md-chips ng-model="item.val.element[0].opciones"></md-chips>
+            </div>
+
+            <div ng-switch-when="select" layout="column">
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.required" aria-label="Requerido">
+                    Requerido ?
+                </md-checkbox>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.showItem"> Mostrar en PDF </md-checkbox>
+                <label>Opciones</label>
+                <md-chips ng-model="item.val.element[0].opciones"></md-chips>
+            </div>
+
+            <div ng-switch-when="textarea" layout="column">
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-input-container>
+                    <label>Altura</label>
+                    <input type="number" ng-model="item.val.element[0].templateOptions.rows">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.required" aria-label="Requerido">
+                    Requerido ?
+                </md-checkbox>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.interlineado" aria-label="Interlineado-de-parrafos">
+                    Quitar interlineado de parrafos ?
+                </md-checkbox>
+                <!-- <label>Alineación</label>
+                <md-radio-group layout layout-wrap class="radio-parrafo" ng-model="item.val.element[0].className">
+                    <md-radio-button ng-value="'ap-text-left'"> <md-icon>format_align_left</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-center'"> <md-icon>format_align_center</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-right'"> <md-icon>format_align_right</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-justify'"> <md-icon>format_align_justify</md-icon> </md-radio-button>
+                </md-radio-group> -->
+            </div>
+
+            <div ng-switch-when="checkbox" layout="column" >
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+            </div>
+
+            <div ng-switch-when="switch" layout="column">
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+            </div>
+
+            <div ng-switch-when="datepicker" layout="column">
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.required" aria-label="Requerido">
+                    Requerido ?
+                </md-checkbox>
+            </div>
+            <div ng-switch-when="calendario" layout="column">
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.required" aria-label="Requerido">
+                    Requerido ?
+                </md-checkbox>
+                <md-input-container>
+                    <label>Días antes</label>
+                    <input type="number" ng-model="item.val.element[0].templateOptions.diasAntes">
+                </md-input-container>
+                <md-input-container>
+                    <label>Días Despues</label>
+                    <input type="number" ng-model="item.val.element[0].templateOptions.diasDespues">
+                </md-input-container>
+            </div>
+
+            <div ng-switch-when="slider" layout="column">
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-input-container>
+                    <label>Step</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.step">
+                </md-input-container>
+                <md-input-container>
+                    <label>Min</label>
+                    <input type="number" ng-model="item.val.element[0].templateOptions.min">
+                </md-input-container>
+                <md-input-container>
+                    <label>Max</label>
+                    <input type="number" ng-model="item.val.element[0].templateOptions.max">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.discrete" aria-label="Discreto">
+                    Discreto ?
+                </md-checkbox>
+            </div>
+
+            <div ng-switch-when="chips" layout="column">
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-input-container>
+                    <label>Placeholder</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.placeholder">
+                </md-input-container>
+                <md-input-container>
+                    <label>2do Placeholder</label>
+                    <input type="text" ng-model="item.val.element[0].templateOptions.secondaryPlaceholder">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.required" aria-label="Requerido">
+                    Requerido ?
+                </md-checkbox>
+            </div>
+
+            <div ng-switch-when="texto" layout="column">
+                <!-- <label ng-if="item.val.element[0].templateOptions.tipo!=='p'">Tipo</label>
+                <md-radio-group layout layout-wrap class="radio-parrafo" ng-model="item.val.element[0].templateOptions.tipo" ng-if="item.val.element[0].templateOptions.tipo!=='p'">
+                    <md-radio-button ng-value="'h1'"> h1 </md-radio-button>
+                    <md-radio-button ng-value="'h2'"> h2 </md-radio-button>
+                    <md-radio-button ng-value="'h3'"> h3 </md-radio-button>
+                    <md-radio-button ng-value="'h4'"> h4 </md-radio-button>
+                    <md-radio-button ng-value="'h5'"> h5 </md-radio-button>
+                    <md-radio-button ng-value="'h6'"> h6 </md-radio-button>
+                </md-radio-group> -->
+                <label>Alineación</label>
+                <md-radio-group layout layout-wrap class="radio-parrafo" ng-model="item.val.element[0].templateOptions.className">
+                    <md-radio-button ng-value="'ap-text-left'"> <md-icon>format_align_left</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-center'"> <md-icon>format_align_center</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-right'"> <md-icon>format_align_right</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-justify'" ng-if="item.val.element[0].templateOptions.tipo==='p'"> <md-icon>format_align_justify</md-icon> </md-radio-button>
+                </md-radio-group>
+                <label>Espacios</label>
+                <div layout layout-wrap class="radio-parrafo" >
+                    <md-checkbox ng-model="item.val.element[0].templateOptions.mTop"> Espacio superior </md-checkbox>
+                    <md-checkbox ng-model="item.val.element[0].templateOptions.mBot"> Espacio inferior  </md-checkbox>
+                </div>
+                <md-input-container ng-if="item.val.element[0].templateOptions.tipo!=='p'">
+                    <label>Texto</label>
+                    <input ng-model="item.val.element[0].templateOptions.label" >
+                </md-input-container>
+                <md-input-container ng-if="item.val.element[0].templateOptions.tipo==='p'">
+                    <label>Texto</label>
+                    <textarea ng-model="item.val.element[0].templateOptions.label" rows="3" md-no-resize="true" max-rows="3">
+                    </textarea>
+                </md-input-container>
+            </div>
+
+            <div ng-switch-when="lista" layout="column">
+                <md-input-container class="ap-input-ns">
+                    <label>Texto</label>
+                    <input ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <label>Tipo de lista</label>
+                <md-radio-group layout layout-wrap class="radio-parrafo" ng-model="item.val.element[0].templateOptions.tipo">
+                    <md-radio-button ng-value="'ol'"> Lista ordenada </md-radio-button>
+                    <md-radio-button ng-value="'ul'"> Lista no ordenada </md-radio-button>
+                </md-radio-group>
+                <label>Alineación</label>
+                <md-radio-group layout layout-wrap class="radio-parrafo" ng-model="item.val.element[0].templateOptions.className">
+                    <md-radio-button ng-value="'ap-text-left'"> <md-icon>format_align_left</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-center'"> <md-icon>format_align_center</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-right'"> <md-icon>format_align_right</md-icon> </md-radio-button>
+                </md-radio-group>
+
+                <label>Elementos</label>
+                <md-chips ng-model="item.val.element[0].opciones"></md-chips>
+                <br>
+            </div>
+            <div ng-switch-when="inputt" layout="column">
+                <md-input-container class="ap-input-ns">
+                    <label>Texto</label>
+                    <input ng-model="item.val.element[0].templateOptions.labelx">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.required" aria-label="Requerido"> Requerido ? </md-checkbox>
+                <label>Alineación</label>
+                <md-radio-group layout layout-wrap class="radio-parrafo" ng-model="item.val.element[0].templateOptions.alineacion">
+                    <md-radio-button ng-value="'ap-text-left'"> <md-icon>format_align_left</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-center'"> <md-icon>format_align_center</md-icon> </md-radio-button>
+                    <md-radio-button ng-value="'ap-text-right'"> <md-icon>format_align_right</md-icon> </md-radio-button>
+                </md-radio-group>
+                <label>Espacio de texto = {{item.val.element[0].templateOptions.labelw}}</label>
+                <md-slider flex min="0" max="80" ng-model="item.val.element[0].templateOptions.labelw" step="5" aria-label="remdes-width"></md-slider>
+                <br>
+            </div>
+            <div ng-switch-when="cite" layout="column">
+                <!-- <md-input-container class="ap-input-ns">
+                    <label>Texto cite</label>
+                    <input ng-model="item.val.element[0].templateOptions.labelCite">
+                </md-input-container>
+                <md-input-container class="ap-input-ns">
+                    <label>Texto fecha</label>
+                    <input ng-model="item.val.element[0].templateOptions.labelFecha">
+                </md-input-container> -->
+                <md-input-container>
+                    <label>Tipo de membrete</label>
+                    <md-select ng-model="item.val.element[0].templateOptions.tipoMembrete">
+                        <md-option ng-value="'sin membrete'" > Sin membrete </md-option>
+                        <md-option ng-value="'externo'" > Membrete externo </md-option>
+                        <md-option ng-value="'legal'" > Membrete legal </md-option>
+                    </md-select>
+                </md-input-container> <br>
+                <md-input-container>
+                    <label>Tipo de hoja</label>
+                    <md-select ng-model="item.val.element[0].templateOptions.tipoHoja" ng-click="controlTipoHoja">
+                        <md-option ng-value="'Letter'" > Carta </md-option>
+                        <md-option ng-value="'Oficio'" > Oficio </md-option>
+                        <md-option ng-value="'A4'" > A4 </md-option>
+                        <md-option ng-value="'Externo'" > Nota Externa </md-option>
+                        <md-option ng-value="'Legal'" > Nota Legal </md-option>
+                    </md-select>
+                </md-input-container> 
+                <!-- <br> -->
+                <!-- <label>Tipo de membrete</label>
+                <md-radio-group layout layout-wrap class="radio-parrafo" ng-model="item.val.element[0].templateOptions.tipoMembrete">
+                    <md-radio-button ng-value="'sin membrete'"> Sin membrete </md-radio-button>
+                    <md-radio-button ng-value="'externo'"> membrete externo </md-radio-button>
+                </md-radio-group> -->
+                <!-- <md-checkbox ng-model="item.val.element[0].templateOptions.tipoMembrete" aria-label="Vertical"> Vertical </md-checkbox> -->
+                <label>Tipo de cite</label>
+                <md-radio-group layout layout-wrap ng-model="item.val.element[0].templateOptions.tipo">
+                  <md-radio-button flex value="general"> General </md-radio-button>
+                  <md-radio-button flex value="unidad"> Unidad </md-radio-button>
+                </md-radio-group>
+                <label>Numeración de pagina</label>
+                <md-radio-group layout layout-wrap ng-model="item.val.element[0].templateOptions.numeracionPagina">
+                  <md-radio-button flex value="true"> Si </md-radio-button>
+                  <md-radio-button flex value="false"> No </md-radio-button>
+                </md-radio-group>
+                <!-- <label>¿Se puede generar de manera multiple?</label>
+                <md-radio-group layout layout-wrap ng-model="item.val.element[0].templateOptions.generacionMultiple">
+                  <md-radio-button flex value="true"> Si </md-radio-button>
+                  <md-radio-button flex value="false"> No </md-radio-button>
+                </md-radio-group> -->
+            </div>
+            <div ng-switch-when="layout" layout="column">
+                <label>Número de elementos</label>
+                <md-radio-group layout layout-wrap class="radio-parrafo" ng-model="item.val.element[0].elementAttributes['num-cols']">
+                    <md-radio-button ng-value="'2'"> 2 </md-radio-button>
+                    <md-radio-button ng-value="'3'"> 3 </md-radio-button>
+                    <md-radio-button ng-value="'4'"> 4 </md-radio-button>
+                </md-radio-group>
+            </div>
+            <div ng-switch-when="vacio" layout="column">
+                <md-input-container class="ap-input-ns">
+                    <label>Altura en cm (0, 30)</label>
+                    <input ng-model="item.val.element[0].templateOptions.height">
+                </md-input-container>
+            </div>
+
+            <div ng-switch-when="datosGenerales" layout="column">
+                <md-checkbox ng-model="item.val.element[0].templateOptions.aprobarPorDireccion"> Aprobar por dirección </md-checkbox>
+                <div layout layout-wrap class="radio-parrafo" >
+                    <md-checkbox ng-model="item.val.element[0].templateOptions.show.via"> Via  </md-checkbox>
+                    <md-checkbox ng-model="item.val.element[0].templateOptions.show.ref"> Ref  </md-checkbox>
+                    <md-checkbox ng-model="item.val.element[0].templateOptions.showItem"> Mostrar en PDF </md-checkbox>
+                </div>
+                <md-input-container class="ap-input-ns">
+                    <label>Texto referencia</label>
+                    <input ng-model="item.val.element[0].templateOptions.labelRef">
+                </md-input-container>
+            </div>
+            <div ng-switch-when="encabezado" layout="column">
+                <div layout layout-wrap class="radio-parrafo" >
+                    <md-checkbox ng-model="item.val.element[0].templateOptions.show.via"> Via  </md-checkbox>
+                    <md-checkbox ng-model="item.val.element[0].templateOptions.show.ref"> Ref  </md-checkbox>
+                </div>
+                <md-input-container class="ap-input-ns">
+                    <label>Texto referencia</label>
+                    <input ng-model="item.val.element[0].templateOptions.labelRef">
+                </md-input-container>
+            </div>
+            <div ng-switch-when="documentosRelacionados" layout="column">
+                <md-input-container class="ap-input-ns">
+                    <label>Texto</label>
+                    <input ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <!-- <label>Espacio de texto = {{item.val.element[0].templateOptions.labelw-5}}</label>
+                    <md-slider flex min="5" max="80" ng-model="item.val.element[0].templateOptions.labelw" step="5" aria-label="remdes-width">
+                </md-slider> -->
+            </div>
+            <div ng-switch-when="documentosAnular" layout="column">
+                <md-input-container class="ap-input-ns">
+                    <label>Texto</label>
+                    <input ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+            </div>
+            <div ng-switch-when="archivo" layout="column">
+                <md-input-container class="ap-input-ns">
+                    <label>Texto</label>
+                    <input ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.multiple"> Multiple ?  </md-checkbox>
+            </div>
+            <div ng-switch-when="cajachica" layout="column">
+                <md-input-container>
+                    <label>Acción</label>
+                    <md-select ng-model="item.val.element[0].templateOptions.tipo" >
+                        <md-option value="GESTION"> GESTION PARTIDAS </md-option>
+                        <md-option value="COMPROMETIDO"> COMPROMETIDO </md-option>
+                        <md-option value="PAGADO"> PAGADO </md-option>
+                    </md-select>
+                </md-input-container>
+                <!-- <md-checkbox ng-model="item.val.element[0].templateOptions.show.cite"> Cite ?  </md-checkbox>
+                <md-checkbox ng-model="item.val.element[0].templateOptions.show.pagado"> Pagado ?  </md-checkbox>
+
+                <label>Partidas</label>
+                <md-chips ng-model="item.val.element[0].templateOptions.partidas"></md-chips>
+                <label>Acciones</label>
+                <md-chips ng-model="item.val.element[0].templateOptions.acciones"></md-chips> -->
+                <!-- <md-input-container class="ap-input-ns">
+                    <label>Texto</label>
+                    <input ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container> -->
+                <!-- <md-checkbox ng-model="item.val.element[0].templateOptions.multiple"> Multiple ?  </md-checkbox> -->
+            </div>
+            <div ng-switch-when="consultaAlmacen" layout="column">
+                <md-input-container>
+                    <label>Titulo</label>
+                    <input ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-input-container>
+                    <label>Modo de consulta</label>
+                    <md-select ng-model="item.val.element[0].templateOptions.tipo" >
+                        <md-option value="SOLICITUD"> SOLICITUD </md-option>
+                        <md-option value="REINGRESO"> REINGRESO </md-option>
+                    </md-select>
+                </md-input-container>
+                
+            </div>
+            <div ng-switch-when="recuperarEntregaAlmacen" layout="column">
+                <md-input-container>
+                    <label>Titulo</label>
+                    <input ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+                <md-input-container>
+                    <label>Abreviacion de solicitud</label>
+                    <input ng-model="item.val.element[0].templateOptions.solicitud">
+                </md-input-container>
+            </div>
+
+            <div ng-switch-when="certificacionComprometido" layout="column">
+              <md-input-container class="ap-input-ns">
+                  <label>Titulo</label>
+                  <input ng-model="item.val.element[0].templateOptions.label">
+              </md-input-container>
+            </div>
+            <div ng-switch-when="listaContactos" layout="column">
+              <md-input-container class="ap-input-ns">
+                  <label>Título</label>
+                  <input ng-model="item.val.element[0].templateOptions.label">
+              </md-input-container>
+            </div>
+            <div ng-switch-when="ingresoAlmacen" layout="column">
+                <md-input-container>
+                    <label>Titulo</label>
+                    <input ng-model="item.val.element[0].templateOptions.label">
+                </md-input-container>
+            </div>
+            <div ng-switch-when="tablaActivos" layout="column">
+                <md-input-container>
+                    <label>Tipo de formulario</label>
+                    <md-select ng-model="item.val.element[0].templateOptions.tipoFormulario" >
+                        <md-option ng-value="'SOLICITUD'"> SOLICITUD </md-option>
+                        <md-option ng-value="'ASIGNACION_DEVOLUCION'"> ASIGNACION/DEVOLUCION </md-option>
+                        <md-option ng-value="'OTRA_DEVOLUCION'"> OTRAS DEVOLUCIONES </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div ng-switch-when="ingresoActivos" layout="column">
+                
+                <md-input-container>
+                    
+                </md-input-container>
+            </div>
+            <div ng-switch-when="bajaActivos" layout="column">
+                
+            </div>
+            <div ng-switch-default layout="column">
+                Falta codigo para este
+            </div>
+
+        </div>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button class="md-primary" ng-click="xeditItem()"> Aceptar </md-button>
+        <!-- <md-button ng-click="xremoveItem()"> Eliminar </md-button> -->
+        <md-button ng-click="xcancelEditItem()"> Cancelar </md-button>
+    </md-card-actions>
+
+</md-card>

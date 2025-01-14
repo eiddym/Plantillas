@@ -1,0 +1,77 @@
+<ng-form name="consultaAlmacenForm">
+  <br>
+  <div layout layout-align="start center" ng-if="vm.activar_busqueda" >
+    <md-input-container flex>
+      <input type="text" ng-model="vm.cite_buscar" placeholder="Escriba el CITE de la solicitud de materiales">
+    </md-input-container>
+    <md-button class="md-fab md-mini md-icon-button md-primary" aria-label="add" ng-click="vm.recuperarEntrega()" >
+      <md-icon>search</md-icon>
+      <md-tooltip>Buscar entrega</md-tooltip>
+    </md-button>
+  </div>
+
+  <div layout layout-align="start center" class="alert" ng-class="'alert-'+vm.alert.tipo" ng-show="vm.alert.show">
+      <md-icon>{{vm.alert.icono}}</md-icon>
+      <div flex>{{vm.alert.mensaje}}</div>
+      <md-icon class="ap-cursor-pointer" ng-click="vm.alert.show=false" ng-if="vm.alert.time==0">close</md-icon>
+  </div>
+
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th ng-if="!to.disabled"> </th>
+        <th> Código </th>
+        <th> Descripción </th>
+        <th> Unidad </th>
+        <th> Cantidad solicitada </th>
+        <th> Cantidad entregada </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in model[options.key].filas | filter: vm.filter">
+        <td class="buttons" ng-if="!to.disabled" layout-gt-sm>
+          <md-button class="md-icon-button" aria-label="getSaldo" ng-click="vm.eliminarFila($index)">
+            <md-icon>delete</md-icon>
+            <md-tooltip>Eliminar fila</md-tooltip>
+          </md-button>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="text" ng-model="row.codigo" disabled>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <textarea ng-model="row.descripcion" disabled></textarea>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="text" ng-model="row.unidad" disabled>
+          </md-input-container>
+        </td>
+        <td ng-if="to.tipo=='PAGADO'">
+          <md-input-container>
+            <input type="text" ng-model="row.comprometido" disabled>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="number" ng-model="row.solicitado" disabled>
+          </md-input-container>
+        </td>
+        <td>
+          <md-input-container>
+            <input type="number" ng-model="row.cantidad" disabled>
+          </md-input-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div ng-if="model[options.key].solicitado_por.nombre_completo && model[options.key].entregado_por.nombre_completo">
+    <div>Solicitado por: {{model[options.key].solicitado_por.nombre_completo}}</div>
+    <div>Entregado por: {{model[options.key].entregado_por.nombre_completo}}</div>
+    <div>Fecha de entrega: {{model[options.key].fecha_entrega}}</div>
+  </div>
+  </form>

@@ -1,0 +1,77 @@
+$font-dir: '../../assets/fonts/iconfont/';
+
+@font-face {
+    font-family: 'enum-glyph';
+
+    /* esto dará problemas en el build? */
+    src:url($font-dir + 'enum-glyph.eot');
+    src:url($font-dir + 'enum-glyph.eot?#iefix') format('embedded-opentype'),
+        url($font-dir + 'enum-glyph.svg#enum-glyph') format('embedded-opentype'),
+        url($font-dir + 'enum-glyph.woff') format('woff'),
+        url($font-dir + 'enum-glyph.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* extraído del .css de simditor-fullscreen */
+[class^="enum-icon"] {
+    font-family: 'enum-glyph';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 15px;  /* Preferred icon size */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+
+    line-height: 15px;
+    margin-top: 12px;
+
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.enum-icon-upper-roman:before {
+    content: "\0052";
+}
+
+.enum-icon-lower-roman:before {
+    content: "\0072";
+}
+
+.enum-icon-upper-alpha:before {
+    content: "\0041"
+}
+
+.enum-icon-lower-alpha:before {
+    content: "\0061"
+}
+
+.upper-roman {
+    list-style-type: upper-roman !important;
+}
+
+.lower-roman {
+    list-style-type: lower-roman !important;
+}
+
+.upper-alpha {
+    list-style-type: upper-alpha !important;
+}
+
+.lower-alpha {
+    list-style-type: lower-alpha !important;
+}

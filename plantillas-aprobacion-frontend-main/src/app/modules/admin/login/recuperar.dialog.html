@@ -1,0 +1,61 @@
+<md-dialog aria-label="Recuperar" ng-cloak class="formly-dialog formly-column-{{column}}" style="max-width: 800px; width: 100%;" >
+
+    <form ng-submit="recuperar()" name="recuperarForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2><md-icon>autorenew</md-icon> Recuperar contraseña</h2>
+
+                <span flex></span>
+                <span flex></span>
+                <md-button class="md-icon-button" aria-label="Cerrar" ng-click="cerrar($event)">
+                    <md-tooltip>Cerrar</md-tooltip>
+                    <md-icon aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content class="md-dialog-content">
+            <div class="md-dialog-content">
+
+              <md-input-container class="md-block" flex-gt-sm>
+                  <label>Usuario</label>
+                  <input name="usuario" ng-model="usuario" type="text" required>
+                  <div ng-messages="recuperarForm.usuario.$error">
+                      <div ng-message="required">Debe llenar este campo</div>
+                  </div>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm>
+                  <label>Correo electronico</label>
+                  <input name="email" ng-model="email" type="email" required>
+                  <div ng-messages="recuperarForm.email.$error">
+                      <div ng-message="required">Debe llenar este campo</div>
+                  </div>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm>
+                  <label>Número de documento de identidad</label>
+                  <input name="numero_documento" ng-model="numero_documento" type="text" required >
+                  <div ng-messages="recuperarForm.numero_documento.$error">
+                      <div ng-message="required">Debe llenar este campo</div>
+                  </div>
+              </md-input-container>
+              <div class="informacion-recuperar">
+                <strong>Usuario:</strong> <span>Es el usuario con el que fue registrado en el sistema.</span><br>
+                <strong>Correo electronico:</strong> <span>El mismo con el que fue registrado</span><br>
+                <strong>Numero de documento de indentidad:</strong> <span> Escriba solo el número</span>
+
+              </div>
+            </div>
+
+
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="recuperarForm.$invalid" >
+                <md-icon>check</md-icon> <span>Recuperar</span>
+            </md-button>
+            <md-button class="md-raised" ng-click="cerrar()">
+                <md-icon>cancel</md-icon> Cancelar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

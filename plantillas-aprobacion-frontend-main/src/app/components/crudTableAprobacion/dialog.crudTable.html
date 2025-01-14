@@ -1,0 +1,29 @@
+<md-dialog aria-label="Agregar/Editar" ng-cloak class="formly-dialog formly-column-{{column}}">
+    <form ng-submit="answer('save')" id="data-form" name="form" novalidate>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{title}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button md-toast-button-close" ng-click="cancel()">
+                    <md-icon aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-content layout-gt-sm="column" layout-padding class="formly">
+                    <formly-form model="data" fields="fields" options="options" form="form"></formly-form>
+                </md-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised" ng-click="cancel()">
+                <md-icon>cancel</md-icon> Cancelar
+            </md-button>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="form.$invalid">
+                <md-icon>check</md-icon> Guardar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

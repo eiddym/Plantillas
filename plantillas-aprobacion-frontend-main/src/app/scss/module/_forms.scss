@@ -1,0 +1,492 @@
+// _forms.scss...................Form elements.
+
+md-input-container {
+    margin: 5px 0;
+    // width: 100%;
+
+    &.md-default-theme.md-input-focused:not(.md-input-invalid) label,
+        &.md-input-focused:not(.md-input-invalid) label {
+        color: $colorPrimary !important;
+    }
+    label:not(.md-no-float):not(.md-container-ignore),
+        .md-placeholder {
+        color: $colorSuccess;//rgba(0, 0, 0, 1);
+        font-size: 0.9rem;
+    }
+    &.md-default-theme.md-input-focused:not(.md-input-invalid) .md-input,
+        &.md-input-focused:not(.md-input-invalid) .md-input {
+        border-color: lighten($colorPrimary, 15%) !important;
+    }
+    .md-input {
+        //color: rgba(0, 0, 0, 1);
+        color:#333;
+    }
+    md-select md-select-value span div.md-text,
+    md-radio-button {
+        //color: rgba(0, 0, 0, 1);
+        color:#333;
+    }
+    md-select-value span {
+        color: $colorSuccess;
+    }
+    md-select {
+        //border: 1px solid red;
+        margin-bottom: 24px;
+    }
+}
+md-input-container.select-sin-mb {
+    md-select {
+        margin-bottom: 0px;
+    }
+}
+
+
+
+md-input-container.md-default-theme .md-input[disabled], md-input-container .md-input[disabled], [disabled] md-input-container.md-default-theme .md-input, [disabled] md-input-container .md-input {
+    //color: rgba(0, 0, 0, 1);
+    color:#333;
+}
+
+.form-control {
+    margin-bottom: 10px;
+}
+
+.container-main form {
+    margin: 10px;
+}
+
+
+.ap-input-ns { //no space
+    div.md-errors-spacer {
+        min-height: 0px;
+    }
+}
+
+.select-search {
+    /* Please note: All these selectors are only applied to children of elements with the 'select-search ' class */
+    .header-searchbox {
+        border: none;
+        outline: none;
+        height: 100%;
+        width: 100%;
+        padding: 0;
+    }
+    .select-header {
+        box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+        padding-left: 10.667px;
+        height: 48px;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: auto;
+    }
+    .option-contact {
+        height: 70px;
+    }
+    md-content._md {
+        max-height: 240px;
+    }
+}
+
+.view-formly-form {
+    .formly-field-group {
+        ng-form {
+            & > div.formly-field {
+                margin: auto 5px 0px 5px;
+                &:first-child {
+                    margin-left: 0px;
+                }
+            }
+            & > div:nth-last-of-type(2){
+                margin-right: 0px;
+            }
+        }
+    }
+    .formly-field-inputt {
+        div.label {
+            padding-top: 12px;
+            padding-right: 4px;
+        }
+    }
+    .formly-field-editorTexto {
+        .simditor {
+            border: 0px;
+            // position: relative;
+            .simditor-placeholder, .simditor-body {
+                padding: 0px;
+            }
+            .simditor-body {
+                min-height: 0px;
+                font-family: 'Poppins', Helvetica, Arial, serif;
+                line-height: 1.4;
+                font-size: 14px;
+                font-weight: 300;
+
+            }
+            .simditor-toolbar {
+                display: none !important;
+
+                &.active-editor {
+                    display: block !important;
+                    margin-bottom: 10px;
+                }
+
+                .toolbar-menu ul > li .menu-item {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .certificacion-comprometido {
+        border: 2px #ccd5df dashed;
+        padding: 5px;
+        background-color: #f6f7f9;
+    }
+
+    .formly-field-datosGenerales, .formly-field-documentosRelacionados, .formly-field-encabezado  {
+        .border-div {
+            border: 2px #ccd5df dashed;
+            padding: 5px;
+            background-color: #f6f7f9;
+        }
+        div.label {
+            min-height: 34px;
+        }
+        div.md-errors-spacer {
+            min-height: 0px;
+        }
+        md-input-container {
+            margin-top: 0px;
+            margin-bottom: 0px !important;
+        }
+        .input-search {
+            transform: scale(0);
+            height: 0px !important;
+        }
+        div.separador {
+            margin: 15px auto 20px auto;
+        }
+        div.docs {
+            padding: 2px;
+            margin-left: 10px;
+        }
+        md-checkbox.cargo {
+            transform: scale(0.8);
+            margin-bottom: 0px;
+        }
+    }
+
+    .formly-field-lista {
+        ul, ol {
+            padding-left: 30px;
+        }
+    }
+    .formly-field-cite {
+        div.placeholder {
+            color: rgba(0,0,0,0.38);
+        }
+    }
+    .formly-field-texto {
+        h1 {
+            font-size: 1.8em;
+        }
+        h4 {
+            font-weight: bold;
+        }
+        .no-margin-top {
+            margin-top: 0px;
+        }
+        .no-margin-bot {
+            margin-bottom: 0px;
+        }
+    }
+
+    .formly-field-input, .formly-field-textarea {
+        md-input-container{
+            width: 100%;
+        }
+    }
+    .formly-field-textarea {
+        textarea {
+            resize: none;
+            text-align: justify;
+            white-space: pre-line;
+            -moz-text-align-last: left;
+            text-align-last: left;
+        }
+    }
+
+
+    md-input-container.md-input-has-value { // sirve para input, text-area, select
+        width: 100%;
+        margin-bottom: 5px !important;
+    }
+
+    .formly-field-select {
+        md-input-container {
+            width: 100%;
+        }
+    }
+
+    .formly-field-checkbox {
+        padding-bottom: 2%;
+    }
+
+    .formly-field-radio {
+        padding-bottom: 2%;
+        md-radio-group {
+            padding-left: 3px;
+            margin-top: 8px;
+
+            md-radio-button {
+                padding-right: 8px;
+                div.md-label {
+                    margin-left: 22px;
+                    font-size: 0.9em !important;
+                }
+            }
+        }
+
+    }
+    .formly-field-radio, .formly-field-slider, .formly-field-chips, .formly-field-datepicker  {
+        label:not(.md-no-float):not(.md-container-ignore), .md-placeholder {
+            color: $colorSuccess !important;
+            font-size: 0.85em !important;
+        }
+    }
+
+    .formly-field-slider {
+        padding-left: 0.5%;
+        md-slider {
+            padding-bottom: 7px;
+            width: 98%;
+            canvas{
+                margin: 0px !important;
+                box-shadow: none;
+            }
+        }
+    }
+
+    .formly-field-switch {
+        padding-left: 0.5%;
+        padding-bottom: 1.5%;
+    }
+    .formly-field-chips {
+        padding-bottom: 3.9%;
+        md-chips-wrap {
+            margin-top:-8px;
+            font-size: 1em;
+            width: 100%;
+            margin-bottom: 0.5%;
+            div {
+                margin-top: 1.7%;
+            }
+
+            md-chip {
+                margin-top: 2.7%;
+                height: 25px !important;
+                div {
+                    margin-top: -3px;
+                    font-size: 1.2em;
+                    button, md-icon, svg {
+                        margin-top: 3px;
+                        height: 18px !important;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .formly-field-datepicker {
+        padding-bottom: 28px;
+        div.ng-scope.ng-active, div.ng-scope.ng-inactive.ng-hide {
+            padding-top: 20px;
+            padding-left: 14%;
+            font-size: 0.85em;
+            color: $colorDanger;
+        }
+
+        div.ng-scope {
+            margin-top: -7px;
+            md-datepicker {
+                padding-right: 0px;
+                button {
+                    padding-top: 12px;
+                    margin: 0px;
+                }
+                .md-icon-button + .md-datepicker-input-container {
+                    margin-left: 0px;
+                    input {
+                        max-width: 120px;
+                    }
+                }
+                div {
+                    button div {
+                        width: 0% !important;
+                    }
+                }
+            }
+        }
+    }
+    .calendario {
+        label {
+            font-size:12px;
+            color: $colorSuccess;
+        }
+
+        md-input-container {
+            md-datepicker {
+                padding-right: 50px;
+                min-width: 120px;
+                max-width: 120px;
+                button {
+                    margin-right: -5px;
+                    margin-left: -5px;
+                }
+                .md-button + .md-datepicker-input-container {
+                    max-height: 30px;
+                    margin-left: 0px !important;
+                    padding-bottom: 0px;
+                    input{
+                        max-width: 120px !important;
+                    }
+                }
+                div {
+                    button div {
+                        width: 0% !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .formly-field-cajachica {
+        & > ng-form > div:first-child {
+            margin-bottom: 10px;
+            md-autocomplete-wrap {
+                border-bottom: 1px solid #ddd;
+                margin-right: 5px;
+                margin-top: -5px;
+            }
+            md-input-container[flex="25"]{
+                margin-right: 5px !important;
+            }
+        }
+
+        textarea {
+            line-height: 15px;
+        }
+        .md-button[aria-label="add"] {
+            transform: scale(0.7);
+            md-icon {
+                transform: scale(1.3);
+            }
+        }
+
+        table {
+
+            td {
+                vertical-align: middle;
+            }
+            td, th {
+                padding: 4px;
+            }
+            td.buttons {
+                padding: 0px;
+                text-align: center;
+                vertical-align: middle;
+                span {
+                    margin-top: 10px;
+                }
+                button {
+                    margin: 0px;
+                }
+                button:last-child {
+                    margin-right: 8px;
+                }
+                md-checkbox {
+                    margin-bottom: 0px;
+                    transform: scale(0.8);
+                }
+            }
+            button, textarea, input {
+                font-size: 0.9em !important;
+                text-align: justify;
+            }
+            textarea {
+                resize: none;
+                white-space: pre-line;
+                -moz-text-align-last: left;
+                text-align-last: left;
+            }
+        }
+        md-autocomplete-wrap {
+            box-shadow: none;
+        }
+        md-input-container {
+            margin: 0px !important;
+            padding: 0px;
+            width: 100%;
+            md-select {
+                margin: 0px;
+            }
+            div.md-errors-spacer {
+                min-height: 0px;
+            }
+            input {
+                padding: 0px;
+            }
+        }
+    }
+}
+ul.cajachica-menu-autocomplete {
+    width: 500px;
+}
+
+
+.ap-text-success {
+    color: $colorSuccess;
+}
+.ap-text-error, .ap-text-danger {
+    color: darken($colorDanger,8%);
+}
+.ap-text-warning {
+    color: $colorWarning;
+}
+.ap-ng-msg {
+    font-size:  0.85em;
+    color: #dd2c00;
+    padding-top: 0.5%;
+}
+.ap-text-min {
+    font-size: 0.85em;
+}
+.ap-cursor-pointer{
+  cursor: pointer;
+}
+.ap-text-left {
+    text-align: left;
+}
+.ap-text-center {
+    text-align: center;
+}
+.ap-text-right {
+    text-align: right;
+}
+.ap-text-justify {
+    text-align: justify;
+}
+
+.ap-md-datepicker {
+
+    button.md-datepicker-button {
+        display: none;
+    }
+    div.md-datepicker-input-container {
+        margin-top: 12px;
+        margin-left: 0px;
+        // width: 100%;
+    }
+}

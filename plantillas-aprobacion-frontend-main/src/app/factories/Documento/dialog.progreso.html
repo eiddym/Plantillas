@@ -1,0 +1,91 @@
+<md-dialog aria-label="Ver progreso" class="formly-dialog formly-column-{{column}} dialog-progreso" style="max-width: 800px; width: 100%;" >
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2><md-icon>dashboard</md-icon> {{titleModal}}</h2>
+
+            <span flex></span>
+            <md-button class="md-icon-button" aria-label="Cerrar" ng-click="cerrar()">
+                <md-tooltip>Cerrar</md-tooltip>
+                <md-icon aria-label="Close dialog">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content class="md-dialog-content" ng-if="!mostrarContenido">
+        <timeline>
+            <timeline-event ng-repeat="it in data.datos">
+                <timeline-badge class="bg-{{it.bg_color}}">
+                    <img src="../../../assets/fonts/iconfont/iconAprobacion.png" width="48px" ng-if="it.accion=='APROBADO_CD'">
+                    <md-icon aria-label="description" ng-if="it.accion!='APROBADO_CD'">{{it.icon}}</md-icon>
+                    <md-tooltip>{{it.acc}}</md-tooltip>
+                </timeline-badge>
+                <timeline-panel ng-if="it.accion !== 'ANULADO'">
+                    <timeline-heading>
+                        <h3>{{it.nombres}}</h3>
+                    </timeline-heading>
+                    <p>
+                        <span class="ap-text-{{it.bg_color}}">
+                            {{it.acc}} {{it.acc=='Sin respuesta'? 'desde ': ''}}
+                        </span>
+                        el {{it.fecha_mos}} a las {{it.hora_mos}}
+                    </p>
+                    <p ng-if="it.accion=='DERIVADO' && it.derivado">A: <strong>{{it.derivado.nombres}}</strong></p>
+                    <p ng-if="it.tipo_doc"> Documento: {{it.tipo_doc}}</p>
+                    <p ng-if="it.cite"> CITE: <span class="ap-cursor-pointer" ng-click="verDocumento(it.id_documento)">{{it.cite}}</span></p>
+                    <p ng-if="it.accion=='RECHAZADO'">{{it.observacion}}</p>
+                    <p ng-if="it.accion=='DERIVADO'">Proveído: {{it.observacion}}</p>
+
+                    <div ng-if="it.mensajeAdjuntos!=undefined" class="mt-3">
+                        <label>{{it.mensajeAdjuntos}}</label>
+                        <p class="text-right ap-cursor-pointer" ng-click="mostrarHistorial(it.id_historial_flujo)">
+                            <br/><md-icon aria-label="Ver Adjuntos">remove_red_eye</md-icon> Ver detalle
+                        </p>
+                    </div>
+                </timeline-panel>
+                <timeline-panel ng-if="it.accion=='ANULADO'">
+                  <timeline-heading><h3>Anulación</h3></timeline-heading>
+                  <p>
+                    <strong>Del documento: </strong>
+                    <span class="ap-text-{{it.bg_color}} ap-cursor-pointer" ng-click="verDocumento(it.id_documento)">{{it.cite}}.</span><br>
+                    <strong>Mediante: </strong><span class="ap-cursor-pointer" ng-click="verDocumento(it.id_documento)">{{it.observacion}}.</span><br>
+                    El cual fue solicitado por <strong>{{it.nombres}}</strong> y aprobado por <strong>{{it.aprobado.nombres}}</strong> el {{it.fecha_mos}} a las {{it.hora_mos}}
+                  </p>
+                </timeline-panel>
+            </timeline-event>
+        </timeline>
+    </md-dialog-content>
+
+    <md-dialog-content style="min-height: auto;" ng-if="mostrarContenido">
+      <md-content class="md-padding">
+        <md-table-container >
+          <table md-table>
+            <thead md-head>
+              <tr md-row>
+                <th md-column>Nombre</th>
+                <th md-column>Fecha de Aprobación</th>
+                <th md-column>Hora de Aprobación</th>
+              </tr>
+            </thead>
+            <tbody md-body ng-repeat="item in adjuntos">
+              <tr md-row>
+                <td md-cell>{{item.nombre_publico}}</td>
+                <td md-cell>{{item.fecha_mos}}</td>
+                <td md-cell>{{item.hora_mos}}</td>
+              </tr>
+            </tbody>
+          </table> 
+        </md-table-container>
+      </md-content>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="cerrar()" ng-if="!mostrarContenido">
+            <md-icon>check</md-icon>
+            <span>Cerrar</span>
+        </md-button>
+        <md-button class="md-raised" ng-click="verHistorial(false)" ng-if="mostrarContenido">
+            <md-icon>check</md-icon>
+            <span>Cerrar</span>
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

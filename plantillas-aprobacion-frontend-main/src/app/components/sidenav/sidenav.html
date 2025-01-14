@@ -1,0 +1,37 @@
+<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" id="sidenav" >
+    <md-toolbar class="sidenav-title">
+        <h1 class="md-toolbar-tools"><i class="md-icon sidenav-title-icon">description</i> <span class="sidenav-title-text">PLANTILLAS</span></h1>
+    </md-toolbar>
+    <div class="sidenav-user">
+        <figure>
+            <img class="sidenav-user-photo" src="" alt="Image User" hidden>
+            <div class="sidenav-user-default bg-{{vm.getColor()}}-user">
+                <!-- <i class="md-icon">account_circle</i> -->
+                {{vm.getInitial()}}
+            </div>
+        </figure>
+        <h2 class="sidenav-user-name">{{vm.getName()}}
+            <md-tooltip md-direction="bottom">
+                {{vm.getName()}}
+            </md-tooltip>
+        </h2>
+        <div class="sidenav-user-item">{{vm.getEmail()}}</div>
+    </div>
+    <ul class="sidenav-list">
+        <li ng-repeat="opcion in vm.getMenu()">
+            <md-button type="button" class="md-button-toggle md-button md-button md-ink-ripple" ng-click="vm.send(opcion.url, opcion.submenu.length)">
+                <i class="md-icon md-icon-option">{{opcion.icon}}</i> <span class="md-icon-text">{{opcion.label}}</span> <i class="md-icon md-icon-arrow-down" ng-if="opcion.submenu.length">keyboard_arrow_down</i>
+            </md-button>
+            <ul class="sidenav-sublist" ng-if="opcion.submenu.length">
+                <li ng-repeat="sub in opcion.submenu">
+                    <md-button type="button" class="md-button md-button md-ink-ripple md-button-href {{vm.active == sub.url ? 'active' : ''}}" data-url="{{sub.url}}" ng-click="vm.send(sub.url)">
+                        <span class="md-icon-text">{{sub.label}}</span>
+                    </md-button>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</md-sidenav>
+<md-button ng-click="vm.toggleLeft()" class="md-icon-button" hide-gt-md>
+    <i class="md-icon">menu</i>
+</md-button>

@@ -1,0 +1,37 @@
+<md-dialog aria-label="Impresion multiple" class="formly-dialog formly-column-{{column}}" style="max-width: 600px; width: 100%;">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2><md-icon>print</md-icon>Impresion multiple</h2>
+      <span flex></span>
+      <md-button class="md-icon-button md-toast-button-close" ng-click="cancel()">
+        <md-icon aria-label="Close dialog">close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content class="md-dialog-content">
+    <form name="multipleForm" ng-submit="obtenerDocumento()">
+      <div flex layout>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Escríba el cite de un documento multiple</label>
+          <input ng-model="cite" type="text" required>
+        </md-input-container>
+        <md-button class="md-fab md-mini md-primary" type="submit" ng-disabled="multipleForm.$invalid">
+            <md-icon>search</md-icon>
+        </md-button>
+        <!-- <md-button class="md-fab md-mini md-primary" ng-click="obtenerDocumento()">
+          <md-icon>search</md-icon>
+        </md-button> -->
+      </div>
+
+    </form>
+
+    <iframe class="iframe-pdf" src="{{documentoAImprimir.url}}" 
+    style="width:100%; height:600px; border: none;" ng-if="documentoAImprimir.url"
+    allowfullscreen></iframe>
+
+  </md-dialog-content>
+  
+  
+
+</md-dialog>

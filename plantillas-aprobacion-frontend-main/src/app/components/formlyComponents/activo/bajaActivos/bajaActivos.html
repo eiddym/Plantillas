@@ -1,0 +1,96 @@
+<h1>Datos para la baja de activos fijos</h1>
+
+<ng-form name="bajaActivosForm">
+
+  <div layout layout-align="start start">
+    <md-input-container flex>
+      <label>Causal de baja</label>
+      <md-select ng-model="model[options.key].motivo" required>
+        <md-option ng-repeat="option in vm.listaMotivos" ng-value="{{option.key}}">
+          {{option.value}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+  </div>
+
+  <div layout layout-align="start start">
+    <md-input-container  flex>
+
+      <div class="layout" flex>
+        <div class="row" flex>
+          <md-input-container class="input-search" flex>
+            <label>Respaldo</label>
+            <md-select ng-model="vm.docSeleccionado" name="select_doc" md-on-close="vm.closeSelectDoc()"
+              data-md-container-class="select-search" required flex>
+              <md-select-header class="select-header" flex>
+                <input ng-model="vm.buscar_doc" placeholder="Buscar ..." class="header-searchbox md-text" ng-keydown="$event.stopPropagation()" flex>
+              </md-select-header>
+              <md-optgroup label="documentos">
+                <md-option ng-value="d" ng-repeat="d in vm.documentos" ng-click="vm.controlSelectDoc(d)">
+                  {{d.nombre}}
+                </md-option>
+              </md-optgroup>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div class="row">
+          <md-icon class="ap-cursor-pointer md-mini" ng-click="vm.mostrarPdf(model[options.key].respaldo.id_documento)">
+            description
+          </md-icon>
+          <span class="ap-cursor-pointer" ng-click="vm.mostrarPdf(model[options.key].fecha.id_documento)">
+            {{ model[options.key].fecha.nombre }}
+          </span>
+        </div>
+      </div>
+  
+    </md-input-container>
+    <md-input-container flex>
+      <input type="text" ng-model="model[options.key].respaldo.fechaMostrar" placeholder="Fecha respaldo" required disabled>
+    </md-input-container>
+  </div>
+
+  <div layout layout-align="start start">
+    <md-input-container flex>
+      <textarea ng-model="model[options.key].observaciones" placeholder="Observaciones"></textarea>
+    </md-input-container>
+  </div>
+
+</ng-form>
+<div layout layout-align="start center">
+  <md-autocomplete ng-if="!to.disabled" flex="100" md-no-cache="true"
+    md-items="item in vm.consultarActivo(vm.buscar.texto_buscar)" md-search-text="vm.buscar.texto_buscar"
+    md-selected-item-change="vm.agregarActivo()" md-selected-item="vm.buscar.item_seleccionado"
+    md-item-text="item.description" md-min-length="0" ng-disabled="to.disabled"
+    placeholder="Escribe el item a buscar ...">
+    <md-item-template>
+      <span>{{item.barcode}} - {{item.description}}</span>
+    </md-item-template>
+    <md-not-found>
+      No se encontraron coincidencias para "{{vm.buscar.texto_buscar}}".
+    </md-not-found>
+  </md-autocomplete>
+</div>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th ng-if="!to.disabled"> </th>
+      <th> Código de barras </th>
+      <th> Grupo contable </th>
+      <th> Descripción </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="row in model[options.key].activos | filter: vm.filter">
+      <td class="buttons" ng-if="!to.disabled" layout-gt-sm>
+        <md-button class="md-icon-button" ng-click="vm.eliminarActivo($index)">
+          <md-icon>delete</md-icon>
+          <md-tooltip>Eliminar fila</md-tooltip>
+        </md-button>
+      </td>
+      <td>{{row.barcode}}</td>
+      <td>{{row.cuenta}}</td>
+      <td>{{row.description}}</td>
+    </tr>
+  </tbody>
+</table>

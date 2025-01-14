@@ -1,0 +1,45 @@
+<ng-form name="docsAnular">
+    <div layout>
+        <div ng-class="'flex-'+to.labelw" layout="column">
+            <div class="label" flex layout layout-align="start start">
+                <span class="ap-cursor-pointer" ng-click="vm.openSelect($event, 'doc')"> {{to.label}} </span>&nbsp;&nbsp;&nbsp;
+            </div>
+            <md-input-container class="input-search" ng-show="vm.show_doc">
+                <label>Documentos</label>
+                <md-select ng-model="model[options.key]" name="select_anular"
+                    md-on-close="vm.closeSelectDoc()"
+                    data-md-container-class="select-search" multiple required>
+                    <md-select-header class="select-header">
+                        <input ng-model="vm.buscar_doc"
+                        placeholder="Buscar ..."
+                        class="header-searchbox md-text">
+                    </md-select-header>
+                    <md-optgroup label="documentos">
+                        <md-option ng-value="d" ng-repeat="d in vm.documentos">
+                            {{d.nombre}}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+            <div flex></div>
+        </div>
+
+        <div class="docs" flex>
+            <div layout layout-wrap>
+                <div ng-repeat="d in model[options.key]">
+                    <md-icon class="ap-cursor-pointer md-mini" ng-click="vm.mostrarPdf(d.id_documento)">
+                        description
+                    </md-icon>
+                    <span class="ap-cursor-pointer" ng-click="vm.mostrarPdf(d.id_documento)">
+                        {{ d.nombre }} {{ ( $index != (model[options.key].length-1) )? ', ' : '' }}
+                    </span>
+                </div>
+            </div>
+            <div class="ap-ng-msg" ng-messages="docsAnular.select_anular.$error" ng-show="docsAnular.$submitted || docsAnular.select_anular.$touched">
+                <div ng-message="required">Debe escojer al menos un documento para anular</div>
+            </div>
+        </div>
+
+    </div>
+
+</form>

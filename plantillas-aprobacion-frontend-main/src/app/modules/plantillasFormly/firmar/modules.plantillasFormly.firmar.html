@@ -1,0 +1,20 @@
+<div class="container">
+  <crud-table url="firmar.url"
+              title-table="firmar.titulo"
+              fields="firmar.fields"
+              usuario="firmar.usuario"
+              permission="firmar.permission"
+              buttons="firmar.buttons"
+              only-fields="true"
+              items="firmar.items"
+              seleccionados="firmar.obtenerSeleccionados"
+              habilitar-seleccion="firmar.habilitarSeleccion">
+  </crud-table>
+  <md-button class="md-raised md-primary" ng-click="firmar.firmarDocumentos()" ng-disabled="!firmar.habilitarBotonFirma" >
+    <md-icon>done_all</md-icon>
+    <md-tooltip md-direction="right">Firmar Digitalmente</md-tooltip>
+    Firmar
+  </md-button>
+  <br>
+
+</div>

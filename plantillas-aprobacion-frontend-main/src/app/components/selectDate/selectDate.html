@@ -1,0 +1,27 @@
+<div layout="row" class="select-date">
+	<label>{{vm.ngLabel}}:</label>
+	<md-input-container>
+		<label>Día</label>
+		<md-select ng-model="vm.day" ng-required="vm.ngRequired" ng-disabled="vm.ngDisabled">
+			<md-option ng-repeat="option in vm.days" value="{{option.value}}">
+				{{option.name}}
+			</md-option>
+		</md-select>
+	</md-input-container>
+	<md-input-container>
+		<label>Mes</label>
+		<md-select ng-model="vm.month" ng-required="vm.ngRequired" ng-disabled="vm.ngDisabled">
+			<md-option ng-repeat="option in vm.months" value="{{option.value}}">
+				{{option.name}}
+			</md-option>
+		</md-select>
+	</md-input-container>
+	<md-input-container>
+		<label>Año</label>
+		<md-select ng-model="vm.year" ng-required="vm.ngRequired" ng-disabled="vm.ngDisabled">
+			<md-option ng-repeat="option in vm.years" value="{{option.value}}">
+				{{option.name}}
+			</md-option>
+		</md-select>
+	</md-input-container>
+</div>

@@ -1,0 +1,60 @@
+.verificar-contenedor {
+  height: 680px;
+}
+.verificar-pdf-contenedor {
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px 10px 10px;
+
+}
+.visor-verificado {
+  min-height: 80%;
+}
+.iframe-verificado-pdf {
+  width: 99.7%;
+  height: 100% !important;
+}
+.mi-clase{
+  -webkit-box-orient: vertical !important;
+  -webkit-flex-direction: column !important;
+}
+.seccion {
+  width: 100%;
+  height: 100%;
+}
+.lista-firmantes {
+  max-height: 100%;
+  overflow-y: auto
+}
+.lista-firmantes md-2-line {
+  max-height: 50px;
+}
+.text-button {
+  cursor: pointer;
+}
+.text-button:focus {
+  outline: 0;
+}
+.titulo-seccion-verificar {
+  background-color: $colorSuccess !important;  
+}
+.ampliar {
+  max-height: auto !important;
+}
+#canvasContainerVerificado{
+  width: 99.7%;
+  max-height: 380px;
+  overflow: auto;
+}
+.texto-descripcion {
+  font-size: .7rem !important;
+}
+
+.texto-firmante {
+  font-weight: bold !important;
+}
+
+.container-main md-card {
+  /* margin-bottom: 20px; */
+  margin-bottom: 0;
+}

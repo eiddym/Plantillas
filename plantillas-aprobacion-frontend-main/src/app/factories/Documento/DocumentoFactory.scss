@@ -1,0 +1,74 @@
+.dialog-progreso{
+    md-dialog-content {
+        min-height: 300px;
+        background-color: lighten($colorPrimary,50%);
+        timeline-badge {
+            &.bg-success {
+                background-color: lighten($colorSuccess, 10%);
+            }
+            &.bg-warning {
+                background-color: lighten($colorSecondary, 10%);
+            }
+            &.bg-danger {
+                background-color: lighten($colorDanger, 10%);
+            }
+            &.bg-envio {
+                background-color: lighten($colorPendiente, 10%);
+            }
+            &.bg-cerro {
+                background-color: lighten($colorPendiente, 10%);
+            }
+            &.bg-firmo {
+                background-color: lighten($colorConDatos, 10%);
+            }
+            &.bg-anulo {
+                background-color: lighten($colorDanger, 2%);
+            }
+            md-icon {
+                color: #fff;
+            }
+        }
+        timeline-panel {
+            // background-color: lighten($colorSuccess, 20%);
+            p,h3 {
+                margin: 0px auto;
+            }
+            // .ap-text-bold {
+            //     font-weight: 600;
+            // }
+
+        }
+
+    }
+}
+.ap-text-envio {
+    color: $colorPendiente;
+}
+#canvasContainer {
+    // width:612px;
+    // height:792px;
+    // width:100%;
+    // width:592px;
+    margin: 0 auto;
+    canvas {
+        margin: 0;
+    }
+}
+.dialog-firmas {
+  margin: 0px 10px 0px 10px;
+
+  .firmado {
+    background-color: $colorSuccess;
+    display: inline-block;
+    margin: 5px 2px;
+    padding:  5px 4px;
+    border-radius: 6px;
+  }
+  .sin-firma{
+    background-color: lighten($colorPendiente, 20%);
+    display: inline-block;
+    margin: 5px 2px;
+    padding:  5px 4px;
+    border-radius: 6px;
+  }
+}

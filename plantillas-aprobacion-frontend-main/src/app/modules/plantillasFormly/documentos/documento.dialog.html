@@ -1,0 +1,30 @@
+<md-dialog aria-label="Elegir plantilla" class="formly-dialog formly-column-{{column}}" style="max-width: 600px; width: 100%;" >
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2><md-icon>dashboard</md-icon> Elegir documento</h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+
+    <p style="margin-left:10px;">Seleccione un documento y haga click en aceptar:</p>
+    <md-input-container style="margin-left:10px !important;">
+        <input ng-model="p.buscarPlantilla">
+    </md-input-container>
+    
+    <md-dialog-content class="md-dialog-content">
+        <div flex layout>
+            <div flex></div>
+            <md-radio-group ng-model="plantilla_seleccionada">
+                 <md-radio-button ng-repeat="p in plantillas_disponibles| filter:p.buscarPlantilla" ng-value="p.id_plantilla_formly" class="md-primary">{{p.nombre}} ({{p.abreviacion}})</md-radio-button>                 
+            </md-radio-group>
+            <div flex></div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <div flex></div>
+        <md-button class="md-raised md-primary" ng-click="elegir()">
+            <md-icon>check</md-icon>
+            <span>Aceptar</span>
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

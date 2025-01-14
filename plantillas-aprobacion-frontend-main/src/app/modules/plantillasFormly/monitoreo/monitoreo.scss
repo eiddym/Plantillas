@@ -1,0 +1,6 @@
+.infoContable {
+  border-left: solid $colorSuccess 5px;
+  background-color: lighten($colorSuccess, 55);
+  color: $colorSuccess;
+  padding-left: 5px;
+}
