@@ -1,9 +1,0 @@
-.git
-.gitignore
-.dockerignore
-*.md
-docker
-!docker/default.conf
-!docker/entrypoint.sh
-!docker/modules.admin.login-ldap.html
-!docker/nginx.conf

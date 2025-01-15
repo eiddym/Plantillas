@@ -1,8 +1,0 @@
-*.log
-*.md
-*.swp
-.git
-.gitignore
-docker
-doc
-test
