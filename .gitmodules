@@ -1,0 +1,6 @@
+[submodule "plantillas-aprobacion-frontend-main"]
+	path = plantillas-aprobacion-frontend-main
+	url = https://github.com/eiddym/plantillas-aprobacion-frontend.git
+[submodule "plantillas-aprobacion-backend-main"]
+	path = plantillas-aprobacion-backend-main
+	url = https://github.com/eiddym/plantillas-aprobacion-backend.git
